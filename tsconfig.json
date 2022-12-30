@@ -1,0 +1,106 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      "@Src/*": [
+        "src/*"
+      ],
+      "@Hooks/*": [
+        "src/jotai/hooks/*"
+      ],
+      "@Animations/*": [
+        "src/animations/*"
+      ],
+      "@Public/*": [
+        "public/*"
+      ],
+      "@Config/*": [
+        "src/config/*"
+      ],
+      "@Atoms/*": [
+        "src/components/@atoms/*"
+      ],
+      "@Molecules/*": [
+        "src/components/@molecules/*"
+      ],
+      "@Organisms/*": [
+        "src/components/@organisms/*"
+      ],
+      "@Quotations/*": [
+        "src/components/quotations/*"
+      ],
+      "@Section/*": [
+        "src/components/sections/*"
+      ],
+      "@Pages/*": [
+        "src/pages/*"
+      ],
+      "@Services/*": [
+        "src/components/services/*"
+      ],
+      "@Templates/*": [
+        "src/components/templates/*"
+      ],
+      "@Layouts/*": [
+        "src/layouts/*"
+      ],
+      "@Auth/*": [
+        "src/auth/*"
+      ],
+      "@Utils/*": [
+        "src/utils/*"
+      ],
+      "@Assets/*": [
+        "src/assets/*"
+      ],
+      "@Styles/*": [
+        "src/styles/*"
+      ],
+      "@Apollo/*": [
+        "src/apollo/*"
+      ],
+      "@Redux/*": [
+        "src/redux/*"
+      ],
+      "@ApolloQuery/*": [
+        "src/apollo/query/*"
+      ],
+      "@ApolloMutation/*": [
+        "src/apollo/mutation/*"
+      ]
+    },
+  },
+  "include": [
+    "remix.env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "rollup.config.js",
+    "**/*",
+    "**/*x",
+    "**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "**/*.stories.tsx",
+    "**/*.test.tsx"
+  ],
+}
