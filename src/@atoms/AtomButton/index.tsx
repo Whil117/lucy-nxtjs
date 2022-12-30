@@ -25,9 +25,9 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
 
   ////////////////////////////// COLORS //////////////////////////////
   background-color: ${({ backgroundColor, disabled }) =>
-    disabled ? "#e7e7e7" : backgroundColor ?? "#ffffff"};
+    disabled ? "#e7e7e7" : backgroundColor ?? "#e4e4e4"};
   color: ${({ backgroundColor, color }) =>
-    color ?? isDarkLight(backgroundColor ?? "#ffffff")};
+    color ?? isDarkLight(backgroundColor ?? "#e4e4e4")};
 
   ////////////////////////////// COLORS //////////////////////////////
 
@@ -46,7 +46,16 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
     transition: 0.05ms;
     box-shadow: rgb(
         ${({ backgroundColor }) => {
-          const hex = HextToRGB(backgroundColor as string);
+          const hex = HextToRGB(backgroundColor ?? ("#e4e4e4" as string));
+          return `${hex.r} ${hex.g} ${hex.b} / 25%`;
+        }}
+      )
+      0px 0px 0px 4px;
+  }
+  &:focus {
+    box-shadow: rgb(
+        ${({ backgroundColor }) => {
+          const hex = HextToRGB(backgroundColor ?? ("#e4e4e4" as string));
           return `${hex.r} ${hex.g} ${hex.b} / 25%`;
         }}
       )

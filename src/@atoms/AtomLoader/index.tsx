@@ -25,7 +25,7 @@ type Props = {
 
 const borderWidthType: Props = {
   small: "2.5px",
-  large: "8px",
+  large: "7px",
   medium: "5px",
 };
 
