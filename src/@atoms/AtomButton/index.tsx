@@ -71,6 +71,7 @@ AtomButton.defaultProps = {
   whileHover: {
     scale: 1.05,
   },
+  whileTap: { scale: 0.9 },
 };
 
 export default AtomButton;
