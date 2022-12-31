@@ -2,6 +2,7 @@ import type { SerializedStyles } from "@emotion/react";
 import type { PointerEventHandler, RefObject } from "react";
 
 type AtomButtonTypes = {
+  focus?: boolean;
   color?: string;
   width?: string;
   height?: string;

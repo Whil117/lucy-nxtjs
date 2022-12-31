@@ -65,6 +65,17 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
   cursor: ${({ cursor, disabled }) =>
     disabled ? "not-allowed" : cursor ?? "pointer"};
 
+  ${({ focus, backgroundColor }) => {
+    const hex = HextToRGB(backgroundColor ?? ("#e4e4e4" as string));
+    const convert = `${hex.r} ${hex.g} ${hex.b} / 35%`;
+    return (
+      focus &&
+      css`
+        box-shadow: rgb(${convert}) 0px 0px 0px 4px;
+      `
+    );
+  }}
+
   ${({ disabled }) =>
     disabled &&
     css`

@@ -144,6 +144,7 @@ export default function Home() {
             <AtomButton
               margin="10px"
               backgroundColor="#1fdaca"
+              focus
               onClick={() => {
                 theme.toggle();
               }}
