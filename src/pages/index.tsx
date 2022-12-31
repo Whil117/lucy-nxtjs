@@ -10,10 +10,12 @@ import { useTheme } from "@Src/@atoms/AtomThemeProvider";
 
 export default function Home() {
   const theme = useTheme();
-  console.log();
 
   return (
     <AtomWrapper>
+      <AtomText fontSize="42px" fontWeight="bold">
+        Lucy
+      </AtomText>
       <AtomWrapper maxWidth="1440px" padding="0px 90px" gap="20px">
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>
