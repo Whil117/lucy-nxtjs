@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import isDarkLight, { HextToRGB } from "@Src/@utils/isDarkLight";
 import { motion } from "framer-motion";
@@ -63,6 +64,14 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
   }
   cursor: ${({ cursor, disabled }) =>
     disabled ? "not-allowed" : cursor ?? "pointer"};
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      transform: scale(1) !important;
+      scale: 1;
+      opacity: 0.5;
+    `}
 
   /* 18 240 252 / 15% */
 

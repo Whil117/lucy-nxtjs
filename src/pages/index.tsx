@@ -131,12 +131,21 @@ export default function Home() {
             width="100%"
             justifyContent="flex-start"
           >
+            <AtomButton
+              disabled
+              onClick={() => {
+                alert("Button was clicked!");
+              }}
+            >
+              DISABLED
+            </AtomButton>
             <AtomButton>DEFAULT</AtomButton>
             <AtomButton
               margin="10px"
               backgroundColor="#1fdaca"
               onClick={() => {
                 theme.toggle();
+                alert("Button was clicked!");
               }}
             >
               TOGGLE
