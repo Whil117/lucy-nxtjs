@@ -22,7 +22,6 @@ export default function Home() {
             alignItems="center"
             width="100%"
             justifyContent="space-around"
-            backgroundColor="red"
           >
             <AtomLoader type="large" />
             <AtomLoader type="large" colorLoad="#0072FF" />
@@ -100,7 +99,7 @@ export default function Home() {
               quod maxime minus ducimus quasi, accusamus, dicta ex nam dolor
               perferendis!
             </AtomText>
-            <AtomText backgroundColor="#0072FF" fontWeight="bold">
+            <AtomText backgroundColor="#0072FF" fontWeight="bold" color="red">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos esse
               nulla neque repellendus debitis! Mollitia id quidem sunt atque
               quod maxime minus ducimus quasi, accusamus, dicta ex nam dolor
@@ -135,7 +134,7 @@ export default function Home() {
             <AtomButton>DEFAULT</AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#da1f1f"
+              backgroundColor="#1fdaca"
               onClick={() => {
                 theme.toggle();
               }}
@@ -144,7 +143,7 @@ export default function Home() {
             </AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#da1f1f"
+              backgroundColor="#4eb6e6"
               onClick={() => {
                 theme.setTheme("light");
               }}
@@ -153,7 +152,7 @@ export default function Home() {
             </AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#da1f1f"
+              backgroundColor="#8d18c4"
               onClick={() => {
                 theme.setTheme("dark");
               }}

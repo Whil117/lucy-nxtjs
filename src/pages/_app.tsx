@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AtomThemeProvider themes={["light", "dark"]}>
+    <AtomThemeProvider>
       <Component {...pageProps} />
     </AtomThemeProvider>
   );

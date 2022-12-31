@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import type AtomWrapperTypes from "./types";
 
-export const AtomWrapper = styled.div<AtomWrapperTypes>`
+export const AtomWrapper = styled(motion.div)<AtomWrapperTypes>`
   display: flex;
   height: ${(props) => props.height ?? "auto"};
   width: ${(props) => props.width ?? "auto"};

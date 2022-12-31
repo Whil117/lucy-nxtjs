@@ -1,12 +1,12 @@
 :root {
   --background-color: #fff;
-  --text-color: #121416d8;
+  --text-color: #1a1a1a;
   --link-color: #543fd7;
 }
 
 html[data-theme="light"] {
   --background-color: #fff;
-  --text-color: #121416d8;
+  --text-color: #1a1a1a;
   --link-color: #543fd7;
 }
 

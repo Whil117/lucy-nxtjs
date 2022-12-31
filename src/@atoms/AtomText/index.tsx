@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import isDarkLight from "@Src/@utils/isDarkLight";
+import { motion } from "framer-motion";
 import type { AtomTextTypes } from "./types";
 
-const AtomText = styled.span<AtomTextTypes>`
+const AtomText = styled(motion.span)<AtomTextTypes>`
   line-height: 150%;
   box-sizing: border-box;
   font-family: ${(props) => props?.font || `'Open Sans', sans-serif`};
@@ -10,8 +11,11 @@ const AtomText = styled.span<AtomTextTypes>`
   text-align: ${(props) => props?.textAlign || `left`};
   background-color: ${({ backgroundColor }) =>
     backgroundColor ?? "transparent"};
-  color: ${({ backgroundColor, color }) =>
-    color ?? isDarkLight(backgroundColor ?? "#ffffff")};
+  color: var(
+    --text-color,
+    ${({ backgroundColor, color }) =>
+      color ?? isDarkLight(backgroundColor ?? "#ffffff")}
+  );
   padding: ${(props) => props?.padding || `0px 0px 0px 0px`};
   opacity: ${({ opacity }) => opacity ?? "1"};
   margin: ${(props) => props?.margin || `0px 0px 0px 0px`};

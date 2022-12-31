@@ -27,7 +27,7 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
   background-color: ${({ backgroundColor, disabled }) =>
     disabled ? "#e7e7e7" : backgroundColor ?? "#e4e4e4"};
   color: ${({ backgroundColor, color }) =>
-    color ?? isDarkLight(backgroundColor ?? "#e4e4e4")};
+    color ?? isDarkLight(backgroundColor ?? "#f7f8f8")};
 
   ////////////////////////////// COLORS //////////////////////////////
 
@@ -47,7 +47,7 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
     box-shadow: rgb(
         ${({ backgroundColor }) => {
           const hex = HextToRGB(backgroundColor ?? ("#e4e4e4" as string));
-          return `${hex.r} ${hex.g} ${hex.b} / 25%`;
+          return `${hex.r} ${hex.g} ${hex.b} / 35%`;
         }}
       )
       0px 0px 0px 4px;
@@ -56,7 +56,7 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
     box-shadow: rgb(
         ${({ backgroundColor }) => {
           const hex = HextToRGB(backgroundColor ?? ("#e4e4e4" as string));
-          return `${hex.r} ${hex.g} ${hex.b} / 25%`;
+          return `${hex.r} ${hex.g} ${hex.b} / 35%`;
         }}
       )
       0px 0px 0px 4px;
@@ -81,6 +81,7 @@ AtomButton.defaultProps = {
     scale: 1.05,
   },
   whileTap: { scale: 0.9 },
+  fontWeight: "500",
 };
 
 export default AtomButton;

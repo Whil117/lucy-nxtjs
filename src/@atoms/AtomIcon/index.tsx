@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import useSWR from "swr";
 import type AtomIconTypes from "./types";
 
-export const AtomIconStyled = styled.div<AtomIconTypes>`
+export const AtomIconStyled = styled(motion.div)<AtomIconTypes>`
   display: flex;
   width: max-content;
   height: max-content;

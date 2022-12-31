@@ -6,7 +6,7 @@ const isServer = typeof window === "undefined";
 
 const defaultContext = {
   toggle: () => {},
-  setTheme: (args: any) => {},
+  setTheme: (args: string) => {},
   theme: "light",
 };
 const ThemeContext = createContext<typeof defaultContext>(defaultContext);
@@ -17,14 +17,11 @@ const getTheme = () => {
   return isServer ? "light" : localStorage.getItem("theme_lucy") ?? "light";
 };
 
-type AtomThemeProviderProps<T extends object> = {
+type AtomThemeProviderProps = {
   children: ReactNode;
-  themes?: T;
 };
 
-export const AtomThemeProvider = <T extends object>({
-  children,
-}: AtomThemeProviderProps<T>) => {
+export const AtomThemeProvider = ({ children }: AtomThemeProviderProps) => {
   const handleToggle = (theme: string) => {
     if (!isServer) {
       const setNewTheme = theme === "light" ? "dark" : "light";
