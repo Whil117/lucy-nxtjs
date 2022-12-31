@@ -133,19 +133,19 @@ export default function Home() {
           >
             <AtomButton
               disabled
+              margin="10px"
               onClick={() => {
                 alert("Button was clicked!");
               }}
             >
               DISABLED
             </AtomButton>
-            <AtomButton>DEFAULT</AtomButton>
+            <AtomButton margin="10px">DEFAULT</AtomButton>
             <AtomButton
               margin="10px"
               backgroundColor="#1fdaca"
               onClick={() => {
                 theme.toggle();
-                alert("Button was clicked!");
               }}
             >
               TOGGLE
