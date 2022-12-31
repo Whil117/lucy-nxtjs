@@ -89,7 +89,7 @@ export const HextToRGB = (hex: string, alpha?: number) => {
 
 const isDarkLight = (hex: string) =>
   TrainedNet(HextToRGB(hex)).black > TrainedNet(HextToRGB(hex)).white
-    ? "#2d3748"
+    ? "#1a1a1a"
     : "#fff";
 
 export default isDarkLight;

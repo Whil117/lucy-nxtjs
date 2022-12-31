@@ -6,8 +6,8 @@ const AtomLoader = styled(motion.span)<AtomLoaderProps>`
   /* Spinner size and color */
   width: ${({ type }) => typesLoaders[type ?? "small"]};
   height: ${({ type }) => typesLoaders[type ?? "small"]};
-  border-top-color: ${({ colorLoad }) => colorLoad ?? "#2d3748"};
-  border-left-color: ${({ colorLoad }) => colorLoad ?? "#2d3748"};
+  border-top-color: ${({ colorLoad }) => colorLoad ?? "#1a1a1a"};
+  border-left-color: ${({ colorLoad }) => colorLoad ?? "#1a1a1a"};
   /* Additional spinner styles */
   /* animation: spinner 400ms linear infinite; */
   border-bottom-color: transparent;

@@ -1,5 +1,3 @@
-import { css } from "@emotion/react";
-import { Inter } from "@next/font/google";
 import {
   AtomButton,
   AtomIcon,
@@ -8,55 +6,14 @@ import {
   AtomText,
   AtomWrapper,
 } from "@Src/@atoms";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useTheme } from "@Src/@atoms/AtomThemeProvider";
 
 export default function Home() {
+  const theme = useTheme();
+  console.log();
+
   return (
     <AtomWrapper>
-      <AtomText
-        fontSize="32px"
-        fontWeight="900"
-        customCSS={css`
-          order: 2;
-          color: #fde9ff;
-          font-weight: 900;
-          text-transform: uppercase;
-          font-size: clamp(3rem, 10vw, 6rem);
-          line-height: 0.75em;
-          text-align: center;
-          text-shadow: 3px 1px 1px #4af7ff, 2px 2px 1px #165bfb,
-            4px 2px 1px #4af7ff, 3px 3px 1px #165bfb, 5px 3px 1px #4af7ff,
-            4px 4px 1px #165bfb, 6px 4px 1px #4af7ff, 5px 5px 1px #165bfb,
-            7px 5px 1px #4af7ff, 6px 6px 1px #165bfb, 8px 6px 1px #4af7ff,
-            7px 7px 1px #165bfb, 9px 7px 1px #4af7ff;
-
-          span {
-            display: block;
-            position: relative;
-
-            &:before {
-              content: attr(data-text);
-              position: absolute;
-              text-shadow: 2px 2px 1px #e94aa1, -1px -1px 1px #c736f9,
-                -2px 2px 1px #e94aa1, 1px -1px 1px #f736f9;
-              z-index: 1;
-            }
-
-            &:nth-child(1) {
-              padding-right: 2.25rem;
-            }
-
-            &:nth-child(2) {
-              padding-left: 2.25rem;
-            }
-          }
-        `}
-      >
-        <AtomText as="span" fontSize="inherit">
-          Lucy
-        </AtomText>
-      </AtomText>
       <AtomWrapper maxWidth="1440px" padding="0px 90px" gap="20px">
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>
@@ -65,6 +22,7 @@ export default function Home() {
             alignItems="center"
             width="100%"
             justifyContent="space-around"
+            backgroundColor="red"
           >
             <AtomLoader type="large" />
             <AtomLoader type="large" colorLoad="#0072FF" />
@@ -175,8 +133,32 @@ export default function Home() {
             justifyContent="flex-start"
           >
             <AtomButton>DEFAULT</AtomButton>
-            <AtomButton margin="10px" backgroundColor="#da1f1f">
-              DISABLED
+            <AtomButton
+              margin="10px"
+              backgroundColor="#da1f1f"
+              onClick={() => {
+                theme.toggle();
+              }}
+            >
+              TOGGLE
+            </AtomButton>
+            <AtomButton
+              margin="10px"
+              backgroundColor="#da1f1f"
+              onClick={() => {
+                theme.setTheme("light");
+              }}
+            >
+              LIGHT
+            </AtomButton>
+            <AtomButton
+              margin="10px"
+              backgroundColor="#da1f1f"
+              onClick={() => {
+                theme.setTheme("dark");
+              }}
+            >
+              DARK
             </AtomButton>
             <AtomButton margin="10px" backgroundColor="#e78ce7">
               EXAMPLE
