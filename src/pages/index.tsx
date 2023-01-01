@@ -7,14 +7,11 @@ import {
   AtomWrapper,
 } from "@Src/@atoms";
 import { useTheme } from "@Src/@atoms/AtomThemeProvider";
-import getTheme from "@Src/@atoms/AtomThemeProvider/utils/getTheme";
 import handleSetTheme from "@Src/@atoms/AtomThemeProvider/utils/setTheme";
 import handleToggle from "@Src/@atoms/AtomThemeProvider/utils/toggle";
 
 export default function Home() {
   const theme = useTheme();
-
-  console.log(getTheme());
 
   return (
     <AtomWrapper>
