@@ -4,7 +4,7 @@ type ThemeScript = {
   children?: ReactNode;
 };
 
-export const ThemeScript = ({ children }: ThemeScript) => {
+export const AtomThemeScript = ({ children }: ThemeScript) => {
   const scriptSrc = (() => {
     return `
     const executeThemeLucy = async () => {

@@ -2,7 +2,7 @@
 /* eslint-disable react/display-name */
 import { createContext, ReactNode, useContext } from "react";
 import InvertThemes from "./assets/themes";
-import { ThemeScript } from "./script/theme";
+import { AtomThemeScript } from "./script/theme";
 import getTheme from "./utils/getTheme";
 import handleSetTheme from "./utils/setTheme";
 import handleToggle from "./utils/toggle";
@@ -30,7 +30,7 @@ export const AtomThemeProvider = ({ children }: AtomThemeProviderProps) => {
         setTheme: (theme: string) => handleSetTheme(theme as InvertThemes),
       }}
     >
-      <ThemeScript />
+      <AtomThemeScript />
       {children}
     </ThemeContext.Provider>
   );
