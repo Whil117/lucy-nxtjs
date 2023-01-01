@@ -1,11 +1,11 @@
-import { AtomThemeScript } from "@Src/@atoms/AtomThemeProvider/script/theme";
+import { AtomThemeProvider } from "@Src/@atoms/AtomThemeProvider";
 import "@Src/styles/globals.css";
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AtomThemeScript>
+    <AtomThemeProvider>
       <Component {...pageProps} />
-    </AtomThemeScript>
+    </AtomThemeProvider>
   );
 }
