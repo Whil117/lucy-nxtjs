@@ -102,6 +102,7 @@ AtomButton.defaultProps = {
   },
   whileTap: { scale: 0.9 },
   fontWeight: "500",
+  children: <>DEFAULT TEXT</>,
 };
 
 export default AtomButton;
