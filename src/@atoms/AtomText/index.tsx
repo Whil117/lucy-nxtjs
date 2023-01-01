@@ -24,9 +24,9 @@ const AtomText = styled(motion.span)<AtomTextTypes>`
   font-size: ${(props) => props?.fontSize || `14px`};
   font-weight: ${(props) => props?.fontWeight || "normal"};
   text-decoration: ${(props) => props?.textDecoration || `none`};
-  cursor: ${(props) => props?.cursor || `pointer`};
+  cursor: ${(props) => props?.cursor || `text`};
   * {
-    cursor: ${(props) => props?.cursor || `pointer`};
+    cursor: ${(props) => props?.cursor || `text`};
   }
   ${(props) => props?.customCSS};
 `;

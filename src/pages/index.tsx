@@ -9,15 +9,30 @@ import {
 import { useTheme } from "@Src/@atoms/AtomThemeProvider";
 import handleSetTheme from "@Src/@atoms/AtomThemeProvider/utils/setTheme";
 import handleToggleTheme from "@Src/@atoms/AtomThemeProvider/utils/toggle";
+import { useState } from "react";
 
 export default function Home() {
   const theme = useTheme();
+  const [loading, setloading] = useState(false);
 
   return (
-    <AtomWrapper>
-      <AtomText fontSize="42px" fontWeight="bold">
-        Lucy
-      </AtomText>
+    <AtomWrapper gap="20px">
+      <AtomWrapper
+        maxWidth="1440px"
+        padding="0px 90px"
+        gap="20px"
+        flexDirection="row"
+        alignItems="center"
+      >
+        <AtomIcon
+          src="https://res.cloudinary.com/whil/image/upload/v1672601967/LUCY_gsdwo3.svg"
+          width="75px"
+          height="75px"
+        />
+        <AtomText fontSize="42px" fontWeight="bold">
+          Lucy
+        </AtomText>
+      </AtomWrapper>
       <AtomWrapper maxWidth="1440px" padding="0px 90px" gap="20px">
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>
@@ -33,6 +48,13 @@ export default function Home() {
             <AtomLoader type="large" colorLoad="#41c052" />
             <AtomLoader type="large" colorLoad="skyblue" />
             <AtomLoader type="large" colorLoad="#da1f1f" />
+            {loading && (
+              <AtomLoader
+                type="fullscreen"
+                colorLoad="#0072FF"
+                backgroundColor="white"
+              />
+            )}
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapper>
@@ -120,7 +142,12 @@ export default function Home() {
             justifyContent="flex-start"
           >
             <AtomIcon src="https://res.cloudinary.com/whil/image/upload/v1670118796/smallcaps_iowxub.svg" />
-            <AtomIcon src="https://res.cloudinary.com/whil/image/upload/v1670118796/gallery_duuoqb.svg" />
+            <AtomIcon
+              src="https://res.cloudinary.com/whil/image/upload/v1670118796/gallery_duuoqb.svg"
+              width="100px"
+              height="100px"
+              color="white"
+            />
             <AtomIcon
               src="https://res.cloudinary.com/whil/image/upload/v1666492647/HARMONY_orc7z0.svg"
               color="default"
@@ -200,8 +227,14 @@ export default function Home() {
             >
               TOGGLE MANUAL THEME
             </AtomButton>
-            <AtomButton margin="10px" backgroundColor="#ff006a">
-              EXAMPLE
+            <AtomButton
+              margin="10px"
+              backgroundColor="#ff006a"
+              onClick={() => {
+                setloading(true);
+              }}
+            >
+              LOADER
             </AtomButton>
           </AtomWrapper>
         </AtomWrapper>

@@ -11,13 +11,13 @@ export const AtomIconStyled = styled(motion.div)<AtomIconTypes>`
     width: ${({ width }) => width || `34px`};
     height: ${({ height }) => height || `34px`};
     path {
-      fill: ${({ color }) => color || `#1a1a1a`}!important;
+      fill: ${({ color }) => color || `var(--icon-color,#1a1a1a)`}!important;
     }
     polygon {
-      fill: ${({ color }) => color || `#1a1a1a`}!important;
+      fill: ${({ color }) => color || `var(--icon-color,#1a1a1a)`}!important;
     }
     circle {
-      fill: ${({ color }) => color || `#1a1a1a`}!important;
+      fill: ${({ color }) => color || `var(--icon-color,#1a1a1a)`}!important;
     }
   }
 
