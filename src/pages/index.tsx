@@ -8,7 +8,7 @@ import {
 } from "@Src/@atoms";
 import { useTheme } from "@Src/@atoms/AtomThemeProvider";
 import handleSetTheme from "@Src/@atoms/AtomThemeProvider/utils/setTheme";
-import handleToggle from "@Src/@atoms/AtomThemeProvider/utils/toggle";
+import handleToggleTheme from "@Src/@atoms/AtomThemeProvider/utils/toggle";
 
 export default function Home() {
   const theme = useTheme();
@@ -195,7 +195,7 @@ export default function Home() {
               margin="10px"
               backgroundColor="#25cc3b"
               onClick={() => {
-                handleToggle();
+                handleToggleTheme();
               }}
             >
               TOGGLE MANUAL THEME

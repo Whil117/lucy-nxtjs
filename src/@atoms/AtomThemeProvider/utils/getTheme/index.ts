@@ -3,7 +3,7 @@ import { Themes } from "../../assets/themes";
 
 const isServer = typeof window === "undefined";
 
-const getTheme = () => {
+const handleGetTheme = () => {
   return isServer ? "light " : Cookies.get("theme_lucy") ?? ("light" as Themes);
 };
-export default getTheme;
+export default handleGetTheme;

@@ -1,9 +1,9 @@
 import { createContext, ReactNode, useContext } from "react";
 import { Themes } from "./assets/themes";
 import { AtomThemeScript } from "./script/theme";
-import getTheme from "./utils/getTheme";
+import handleGetTheme from "./utils/getTheme";
 import handleSetTheme from "./utils/setTheme";
-import handleToggle from "./utils/toggle";
+import handleToggleTheme from "./utils/toggle";
 
 const defaultContext = {
   toggle: () => {},
@@ -23,8 +23,8 @@ export const AtomThemeProvider = ({ children }: AtomThemeProviderProps) => {
   return (
     <ThemeContext.Provider
       value={{
-        theme: getTheme(),
-        toggle: () => handleToggle(),
+        theme: handleGetTheme(),
+        toggle: () => handleToggleTheme(),
         setTheme: (theme: Themes) => handleSetTheme(theme),
       }}
     >

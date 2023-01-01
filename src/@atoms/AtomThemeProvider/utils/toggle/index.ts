@@ -1,16 +1,16 @@
 import Cookies from "js-cookie";
 import InvertThemes, { Themes } from "../../assets/themes";
-import getTheme from "../getTheme";
+import handleGetTheme from "../getTheme";
 
 const isServer = typeof window === "undefined";
 
-const handleToggle = () => {
+const handleToggleTheme = () => {
   if (!isServer) {
-    const theme = getTheme() as Themes;
+    const theme = handleGetTheme() as Themes;
     const setNewTheme = InvertThemes[theme];
     document.documentElement.setAttribute("data-theme", setNewTheme);
     Cookies.set("theme_lucy", setNewTheme);
     return setNewTheme;
   }
 };
-export default handleToggle;
+export default handleToggleTheme;
