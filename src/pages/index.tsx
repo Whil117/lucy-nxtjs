@@ -7,9 +7,14 @@ import {
   AtomWrapper,
 } from "@Src/@atoms";
 import { useTheme } from "@Src/@atoms/AtomThemeProvider";
+import getTheme from "@Src/@atoms/AtomThemeProvider/utils/getTheme";
+import handleSetTheme from "@Src/@atoms/AtomThemeProvider/utils/setTheme";
+import handleToggle from "@Src/@atoms/AtomThemeProvider/utils/toggle";
 
 export default function Home() {
   const theme = useTheme();
+
+  console.log(getTheme());
 
   return (
     <AtomWrapper>
@@ -171,14 +176,32 @@ export default function Home() {
             >
               DARK
             </AtomButton>
-            <AtomButton margin="10px" backgroundColor="#e78ce7">
-              EXAMPLE
+            <AtomButton
+              margin="10px"
+              backgroundColor="#e78ce7"
+              onClick={() => {
+                handleSetTheme("dark");
+              }}
+            >
+              MANUAL SETTER THEME DARK
             </AtomButton>
-            <AtomButton margin="10px" backgroundColor="#0072FF">
-              EXAMPLE
+            <AtomButton
+              margin="10px"
+              backgroundColor="#0072FF"
+              onClick={() => {
+                handleSetTheme("light");
+              }}
+            >
+              MANUAL SETTER THEME LIGHT
             </AtomButton>
-            <AtomButton margin="10px" backgroundColor="#25cc3b">
-              EXAMPLE
+            <AtomButton
+              margin="10px"
+              backgroundColor="#25cc3b"
+              onClick={() => {
+                handleToggle();
+              }}
+            >
+              TOGGLE MANUAL THEME
             </AtomButton>
             <AtomButton margin="10px" backgroundColor="#ff006a">
               EXAMPLE
