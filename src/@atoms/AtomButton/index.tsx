@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import isDarkLight, { HextToRGB } from "@Src/@utils/isDarkLight";
 import { motion } from "framer-motion";
-import type AtomButtonTypes from "./types";
+import AtomButtonTypes from "./types";
 
 const AtomButton = styled(motion.button)<AtomButtonTypes>`
   ////////////////////////////// DISPLAY //////////////////////////////

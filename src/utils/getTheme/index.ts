@@ -1,5 +1,5 @@
+import { Themes } from "@Src/@atoms/AtomThemeProvider/assets/themes";
 import Cookies from "js-cookie";
-import { Themes } from "../../assets/themes";
 
 const isServer = typeof window === "undefined";
 

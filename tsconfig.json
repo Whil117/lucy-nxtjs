@@ -6,16 +6,22 @@
       "dom.iterable",
       "esnext"
     ],
+    "noEmit": true,
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "jsxImportSource": "@emotion/react",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "declaration": true,
+    "declarationDir": "build",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": "./",
@@ -89,10 +95,6 @@
     },
   },
   "include": [
-    "remix.env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "rollup.config.js",
     "**/*",
     "**/*x",
     "**/*.d.ts"
@@ -102,5 +104,5 @@
     "build",
     "**/*.stories.tsx",
     "**/*.test.tsx"
-  ],
+  ]
 }

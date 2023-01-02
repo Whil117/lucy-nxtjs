@@ -1,7 +1,8 @@
-import type { SerializedStyles } from "@emotion/react";
-import type { PointerEventHandler, RefObject } from "react";
+import { SerializedStyles } from "@emotion/react";
+import { MotionProps } from "framer-motion";
+import { PointerEventHandler, RefObject } from "react";
 
-type AtomButtonTypes = {
+interface AtomButtonTypes extends MotionProps {
   focus?: boolean;
   color?: string;
   width?: string;
@@ -90,6 +91,6 @@ type AtomButtonTypes = {
     | "space-evenly";
   flexWrap?: "nowrap" | "wrap";
   gap?: string;
-};
+}
 
 export default AtomButtonTypes;

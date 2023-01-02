@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import AtomWrapper from "../AtomWrapper";
-import type AtomLoaderProps from "./types";
+import AtomLoaderProps from "./types";
 
 const AtomLoaderCircle = styled(motion.span)<AtomLoaderProps>`
   /* Spinner size and color */

@@ -1,5 +1,7 @@
+import InvertThemes, {
+  Themes,
+} from "@Src/@atoms/AtomThemeProvider/assets/themes";
 import Cookies from "js-cookie";
-import InvertThemes, { Themes } from "../../assets/themes";
 import handleGetTheme from "../getTheme";
 
 const isServer = typeof window === "undefined";
