@@ -6,10 +6,9 @@ import {
   AtomText,
   AtomWrapper,
 } from "@Src/@atoms";
-import { useTheme } from "@Src/@atoms/AtomThemeProvider";
-import handleSetTheme from "@Src/@atoms/AtomThemeProvider/utils/setTheme";
-import handleToggleTheme from "@Src/@atoms/AtomThemeProvider/utils/toggle";
 import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
+import { useTheme } from "@Src/hooks";
+import { handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { useState } from "react";
 
 export default function Home() {

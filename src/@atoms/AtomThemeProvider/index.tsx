@@ -1,25 +1,14 @@
-import { createContext, ReactNode, useContext } from "react";
+import { ThemeContext } from "@Src/hooks/useTheme";
+import { handleGetTheme, handleSetTheme, handleToggleTheme } from "@Src/utils";
+import { ReactNode } from "react";
+import { AtomThemeScript } from "../AtomThemeScript";
 import { Themes } from "./assets/themes";
-import { AtomThemeScript } from "./script/theme";
-import handleGetTheme from "./utils/getTheme";
-import handleSetTheme from "./utils/setTheme";
-import handleToggleTheme from "./utils/toggle";
-
-const defaultContext = {
-  toggle: () => {},
-  setTheme: (_: Themes) => {},
-  theme: "light",
-};
-
-const ThemeContext = createContext<typeof defaultContext>(defaultContext);
-
-export const useTheme = () => useContext(ThemeContext) ?? defaultContext;
 
 type AtomThemeProviderProps = {
   children: ReactNode;
 };
 
-export const AtomThemeProvider = ({ children }: AtomThemeProviderProps) => {
+const AtomThemeProvider = ({ children }: AtomThemeProviderProps) => {
   return (
     <ThemeContext.Provider
       value={{
@@ -33,3 +22,4 @@ export const AtomThemeProvider = ({ children }: AtomThemeProviderProps) => {
     </ThemeContext.Provider>
   );
 };
+export default AtomThemeProvider;
