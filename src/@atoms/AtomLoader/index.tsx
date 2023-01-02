@@ -44,7 +44,7 @@ type Props = {
 };
 
 const borderWidthType: Props = {
-  small: "2.5px",
+  small: "3px",
   large: "7px",
   medium: "5px",
   fullscreen: "10px",

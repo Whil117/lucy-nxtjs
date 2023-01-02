@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import {
   AtomButton,
   AtomIcon,
@@ -10,6 +9,7 @@ import {
 import { useTheme } from "@Src/@atoms/AtomThemeProvider";
 import handleSetTheme from "@Src/@atoms/AtomThemeProvider/utils/setTheme";
 import handleToggleTheme from "@Src/@atoms/AtomThemeProvider/utils/toggle";
+import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
 import { useState } from "react";
 
 export default function Home() {
@@ -237,69 +237,32 @@ export default function Home() {
             </AtomButton>
           </AtomWrapper>
         </AtomWrapper>
-        <AtomWrapper
-          customCSS={css`
-            padding: 5px;
-            border-radius: 20px;
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
-              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
-              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
-            background-color: rgba(255, 255, 255, 0.2);
-          `}
-        >
-          <AtomWrapper
-            gap="20px"
-            customCSS={css`
-              border-bottom-width: 1px;
-              border-color: rgba(255, 255, 255, 0.5);
-              border-left-width: 1px;
-              border-right-width: 1px;
-              border-style: solid;
-              border-top-width: 1px;
-              place-content: flex-start;
-              align-items: flex-start;
-              background: var(--card-baclgroundColor);
-              border-radius: 20px;
-              box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
-                rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
-                rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
-              display: flex;
-              flex: 0 0 auto;
-              flex-flow: column nowrap;
-              gap: 20px;
-              height: min-content;
-              overflow: hidden;
-              padding: 20px;
-              position: relative;
-              will-change: transform;
-            `}
-          >
-            <AtomText>AtomImage</AtomText>
-            <AtomWrapper
-              flexDirection="row"
-              alignItems="flex-start"
-              width="100%"
-              justifyContent="flex-start"
-            >
-              <AtomImage
-                src="https://picsum.photos/200/300"
-                width="420px"
-                height="420px"
-              />
-              <AtomImage
-                src="https://picsum.photos/200/300"
-                width="250px"
-                height="250px"
-              />
-              <AtomImage
-                src="https://picsum.photos/200/300"
-                width="150px"
-                height="150px"
-              />
-            </AtomWrapper>
-          </AtomWrapper>
-        </AtomWrapper>
+        <AtomWrapperCard flexDirection="column" padding="25px">
+          <AtomText fontWeight="bold" fontSize="22px">
+            AtomWrapperCard
+          </AtomText>
+          <AtomText>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
+            illo consectetur hic earum, labore, eum omnis repellendus rem
+            maiores debitis temporibus asperiores repudiandae? At eveniet vero,
+            totam dolore non architecto?
+          </AtomText>
+          <AtomImage
+            src="https://picsum.photos/200/300"
+            width="420px"
+            height="420px"
+          />
+          <AtomImage
+            src="https://picsum.photos/200/300"
+            width="250px"
+            height="250px"
+          />
+          <AtomImage
+            src="https://picsum.photos/200/300"
+            width="150px"
+            height="150px"
+          />
+        </AtomWrapperCard>
       </AtomWrapper>
     </AtomWrapper>
   );
