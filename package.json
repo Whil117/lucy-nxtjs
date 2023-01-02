@@ -14,7 +14,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "test": "rollup -c",
+    "build": "rollup -c",
     "start": "next start",
     "lint": "next lint",
     "rollup": "rollup -c "
