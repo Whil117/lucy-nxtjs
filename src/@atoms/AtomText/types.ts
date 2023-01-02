@@ -130,7 +130,7 @@ type TagsTexts =
 
 export type AtomTextTypes = {
   color?: string;
-  font?: string;
+  fontFamily?: string;
   as?: TagsTexts;
   href?: string;
   children?: React.ReactNode | string | number | boolean | null;

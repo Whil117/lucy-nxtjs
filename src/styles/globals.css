@@ -2,6 +2,12 @@
   --background-color: #fff;
   --text-color: #1a1a1a;
   --link-color: #543fd7;
+  --card-baclgroundColor: linear-gradient(
+    162deg,
+    rgb(255, 255, 255) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  --card-boxShadow: rgba(245, 245, 245, 0.8);
   --loader-color: #1a1a1a;
   --icon-color: #fff;
 }
@@ -10,6 +16,12 @@ html[data-theme="light"] {
   --background-color: #fff;
   --text-color: #1a1a1a;
   --loader-color: #1a1a1a;
+  --card-boxShadow: rgba(245, 245, 245, 0.5);
+  --card-baclgroundColor: linear-gradient(
+    162deg,
+    rgb(255, 255, 255) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
   --icon-color: #1a1a1a;
   --link-color: #543fd7;
 }
@@ -17,8 +29,14 @@ html[data-theme="light"] {
 html[data-theme="dark"] {
   --background-color: #1a1a1a;
   --text-color: #f7f8f8;
+  --card-boxShadow: rgba(109, 109, 109, 0.5);
   --loader-color: #f7f8f8;
   --icon-color: #f7f8f8;
+  --card-baclgroundColor: linear-gradient(
+    162deg,
+    rgb(36, 36, 36) 0%,
+    rgba(36, 36, 36, 0.5) 100%
+  );
   --link-color: #828fff;
 }
 

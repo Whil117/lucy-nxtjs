@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import {
   AtomButton,
   AtomIcon,
@@ -16,24 +17,28 @@ export default function Home() {
   const [loading, setloading] = useState(false);
 
   return (
-    <AtomWrapper gap="20px">
-      <AtomWrapper
-        maxWidth="1440px"
-        padding="0px 90px"
-        gap="20px"
-        flexDirection="row"
-        alignItems="center"
-      >
+    <AtomWrapper
+      maxWidth="1440px"
+      padding="0px 90px"
+      gap="20px"
+      flexDirection="row"
+      alignItems="center"
+    >
+      <AtomWrapper flexDirection="row">
         <AtomIcon
           src="https://res.cloudinary.com/whil/image/upload/v1672601967/LUCY_gsdwo3.svg"
           width="75px"
           height="75px"
         />
-        <AtomText fontSize="42px" fontWeight="bold">
+        <AtomText
+          fontSize="42px"
+          fontWeight="bold"
+          fontFamily="GTWalsheim_regular"
+        >
           Lucy
         </AtomText>
       </AtomWrapper>
-      <AtomWrapper maxWidth="1440px" padding="0px 90px" gap="20px">
+      <AtomWrapper>
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>
           <AtomWrapper
@@ -48,13 +53,7 @@ export default function Home() {
             <AtomLoader type="large" colorLoad="#41c052" />
             <AtomLoader type="large" colorLoad="skyblue" />
             <AtomLoader type="large" colorLoad="#da1f1f" />
-            {loading && (
-              <AtomLoader
-                type="fullscreen"
-                colorLoad="#0072FF"
-                backgroundColor="white"
-              />
-            )}
+            {loading && <AtomLoader type="fullscreen" colorLoad="#0072FF" />}
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapper>
@@ -238,41 +237,67 @@ export default function Home() {
             </AtomButton>
           </AtomWrapper>
         </AtomWrapper>
-        <AtomWrapper>
-          <AtomText>AtomImage</AtomText>
+        <AtomWrapper
+          customCSS={css`
+            padding: 5px;
+            border-radius: 20px;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          `}
+        >
           <AtomWrapper
-            flexDirection="row"
-            alignItems="center"
-            width="100%"
-            justifyContent="flex-start"
+            gap="20px"
+            customCSS={css`
+              border-bottom-width: 1px;
+              border-color: rgba(255, 255, 255, 0.5);
+              border-left-width: 1px;
+              border-right-width: 1px;
+              border-style: solid;
+              border-top-width: 1px;
+              place-content: flex-start;
+              align-items: flex-start;
+              background: var(--card-baclgroundColor);
+              border-radius: 20px;
+              box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+                rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+                rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+              display: flex;
+              flex: 0 0 auto;
+              flex-flow: column nowrap;
+              gap: 20px;
+              height: min-content;
+              overflow: hidden;
+              padding: 20px;
+              position: relative;
+              will-change: transform;
+            `}
           >
-            <AtomImage
-              src="https://res.cloudinary.com/whil/image/upload/v1670118796/smallcaps_iowxub.svg"
-              width="150px"
-              height="150px"
-            />
-            <AtomImage
-              src="https://res.cloudinary.com/whil/image/upload/v1670118796/smallcaps_iowxub.svg"
-              width="150px"
-              height="150px"
-            />
-            <AtomImage
-              src="https://res.cloudinary.com/whil/image/upload/v1670118796/smallcaps_iowxub.svg"
-              width="150px"
-              height="150px"
-            />
-
-            <AtomImage
-              src="https://res.cloudinary.com/whil/image/upload/v1670118796/smallcaps_iowxub.svg"
-              width="150px"
-              height="150px"
-            />
-
-            <AtomImage
-              src="https://res.cloudinary.com/whil/image/upload/v1670118796/smallcaps_iowxub.svg"
-              width="150px"
-              height="150px"
-            />
+            <AtomText>AtomImage</AtomText>
+            <AtomWrapper
+              flexDirection="row"
+              alignItems="flex-start"
+              width="100%"
+              justifyContent="flex-start"
+            >
+              <AtomImage
+                src="https://picsum.photos/200/300"
+                width="420px"
+                height="420px"
+              />
+              <AtomImage
+                src="https://picsum.photos/200/300"
+                width="250px"
+                height="250px"
+              />
+              <AtomImage
+                src="https://picsum.photos/200/300"
+                width="150px"
+                height="150px"
+              />
+            </AtomWrapper>
           </AtomWrapper>
         </AtomWrapper>
       </AtomWrapper>

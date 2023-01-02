@@ -1,4 +1,5 @@
 import { AtomThemeProvider } from "@Src/@atoms/AtomThemeProvider";
+import "@Src/styles/fonts.css";
 import "@Src/styles/globals.css";
 import type { AppProps } from "next/app";
 

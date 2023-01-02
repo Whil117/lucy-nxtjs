@@ -6,7 +6,7 @@ import type { AtomTextTypes } from "./types";
 const AtomText = styled(motion.span)<AtomTextTypes>`
   line-height: 150%;
   box-sizing: border-box;
-  font-family: ${(props) => props?.font || `'Open Sans', sans-serif`};
+  font-family: ${(props) => props?.fontFamily};
   color: ${(props) => props?.color || `#1a1a1a`};
   text-align: ${(props) => props?.textAlign || `left`};
   background-color: ${({ backgroundColor }) =>

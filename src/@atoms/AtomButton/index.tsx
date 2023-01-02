@@ -90,7 +90,7 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
 
   ////////////////////////////// FONTS //////////////////////////////
   font-size: ${({ fontSize }) => fontSize ?? "12px"};
-  font-weight: ${({ fontWeight }) => fontWeight ?? "normal"};
+  font-weight: ${({ fontWeight }) => fontWeight ?? "600"};
   ////////////////////////////// FONTS //////////////////////////////
 
   outline: none;
