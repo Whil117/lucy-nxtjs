@@ -57,7 +57,9 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
       )};
 
       background: linear-gradient(
-        ${`${backgroundLinearGradient?.rotate},${backgroundLinearGradient?.primary},${backgroundLinearGradient?.secondary}`}
+        ${backgroundLinearGradient?.rotate},
+        ${backgroundLinearGradient?.primary},
+        ${backgroundLinearGradient?.secondary}
       );
       &:hover {
         box-shadow: rgb(${`${hex.r} ${hex.g} ${hex.b} / 35%`}) 0px 0px 0px 4px;
@@ -81,7 +83,8 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
 
   ////////////////////////////// FONTS //////////////////////////////
   font-size: ${({ fontSize }) => fontSize ?? "12px"};
-  font-weight: ${({ fontWeight }) => fontWeight ?? "800"};
+  font-weight: ${({ fontWeight }) => fontWeight ?? "bold"};
+  font-family: inherit;
   ////////////////////////////// FONTS //////////////////////////////
 
   outline: none;
@@ -92,7 +95,6 @@ AtomButton.defaultProps = {
     scale: 1.05,
   },
   whileTap: { scale: 0.9 },
-  fontWeight: "500",
   children: <>DEFAULT TEXT</>,
 };
 

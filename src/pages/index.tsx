@@ -203,8 +203,8 @@ export default function Home() {
               margin="10px"
               backgroundLinearGradient={{
                 rotate: "315deg",
-                primary: "#07deff",
-                secondary: "#0f97ff",
+                secondary: "#07deff",
+                primary: "#0f97ff",
               }}
               focus
               onClick={() => {
@@ -263,7 +263,11 @@ export default function Home() {
             </AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#25cc3b"
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                primary: "rgb(153, 0, 255)  0%",
+                secondary: "rgb(2, 136, 255)  100%",
+              }}
               onClick={() => {
                 handleToggleTheme();
               }}
@@ -272,12 +276,16 @@ export default function Home() {
             </AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#ff006a"
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                primary: "rgb(255, 0, 238) 0%",
+                secondary: "rgb(255, 170,0) 100%",
+              }}
               onClick={() => {
                 setloading(true);
               }}
             >
-              LOADER
+              LOADER linear-gradient
             </AtomButton>
           </AtomWrapper>
         </AtomWrapper>
