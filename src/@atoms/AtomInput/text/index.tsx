@@ -6,7 +6,7 @@ import { InputTextStyled } from "./styled";
 
 const InputText = (props: AtomInputTypes) => {
   return (
-    <AtomWrapper width="200px">
+    <AtomWrapper width="100%">
       {props?.label && (
         <AtomText
           color={props?.labelColor ?? ""}
@@ -25,7 +25,6 @@ const InputText = (props: AtomInputTypes) => {
           padding: 5px;
           border-radius: 5px;
           &:hover {
-            transition: 0.05ms;
             box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
               rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
               rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
@@ -38,12 +37,11 @@ const InputText = (props: AtomInputTypes) => {
             background-color: rgba(255, 255, 255, 0.2);
           }
         `}
-        whileHover={{
-          scale: 1.03,
-        }}
         whileTap={{
-          scale: 0.95,
+          scale: 0.99,
         }}
+        whileHover={{ scale: 1 }}
+        transition={{ delay: 0.1 }}
       >
         <AtomWrapper
           customCSS={css`

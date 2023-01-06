@@ -7,6 +7,7 @@ import AtomButtonTypes from "./types";
 const AtomButton = styled(motion.button)<AtomButtonTypes>`
   ////////////////////////////// DISPLAY //////////////////////////////
   display: flex;
+
   flex-direction: ${({ flexDirection }) => flexDirection ?? "column"};
   flex-wrap: ${({ flexWrap }) => flexWrap ?? "wrap"};
   gap: ${({ gap }) => gap ?? "0px"};

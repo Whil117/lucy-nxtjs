@@ -31,6 +31,8 @@ html[data-theme="dark"] {
 body {
   background: var(--background-color);
   color: var(--text-color);
+  letter-spacing: 0.5px;
+  line-height: 1.3em;
 }
 
 a {
