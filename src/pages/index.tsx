@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import {
   AtomButton,
   AtomIcon,
@@ -11,11 +10,18 @@ import AtomInput from "@Src/@atoms/AtomInput";
 import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
 import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
+import { useFormik } from "formik";
 import { useState } from "react";
 
 export default function Home() {
   const theme = useTheme();
   const [loading, setloading] = useState(false);
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+    },
+    onSubmit: () => {},
+  });
 
   return (
     <AtomWrapper
@@ -136,38 +142,24 @@ export default function Home() {
             </AtomText>
           </AtomWrapper>
         </AtomWrapper>
-        <AtomWrapper
-          customCSS={css`
-            display: flex;
-            flex-direction: column;
-            padding: 10px 16px 16px;
-            border: 1px solid #efefef;
-            background: #f5f5f5;
-            overflow-y: auto;
-            max-height: 80vh;
-            border-radius: 5px;
-            box-sizing: border-box;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            word-break: break-word;
-          `}
-        >
-          <AtomText color="#999">Request a Feature</AtomText>
+        <AtomWrapperCard flexDirection="column" padding="25px">
+          <AtomText color="#4619e9" fontWeight="bold">
+            Request a Feature
+          </AtomText>
           <AtomInput
             type="text"
-            label="TITLE"
-            labelFontSize="12px"
+            label="Nombre completo"
+            placeholder="Hola escribe aqui"
             labelColor="#999"
-            labelFontWeight="bold"
+            formik={formik}
+            // value={formik.values.name}
+            // onChange={(event) => {
+
+            //   formik.setFieldValue("name", event.target.value);
+            // }}
+            id="name"
           />
-          <AtomInput
-            type="text"
-            label="TITLE"
-            labelFontSize="12px"
-            labelColor="#999"
-            labelFontWeight="bold"
-          />
-        </AtomWrapper>
+        </AtomWrapperCard>
         <AtomWrapper>
           <AtomText>AtomIcon</AtomText>
           <AtomWrapper
@@ -209,7 +201,11 @@ export default function Home() {
             <AtomButton margin="10px">DEFAULT</AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#1fdaca"
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                primary: "#07deff",
+                secondary: "#0f97ff",
+              }}
               focus
               onClick={() => {
                 theme.toggle();
@@ -219,7 +215,11 @@ export default function Home() {
             </AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#4eb6e6"
+              backgroundLinearGradient={{
+                rotate: "157deg",
+                primary: "rgb(253, 119, 2)",
+                secondary: "rgb(254, 2, 34)",
+              }}
               onClick={() => {
                 theme.setTheme("light");
               }}
@@ -228,7 +228,11 @@ export default function Home() {
             </AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#8d18c4"
+              backgroundLinearGradient={{
+                rotate: "157deg",
+                primary: "rgb(255, 61, 194)",
+                secondary: "rgb(255, 0, 102)",
+              }}
               onClick={() => {
                 theme.setTheme("dark");
               }}
@@ -237,7 +241,7 @@ export default function Home() {
             </AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#e78ce7"
+              backgroundColor="rgba(153, 0, 255,1)"
               onClick={() => {
                 handleSetTheme("dark");
               }}
@@ -246,7 +250,11 @@ export default function Home() {
             </AtomButton>
             <AtomButton
               margin="10px"
-              backgroundColor="#0072FF"
+              backgroundLinearGradient={{
+                rotate: "157deg",
+                primary: "rgba(19,0, 255, 1)",
+                secondary: "rgba(153, 0, 255,1)",
+              }}
               onClick={() => {
                 handleSetTheme("light");
               }}

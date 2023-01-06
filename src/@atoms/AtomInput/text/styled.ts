@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 
 export const InputTextStyled = styled(motion.input)`
   flex: 1;
-  width: 100%;
+  width: auto;
   line-height: 21px;
   border: 0;
   margin: 0;
-  padding: 0;
+  padding: 8px 12px;
   resize: none;
   color: #333;
   background: none;
@@ -25,4 +25,11 @@ export const InputTextStyled = styled(motion.input)`
   word-wrap: break-word;
   word-break: break-word;
   outline: none;
+  height: 100%;
+  color: var(--text-color, #1a1a1a);
+  border-radius: 5px;
+  background-color: var(--input-background-color);
+  ::placeholder {
+    opacity: 0.8;
+  }
 `;

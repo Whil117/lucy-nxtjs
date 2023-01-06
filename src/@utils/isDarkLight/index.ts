@@ -77,19 +77,37 @@ const TrainedNet = (input: Input) => {
   };
 };
 
-export const HextToRGB = (hex: string, alpha?: number) => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex) ?? [];
+const RGBATOHEX = (color: string) => {
+  const rgba = color.replace(/^rgba?\(|\s+|\)$/g, "").split(",");
   return {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16),
-    a: alpha,
+    r: parseInt(rgba[0]),
+    g: parseInt(rgba[1], 16),
+    b: parseInt(rgba[2], 16),
+    a: parseInt(rgba[3], 16),
   };
 };
 
-const isDarkLight = (hex: string) =>
-  TrainedNet(HextToRGB(hex)).black > TrainedNet(HextToRGB(hex)).white
+export const HextToRGB = (hex: string, alpha?: number) => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex) ?? [];
+  const isNaN =
+    Number.isNaN(parseInt(result[1], 16)) ??
+    Number.isNaN(parseInt(result[2], 16)) ??
+    Number.isNaN(parseInt(result[3], 16));
+
+  return !isNaN
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+        a: alpha,
+      }
+    : RGBATOHEX(hex);
+};
+
+const isDarkLight = (hex: string) => {
+  return TrainedNet(HextToRGB(hex)).black > TrainedNet(HextToRGB(hex)).white
     ? "#1a1a1a"
     : "#f7f8f8";
+};
 
 export default isDarkLight;

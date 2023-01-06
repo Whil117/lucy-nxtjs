@@ -12,7 +12,6 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
   gap: ${({ gap }) => gap ?? "0px"};
   align-items: ${({ alignItems }) => alignItems ?? "center"};
   justify-content: ${({ justifyContent }) => justifyContent ?? "center"};
-  ////////////////////////////// DISPLAY //////////////////////////////
 
   ////////////////////////////// BOX //////////////////////////////
 
@@ -22,75 +21,67 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
   margin: ${({ margin }) => margin ?? "0px"};
   box-sizing: border-box;
 
-  ////////////////////////////// BOX //////////////////////////////
-
   ////////////////////////////// COLORS //////////////////////////////
+
   background-color: ${({ backgroundColor, disabled }) =>
     disabled ? "#e7e7e7" : backgroundColor ?? "#e4e4e4"};
-  color: ${({ backgroundColor, color }) =>
-    color ?? isDarkLight(backgroundColor ?? "#f7f8f8")};
 
   ////////////////////////////// COLORS //////////////////////////////
-
-  ////////////////////////////// BORDERS //////////////////////////////
 
   border-radius: ${({ borderRadius }) => borderRadius ?? "12px"};
   border: ${({ border }) => border ?? "none"};
-  box-shadow: rgb(
-      ${({ backgroundColor }) => {
-        const hex = HextToRGB(backgroundColor as string);
-        return `${hex.r} ${hex.g} ${hex.b} / 15%`;
-      }}
-    )
-    0px 0px 0px 0px;
-  &:hover {
-    transition: 0.05ms;
-    box-shadow: rgb(
-        ${({ backgroundColor }) => {
-          const hex = HextToRGB(backgroundColor ?? ("#e4e4e4" as string));
-          return `${hex.r} ${hex.g} ${hex.b} / 35%`;
-        }}
-      )
-      0px 0px 0px 4px;
-  }
-  &:focus {
-    box-shadow: rgb(
-        ${({ backgroundColor }) => {
-          const hex = HextToRGB(backgroundColor ?? ("#e4e4e4" as string));
-          return `${hex.r} ${hex.g} ${hex.b} / 35%`;
-        }}
-      )
-      0px 0px 0px 4px;
-  }
-  cursor: ${({ cursor, disabled }) =>
-    disabled ? "not-allowed" : cursor ?? "pointer"};
 
-  ${({ focus, backgroundColor }) => {
-    const hex = HextToRGB(backgroundColor ?? ("#e4e4e4" as string));
+  ${({
+    focus,
+    backgroundColor,
+    backgroundLinearGradient,
+    color,
+    disabled,
+    cursor,
+  }) => {
+    const hex = HextToRGB(
+      backgroundColor ??
+        backgroundLinearGradient?.primary ??
+        backgroundLinearGradient?.secondary ??
+        ("#e4e4e4" as string)
+    );
+
     const convert = `${hex.r} ${hex.g} ${hex.b} / 35%`;
-    return (
-      focus &&
+
+    return css`
+      cursor: ${disabled ? "not-allowed" : cursor ?? "pointer"};
+
+      color: ${color ??
+      isDarkLight(
+        backgroundColor ?? backgroundLinearGradient?.primary ?? "#f7f8f8"
+      )};
+
+      background: linear-gradient(
+        ${`${backgroundLinearGradient?.rotate},${backgroundLinearGradient?.primary},${backgroundLinearGradient?.secondary}`}
+      );
+      &:hover {
+        box-shadow: rgb(${`${hex.r} ${hex.g} ${hex.b} / 35%`}) 0px 0px 0px 4px;
+      }
+      &:focus {
+        box-shadow: rgb(${`${hex.r} ${hex.g} ${hex.b} / 35%`}) 0px 0px 0px 4px;
+      }
+
+      ${focus &&
       css`
         box-shadow: rgb(${convert}) 0px 0px 0px 4px;
-      `
-    );
+      `}
+      ${disabled &&
+      css`
+        transform: scale(1) !important;
+        scale: 1;
+        opacity: 0.5;
+      `}
+    `;
   }}
-
-  ${({ disabled }) =>
-    disabled &&
-    css`
-      transform: scale(1) !important;
-      scale: 1;
-      opacity: 0.5;
-    `}
-
-  /* 18 240 252 / 15% */
-
-  ////////////////////////////// BORDERS //////////////////////////////
 
   ////////////////////////////// FONTS //////////////////////////////
   font-size: ${({ fontSize }) => fontSize ?? "12px"};
-  font-weight: ${({ fontWeight }) => fontWeight ?? "600"};
+  font-weight: ${({ fontWeight }) => fontWeight ?? "800"};
   ////////////////////////////// FONTS //////////////////////////////
 
   outline: none;

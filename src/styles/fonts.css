@@ -1,4 +1,7 @@
-@import url("https://res.cloudinary.com/whil/raw/upload/v1672809698/GTWalsheimProRegular_pr53pa.ttf");
+@font-face {
+  font-family: "GT Walsheim medium";
+  src: url("https://res.cloudinary.com/whil/raw/upload/v1672809698/GTWalsheimProRegular_pr53pa.ttf");
+}
 
 @font-face {
   font-family: "GT Walsheim Bold";

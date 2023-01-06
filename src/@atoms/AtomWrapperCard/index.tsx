@@ -35,7 +35,7 @@ const AtomWrapperCard: FC<Props> = (props) => {
           place-content: flex-start;
           align-items: flex-start;
           background: var(--card-background);
-          border-radius: 20px;
+          border-radius: 15px;
           box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
             rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
             rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;

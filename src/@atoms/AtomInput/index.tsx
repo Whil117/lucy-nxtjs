@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 import InputText from "./text";
 import AtomInputTypes from "./types";
 
@@ -10,7 +10,7 @@ const inputTypes = {
   text: InputText,
 };
 
-const AtomInput: FC<Props> = (props) => {
+const AtomInput = (props: Props) => {
   const Input = inputTypes[props?.type] ?? InputText;
   return <Input {...props} />;
 };

@@ -10,6 +10,12 @@ interface AtomButtonTypes extends MotionProps {
   loading?: boolean;
   className?: string;
   type?: "button" | "submit" | "reset";
+  backgroundLinearGradient?: {
+    rotate: string;
+    primary: string;
+    secondary: string;
+  };
+  background?: string;
   children?: React.ReactNode;
   disabled?: boolean;
   onClick?: (() => void) & React.MouseEventHandler<HTMLButtonElement>;

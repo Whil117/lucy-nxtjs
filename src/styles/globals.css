@@ -4,15 +4,17 @@
   --link-color: #543fd7;
   --card-background: #ffffff;
   --loader-color: #1a1a1a;
+  --input-background-color: #1a1a1a;
   --icon-color: #fff;
 }
 
 html[data-theme="light"] {
   --background-color: #fff;
-  --text-color: #1a1a1a;
+  --text-color: rgb(26, 26, 26);
   --loader-color: #1a1a1a;
   --card-background: #ffffff;
   --icon-color: #1a1a1a;
+  --input-background-color: #ffffff;
   --link-color: #543fd7;
 }
 
@@ -21,6 +23,7 @@ html[data-theme="dark"] {
   --text-color: #f7f8f8;
   --loader-color: #f7f8f8;
   --icon-color: #f7f8f8;
+  --input-background-color: #1a1a1a;
   --card-background: #242424;
   --link-color: #828fff;
 }
