@@ -1,9 +1,10 @@
-@font-face {
-  font-family: GTWalsheim_regular;
-  font-weight: normal;
-  src: url("https://res.cloudinary.com/whil/raw/upload/v1672616041/fonts/GTWalsheimPro-Regular_ggrgnp.ttf");
-}
+@import url("https://res.cloudinary.com/whil/raw/upload/v1672809698/GTWalsheimProRegular_pr53pa.ttf");
 
+@font-face {
+  font-family: "GT Walsheim Bold";
+  src: url("https://res.cloudinary.com/whil/raw/upload/v1672809698/GTWalsheimProBold_qnrfkg.ttf");
+  font-weight: bold;
+}
 * {
-  font-family: GTWalsheim_regular;
+  font-family: "GT Walsheim medium", sans-serif;
 }

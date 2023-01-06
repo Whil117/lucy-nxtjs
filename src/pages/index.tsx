@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import {
   AtomButton,
   AtomIcon,
@@ -6,6 +7,7 @@ import {
   AtomText,
   AtomWrapper,
 } from "@Src/@atoms";
+import AtomInput from "@Src/@atoms/AtomInput";
 import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
 import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
@@ -29,15 +31,15 @@ export default function Home() {
           width="75px"
           height="75px"
         />
-        <AtomText
-          fontSize="42px"
-          fontWeight="bold"
-          fontFamily="GTWalsheim_regular"
-        >
+        <AtomText fontSize="42px" fontWeight="bold">
           Lucy
         </AtomText>
       </AtomWrapper>
+
       <AtomWrapper>
+        <AtomText fontSize="42px" fontWeight="bold">
+          A network of creators.
+        </AtomText>
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>
           <AtomWrapper
@@ -129,7 +131,42 @@ export default function Home() {
               quod maxime minus ducimus quasi, accusamus, dicta ex nam dolor
               perferendis!
             </AtomText>
+            <AtomText fontSize="24px" fontWeight="bold">
+              Sell templates.
+            </AtomText>
           </AtomWrapper>
+        </AtomWrapper>
+        <AtomWrapper
+          customCSS={css`
+            display: flex;
+            flex-direction: column;
+            padding: 10px 16px 16px;
+            border: 1px solid #efefef;
+            background: #f5f5f5;
+            overflow-y: auto;
+            max-height: 80vh;
+            border-radius: 5px;
+            box-sizing: border-box;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+          `}
+        >
+          <AtomText color="#999">Request a Feature</AtomText>
+          <AtomInput
+            type="text"
+            label="TITLE"
+            labelFontSize="12px"
+            labelColor="#999"
+            labelFontWeight="bold"
+          />
+          <AtomInput
+            type="text"
+            label="TITLE"
+            labelFontSize="12px"
+            labelColor="#999"
+            labelFontWeight="bold"
+          />
         </AtomWrapper>
         <AtomWrapper>
           <AtomText>AtomIcon</AtomText>
