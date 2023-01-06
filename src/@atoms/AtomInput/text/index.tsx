@@ -38,6 +38,12 @@ const InputText = (props: AtomInputTypes) => {
             background-color: rgba(255, 255, 255, 0.2);
           }
         `}
+        whileHover={{
+          scale: 1.03,
+        }}
+        whileTap={{
+          scale: 0.95,
+        }}
       >
         <AtomWrapper
           customCSS={css`
