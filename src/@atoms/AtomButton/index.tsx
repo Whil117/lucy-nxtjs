@@ -93,9 +93,9 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
 `;
 AtomButton.defaultProps = {
   whileHover: {
-    scale: 1.05,
+    scale: 1.04,
   },
-  whileTap: { scale: 0.9 },
+  whileTap: { scale: 1 },
   children: <>DEFAULT TEXT</>,
 };
 

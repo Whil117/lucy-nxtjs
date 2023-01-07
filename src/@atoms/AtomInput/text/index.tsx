@@ -41,7 +41,10 @@ const InputText = (props: AtomInputTypes) => {
           scale: 0.99,
         }}
         whileHover={{ scale: 1 }}
-        transition={{ delay: 0.1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
       >
         <AtomWrapper
           customCSS={css`
