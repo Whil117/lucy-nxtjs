@@ -1,16 +1,17 @@
-import { ReactNode } from "react";
+import InputRadio from "./radio";
 import InputText from "./text";
 import AtomInputTypes from "./types";
 
-type Props = AtomInputTypes & {
-  children?: ReactNode;
-};
-
 const inputTypes = {
   text: InputText,
+  radio: InputRadio,
 };
 
-const AtomInput = (props: Props) => {
+type AtomInputProps = AtomInputTypes & {
+  type: keyof typeof inputTypes;
+};
+
+const AtomInput = (props: AtomInputProps) => {
   const Input = inputTypes[props?.type] ?? InputText;
   return <Input {...props} />;
 };

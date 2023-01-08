@@ -21,6 +21,7 @@
     "rollup": "rollup -c "
   },
   "dependencies": {
+    "@apollo/client": "^3.7.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@emotion/weak-memoize": "^0.3.0",
@@ -37,6 +38,7 @@
     "eslint-config-next": "13.1.1",
     "formik": "^2.2.9",
     "framer-motion": "^8.0.2",
+    "graphql": "^16.6.0",
     "jotai": "^1.12.1",
     "js-cookie": "^3.0.1",
     "next": "13.1.1",

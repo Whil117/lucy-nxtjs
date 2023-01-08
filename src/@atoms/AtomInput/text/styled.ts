@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import AtomInputTypes from "../types";
 
-export const InputTextStyled = styled(motion.input)`
+export const InputTextStyled = styled(motion.input)<AtomInputTypes>`
   flex: 1;
   width: auto;
   line-height: 21px;
@@ -32,4 +33,5 @@ export const InputTextStyled = styled(motion.input)`
   ::placeholder {
     opacity: 0.8;
   }
+  ${(props) => props?.customCSS};
 `;

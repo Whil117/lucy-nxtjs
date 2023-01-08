@@ -7,11 +7,45 @@ import {
   AtomWrapper,
 } from "@Src/@atoms";
 import AtomInput from "@Src/@atoms/AtomInput";
+import AtomInputTypes from "@Src/@atoms/AtomInput/types";
 import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
 import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { useFormik } from "formik";
 import { useState } from "react";
+
+const QuestionsRadios: AtomInputTypes[] = [
+  {
+    id: "myAnswerRadio",
+    label: "Question1",
+    value: "answer1",
+    type: "radio",
+  },
+  {
+    id: "myAnswerRadio",
+    label: "Question2",
+    value: "answer2",
+    type: "radio",
+  },
+  {
+    id: "myAnswerRadio",
+    label: "Question3",
+    value: "answer3",
+    type: "radio",
+  },
+  {
+    id: "myAnswerRadio",
+    label: "Question4",
+    value: "answer4",
+    type: "radio",
+  },
+  {
+    id: "myAnswerRadio",
+    label: "Question5",
+    value: "answer5",
+    type: "radio",
+  },
+];
 
 export default function Home() {
   const theme = useTheme();
@@ -19,9 +53,14 @@ export default function Home() {
   const formik = useFormik({
     initialValues: {
       name: "",
+      Rddd: false,
+      myAnswerRadio: "",
     },
     onSubmit: () => {},
   });
+
+  const [checking, setchecking] = useState(false);
+  console.log(formik.values);
 
   return (
     <AtomWrapper
@@ -159,6 +198,67 @@ export default function Home() {
             // }}
             id="name"
           />
+          {QuestionsRadios?.map((item) => (
+            <AtomInput
+              type="radio"
+              label={item?.label}
+              placeholder="Hola escribe aqui"
+              labelColor="#999"
+              formik={formik}
+              isChecked={(formik) =>
+                formik?.values?.myAnswerRadio === item.value
+              }
+              onIsChecked={(formik) =>
+                formik?.setFieldValue?.(`${item.id}`, item?.value)
+              }
+              id={item.id}
+            />
+          ))}
+          <AtomInput
+            type="radio"
+            label="RadioSelect"
+            placeholder="Hola escribe aqui"
+            labelColor="#999"
+            // value={formik.values.name}
+            // onChange={(event) => {
+
+            //   formik.setFieldValue("name", event.target.value);
+            // }}
+            id="Rddd"
+            isChecked={() => checking}
+            onIsChecked={() => setchecking(!checking)}
+            accentColor="rgb(255, 0, 238)"
+          />
+          <AtomInput
+            type="radio"
+            label="RadioSelect"
+            placeholder="Hola escribe aqui"
+            labelColor="#999"
+            // value={formik.values.name}
+            // onChange={(event) => {
+
+            //   formik.setFieldValue("name", event.target.value);
+            // }}
+            id="Rddd"
+            isChecked={() => checking}
+            onIsChecked={() => setchecking(!checking)}
+            accentColor="rgb(153, 0, 255)"
+          />
+          <AtomInput
+            type="radio"
+            label="RadioSelect"
+            placeholder="Hola escribe aqui"
+            labelColor="#999"
+            // value={formik.values.name}
+            // onChange={(event) => {
+
+            //   formik.setFieldValue("name", event.target.value);
+            // }}
+            id="Rddd"
+            isChecked={() => checking}
+            onIsChecked={() => setchecking(!checking)}
+            accentColor="rgb(253, 119, 2)"
+          />
         </AtomWrapperCard>
         <AtomWrapper>
           <AtomText>AtomIcon</AtomText>
@@ -225,6 +325,24 @@ export default function Home() {
               }}
             >
               LIGHT
+            </AtomButton>
+            <AtomButton
+              margin="10px"
+              backgroundColor="rgb(253, 119, 2)"
+              onClick={() => {
+                theme.setTheme("light");
+              }}
+            >
+              LIGHT COLOR
+            </AtomButton>
+            <AtomButton
+              margin="10px"
+              backgroundColor="rgb(23, 209, 38)"
+              onClick={() => {
+                theme.setTheme("light");
+              }}
+            >
+              LIGHT COLOR
             </AtomButton>
             <AtomButton
               margin="10px"

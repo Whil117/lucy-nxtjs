@@ -77,31 +77,40 @@ const TrainedNet = (input: Input) => {
   };
 };
 
-const RGBATOHEX = (color: string) => {
+const RGBATOHEX = (color: string, alpha?: number) => {
   const rgba = color.replace(/^rgba?\(|\s+|\)$/g, "").split(",");
+  const colorR = parseInt(rgba[0]);
+  const colorG = parseInt(rgba[1]);
+  const colorB = parseInt(rgba[2]);
+  const colorA = parseInt(rgba[3]);
   return {
-    r: parseInt(rgba[0]),
-    g: parseInt(rgba[1], 16),
-    b: parseInt(rgba[2], 16),
-    a: parseInt(rgba[3], 16),
+    r: colorR,
+    g: colorG,
+    b: colorB,
+    a: colorA,
+    rgba: `rgba(${colorR},${colorG},${colorB},${colorA || alpha || 1})`,
   };
 };
 
-export const HextToRGB = (hex: string, alpha?: number) => {
+export const HextToRGB = (hex: string, alpha = 1 as number) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex) ?? [];
+
+  const colorR = parseInt(result[1], 16);
+  const colorG = parseInt(result[2], 16);
+  const colorB = parseInt(result[3], 16);
+
   const isNaN =
-    Number.isNaN(parseInt(result[1], 16)) ??
-    Number.isNaN(parseInt(result[2], 16)) ??
-    Number.isNaN(parseInt(result[3], 16));
+    Number.isNaN(colorR) ?? Number.isNaN(colorG) ?? Number.isNaN(colorB);
 
   return !isNaN
     ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
+        r: colorR,
+        g: colorG,
+        b: colorB,
         a: alpha,
+        rgba: `rgba(${colorR},${colorG},${colorB},${alpha})`,
       }
-    : RGBATOHEX(hex);
+    : RGBATOHEX(hex, alpha);
 };
 
 const isDarkLight = (hex: string) => {
