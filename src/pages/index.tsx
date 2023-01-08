@@ -312,7 +312,7 @@ export default function Home() {
                 theme.toggle();
               }}
             >
-              TOGGLE
+              TOGGLE THEME
             </AtomButton>
             <AtomButton
               margin="10px"
@@ -325,7 +325,7 @@ export default function Home() {
                 theme.setTheme("light");
               }}
             >
-              LIGHT
+              LIGHT THEME
             </AtomButton>
             <AtomButton
               margin="10px"
@@ -334,7 +334,7 @@ export default function Home() {
                 theme.setTheme("light");
               }}
             >
-              LIGHT COLOR
+              LIGHT COLOR THEME
             </AtomButton>
 
             <AtomButton
@@ -348,7 +348,7 @@ export default function Home() {
                 theme.setTheme("dark");
               }}
             >
-              DARK
+              DARK THEME
             </AtomButton>
             <AtomButton
               margin="10px"
@@ -396,7 +396,7 @@ export default function Home() {
                 setloading(true);
               }}
             >
-              LOADER linear-gradient
+              LOADER FULLSSCREEN
             </AtomButton>
           </AtomWrapper>
         </AtomWrapper>
