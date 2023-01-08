@@ -77,7 +77,7 @@ const TrainedNet = (input: Input) => {
   };
 };
 
-const RGBATOHEX = (color: string, alpha?: number) => {
+const RGBAOBJ = (color: string, alpha?: number) => {
   const rgba = color.replace(/^rgba?\(|\s+|\)$/g, "").split(",");
   const colorR = parseInt(rgba[0]);
   const colorG = parseInt(rgba[1]);
@@ -110,7 +110,7 @@ export const HextToRGB = (hex: string, alpha = 1 as number) => {
         a: alpha,
         rgba: `rgba(${colorR},${colorG},${colorB},${alpha})`,
       }
-    : RGBATOHEX(hex, alpha);
+    : RGBAOBJ(hex, alpha);
 };
 
 const isDarkLight = (hex: string) => {

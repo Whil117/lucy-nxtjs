@@ -212,6 +212,7 @@ export default function Home() {
                 formik?.setFieldValue?.(`${item.id}`, item?.value)
               }
               id={item.id}
+              disabled={checking}
             />
           ))}
           <AtomInput
@@ -227,7 +228,7 @@ export default function Home() {
             id="Rddd"
             isChecked={() => checking}
             onIsChecked={() => setchecking(!checking)}
-            accentColor="rgb(255, 0, 238)"
+            accentColor="#ff00ee"
           />
           <AtomInput
             type="radio"
@@ -335,15 +336,7 @@ export default function Home() {
             >
               LIGHT COLOR
             </AtomButton>
-            <AtomButton
-              margin="10px"
-              backgroundColor="rgb(23, 209, 38)"
-              onClick={() => {
-                theme.setTheme("light");
-              }}
-            >
-              LIGHT COLOR
-            </AtomButton>
+
             <AtomButton
               margin="10px"
               backgroundLinearGradient={{

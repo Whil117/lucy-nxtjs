@@ -50,7 +50,6 @@ const InputRadio = (props: AtomInputTypes) => {
         }}
       >
         <AtomWrapper
-          // {...props}
           customCSS={css`
             appearance: none;
             width: 10px;
@@ -69,6 +68,7 @@ const InputRadio = (props: AtomInputTypes) => {
             css`
               background-color: #e7e7e7;
               border: 2px solid #e7e7e7;
+              opacity: 0.8;
             `}
           `}
         ></AtomWrapper>
