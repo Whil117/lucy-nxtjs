@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import {
   AtomButton,
   AtomIcon,
@@ -212,7 +213,6 @@ export default function Home() {
                 formik?.setFieldValue?.(`${item.id}`, item?.value)
               }
               id={item.id}
-              disabled={checking}
             />
           ))}
           <AtomInput
@@ -269,17 +269,41 @@ export default function Home() {
             width="100%"
             justifyContent="flex-start"
           >
-            <AtomIcon src="https://res.cloudinary.com/whil/image/upload/v1670118796/smallcaps_iowxub.svg" />
-            <AtomIcon
-              src="https://res.cloudinary.com/whil/image/upload/v1670118796/gallery_duuoqb.svg"
-              width="100px"
-              height="100px"
-              color="white"
-            />
-            <AtomIcon
-              src="https://res.cloudinary.com/whil/image/upload/v1666492647/HARMONY_orc7z0.svg"
-              color="default"
-            />
+            {[
+              "https://res.cloudinary.com/whil/image/upload/v1661401537/close-circle_evk8hi.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401537/heart_bhq0v1.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401536/aleatory_ivf9r3.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401537/note-square_tnxyol.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401537/group_otfmxi.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401538/next_mudtaa.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401538/pause_he3p5p.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401538/music-filter_pfws7j.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401539/previous_sqclao.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401540/repeatt_yet17i.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401540/save-2_c738go.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401542/volume-low_rawzad.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401542/volume-cross_rlev1s.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661403453/like_n69iyx.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661632351/aleatory_fql0tl.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661401542/volume-high_rkxle8.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661674252/play-circle_tq6brv.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661706864/PREVVIDEO_icmtkr.svg",
+              "https://res.cloudinary.com/whil/image/upload/v1661674261/pause-circle_yw7s3n.svg",
+            ].map((item) => (
+              <AtomIcon
+                src={item}
+                color="default"
+                width="65px"
+                height="65px"
+                customCSS={css`
+                  svg {
+                    path {
+                      stroke: var(--icon-color);
+                    }
+                  }
+                `}
+              />
+            ))}
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapper>
