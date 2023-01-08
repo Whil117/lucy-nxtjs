@@ -56,11 +56,10 @@ const InputRadio = (props: AtomInputTypes) => {
             height: 10px;
             border-radius: 50%;
             background-clip: content-box;
-            border: 2px solid transparent;
             background-color: transparent;
             background-color: ${props?.isChecked(props?.formik)
               ? props?.accentColor ?? "rgb(7, 222, 255)"
-              : HextToRGB(props?.accentColor ?? "rgb(7, 222, 255)", 0.3)?.rgba};
+              : HextToRGB(props?.accentColor ?? "rgb(7, 222, 255)", 0.2)?.rgba};
             padding: 3px;
 
             border: 2px solid ${props.accentColor ?? "#07deff"};
