@@ -196,7 +196,7 @@ export default function Home() {
             label="check custom"
             labelColor="#999"
             id="custom"
-            accentColor="rgb(153, 0, 255)"
+            accentColor="rgb(255, 0, 238)"
             value={formik.values.customC}
             onClick={() => {
               formik.setFieldValue("customC", !formik.values.customC);
