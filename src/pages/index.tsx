@@ -18,32 +18,14 @@ import { useState } from "react";
 const QuestionsRadios: AtomInputTypes[] = [
   {
     id: "myAnswerRadio",
-    label: "Question1",
+    label: "Question1 formik",
     value: "answer1",
     type: "radio",
   },
   {
     id: "myAnswerRadio",
-    label: "Question2",
+    label: "Question2 formik",
     value: "answer2",
-    type: "radio",
-  },
-  {
-    id: "myAnswerRadio",
-    label: "Question3",
-    value: "answer3",
-    type: "radio",
-  },
-  {
-    id: "myAnswerRadio",
-    label: "Question4",
-    value: "answer4",
-    type: "radio",
-  },
-  {
-    id: "myAnswerRadio",
-    label: "Question5",
-    value: "answer5",
     type: "radio",
   },
 ];
@@ -99,10 +81,7 @@ export default function Home() {
           >
             <AtomLoader type="large" />
             <AtomLoader type="large" colorLoad="#0072FF" />
-            <AtomLoader type="large" colorLoad="#e78ce7" />
-            <AtomLoader type="large" colorLoad="#41c052" />
-            <AtomLoader type="large" colorLoad="skyblue" />
-            <AtomLoader type="large" colorLoad="#da1f1f" />
+
             {loading && <AtomLoader type="fullscreen" colorLoad="#0072FF" />}
           </AtomWrapper>
         </AtomWrapper>
@@ -116,10 +95,6 @@ export default function Home() {
           >
             <AtomLoader type="medium" />
             <AtomLoader type="medium" colorLoad="#0072FF" />
-            <AtomLoader type="medium" colorLoad="#e78ce7" />
-            <AtomLoader type="medium" colorLoad="#41c052" />
-            <AtomLoader type="medium" colorLoad="skyblue" />
-            <AtomLoader type="medium" colorLoad="#da1f1f" />
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapper>
@@ -132,10 +107,6 @@ export default function Home() {
           >
             <AtomLoader type="small" />
             <AtomLoader type="small" colorLoad="#0072FF" />
-            <AtomLoader type="small" colorLoad="#e78ce7" />
-            <AtomLoader type="small" colorLoad="#41c052" />
-            <AtomLoader type="small" colorLoad="skyblue" />
-            <AtomLoader type="small" colorLoad="#da1f1f" />
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapper>
@@ -201,34 +172,15 @@ export default function Home() {
             <AtomInput
               type="radio"
               label={item?.label}
-              placeholder="Hola escribe aqui"
               labelColor="#999"
               formik={formik}
               id="Rddd"
             />
           ))}
+
           <AtomInput
             type="radio"
-            label="RadioSelect"
-            placeholder="Hola escribe aqui"
-            labelColor="#999"
-            id="Rddd"
-            formik={formik}
-            accentColor="#ff00ee"
-          />
-          <AtomInput
-            type="radio"
-            label="RadioSelect"
-            placeholder="Hola escribe aqui"
-            labelColor="#999"
-            id="Rddd"
-            formik={formik}
-            accentColor="rgb(153, 0, 255)"
-          />
-          <AtomInput
-            type="radio"
-            label="RadioSelect"
-            placeholder="Hola escribe aqui"
+            label="check formik "
             labelColor="#999"
             id="radioChcek"
             formik={formik}
@@ -236,7 +188,7 @@ export default function Home() {
           />
           <AtomInput
             type="checkbox"
-            label="Checkbox"
+            label="check formik 2"
             labelColor="#999"
             formik={formik}
             id="checkBox"
@@ -244,7 +196,7 @@ export default function Home() {
           />
           <AtomInput
             type="checkbox"
-            label="Checkbox12123123"
+            label="check custom"
             labelColor="#999"
             id="custom"
             accentColor="rgb(153, 0, 255)"
