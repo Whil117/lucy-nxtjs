@@ -55,6 +55,8 @@ export default function Home() {
     initialValues: {
       name: "",
       Rddd: false,
+      checkBox: false,
+      radioChcek: false,
       myAnswerRadio: "",
     },
     onSubmit: () => {},
@@ -192,11 +194,6 @@ export default function Home() {
             placeholder="Hola escribe aqui"
             labelColor="#999"
             formik={formik}
-            // value={formik.values.name}
-            // onChange={(event) => {
-
-            //   formik.setFieldValue("name", event.target.value);
-            // }}
             id="name"
           />
           {QuestionsRadios?.map((item) => (
@@ -206,13 +203,7 @@ export default function Home() {
               placeholder="Hola escribe aqui"
               labelColor="#999"
               formik={formik}
-              isChecked={(formik) =>
-                formik?.values?.myAnswerRadio === item.value
-              }
-              onIsChecked={(formik) =>
-                formik?.setFieldValue?.(`${item.id}`, item?.value)
-              }
-              id={item.id}
+              id="Rddd"
             />
           ))}
           <AtomInput
@@ -220,14 +211,8 @@ export default function Home() {
             label="RadioSelect"
             placeholder="Hola escribe aqui"
             labelColor="#999"
-            // value={formik.values.name}
-            // onChange={(event) => {
-
-            //   formik.setFieldValue("name", event.target.value);
-            // }}
             id="Rddd"
-            isChecked={() => checking}
-            onIsChecked={() => setchecking(!checking)}
+            formik={formik}
             accentColor="#ff00ee"
           />
           <AtomInput
@@ -235,14 +220,8 @@ export default function Home() {
             label="RadioSelect"
             placeholder="Hola escribe aqui"
             labelColor="#999"
-            // value={formik.values.name}
-            // onChange={(event) => {
-
-            //   formik.setFieldValue("name", event.target.value);
-            // }}
             id="Rddd"
-            isChecked={() => checking}
-            onIsChecked={() => setchecking(!checking)}
+            formik={formik}
             accentColor="rgb(153, 0, 255)"
           />
           <AtomInput
@@ -250,15 +229,17 @@ export default function Home() {
             label="RadioSelect"
             placeholder="Hola escribe aqui"
             labelColor="#999"
-            // value={formik.values.name}
-            // onChange={(event) => {
-
-            //   formik.setFieldValue("name", event.target.value);
-            // }}
-            id="Rddd"
-            isChecked={() => checking}
-            onIsChecked={() => setchecking(!checking)}
+            id="radioChcek"
+            formik={formik}
             accentColor="rgb(253, 119, 2)"
+          />
+          <AtomInput
+            type="checkbox"
+            label="Checkbox"
+            labelColor="#999"
+            formik={formik}
+            id="checkBox"
+            accentColor="rgb(153, 0, 255)"
           />
         </AtomWrapperCard>
         <AtomWrapper>

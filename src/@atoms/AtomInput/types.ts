@@ -1,10 +1,10 @@
 import { SerializedStyles } from "@emotion/react";
 import { FormikCustom } from "@Src/types/formik";
-import { ChangeEvent } from "react";
+import { ChangeEvent, FocusEvent } from "react";
 import { AtomTextTypes } from "../AtomText/types";
 
 type AtomInputTypes = {
-  type: "text" | "date" | "color" | "radio";
+  type?: "text" | "date" | "color" | "radio" | "checkbox";
   label?: string;
   labelFontWeight?: AtomTextTypes["fontWeight"];
   labelFontSize?: string;
@@ -12,12 +12,14 @@ type AtomInputTypes = {
   labelColor?: string;
   labelBackground?: string;
   formik?: FormikCustom<any>;
-  value?: string | boolean | number;
+  value?: any;
   id?: string;
   placeholder?: string;
   onChange?: (e: ChangeEvent<any>) => void;
+  onClick?: () => void;
   customCSS?: SerializedStyles;
   accentColor?: string;
+  onBlur?: (event: FocusEvent<HTMLInputElement, Element>) => void;
   onIsChecked?: (formik?: FormikCustom<any>) => void;
   isChecked?: (formik?: FormikCustom<any>) => boolean;
   disabled?: boolean;

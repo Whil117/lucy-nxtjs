@@ -1,3 +1,4 @@
+import InputCheckBox from "./checkbox";
 import InputRadio from "./radio";
 import InputText from "./text";
 import AtomInputTypes from "./types";
@@ -5,6 +6,7 @@ import AtomInputTypes from "./types";
 const inputTypes = {
   text: InputText,
   radio: InputRadio,
+  checkbox: InputCheckBox,
 };
 
 type AtomInputProps = AtomInputTypes & {

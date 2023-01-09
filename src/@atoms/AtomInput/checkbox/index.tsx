@@ -1,11 +1,16 @@
 import { css } from "@emotion/react";
 import { LabelInput } from "@Src/@atoms/AtomLabel/styled";
 import AtomWrapper from "@Src/@atoms/AtomWrapper";
-import { InputCheckboxStyled } from "../checkbox/styled";
+import { FC, ReactNode } from "react";
 import AtomInputTypes from "../types";
 import colorInputRadioCheck from "../utils/colorInputRadioCheck";
+import { InputCheckboxStyled } from "./styled";
 
-const InputRadio = (props: AtomInputTypes) => {
+type Props = AtomInputTypes & {
+  children?: ReactNode;
+};
+
+const InputCheckBox: FC<Props> = (props) => {
   return (
     <AtomWrapper flexDirection="row-reverse">
       {props?.label && (
@@ -65,13 +70,10 @@ const InputRadio = (props: AtomInputTypes) => {
             appearance: none;
             width: 18px;
             height: 18px;
-            border-radius: 50%;
             background-clip: content-box;
-            background-color: transparent;
             background-color: ${colorInputRadioCheck(props)};
             accent-color: ${colorInputRadioCheck(props)};
             padding: 2.1px;
-
             border: 2px solid ${props.accentColor ?? "#07deff"};
             ${props?.disabled &&
             css`
@@ -86,4 +88,4 @@ const InputRadio = (props: AtomInputTypes) => {
   );
 };
 
-export default InputRadio;
+export default InputCheckBox;
