@@ -58,6 +58,7 @@ export default function Home() {
       checkBox: false,
       radioChcek: false,
       myAnswerRadio: "",
+      customC: false,
     },
     onSubmit: () => {},
   });
@@ -240,6 +241,17 @@ export default function Home() {
             formik={formik}
             id="checkBox"
             accentColor="rgb(153, 0, 255)"
+          />
+          <AtomInput
+            type="checkbox"
+            label="Checkbox12123123"
+            labelColor="#999"
+            id="custom"
+            accentColor="rgb(153, 0, 255)"
+            value={formik.values.customC}
+            onClick={() => {
+              formik.setFieldValue("customC", !formik.values.customC);
+            }}
           />
         </AtomWrapperCard>
         <AtomWrapper>
