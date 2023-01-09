@@ -45,9 +45,6 @@ export default function Home() {
     onSubmit: () => {},
   });
 
-  const [checking, setchecking] = useState(false);
-  console.log(formik.values);
-
   return (
     <AtomWrapper
       maxWidth="1440px"
