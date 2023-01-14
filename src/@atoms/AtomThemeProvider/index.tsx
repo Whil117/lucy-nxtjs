@@ -1,7 +1,7 @@
 import { ThemeContext } from "@Src/hooks/useTheme";
 import { handleGetTheme, handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { ReactNode } from "react";
-import { AtomThemeScript } from "../AtomThemeScript";
+import AtomThemeScript from "../AtomThemeScript";
 import { Themes } from "./assets/themes";
 
 type AtomThemeProviderProps = {
