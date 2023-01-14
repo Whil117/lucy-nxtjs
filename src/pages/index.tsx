@@ -372,6 +372,42 @@ export default function Home() {
             >
               LOADER FULLSSCREEN
             </AtomButton>
+            <AtomButton
+              margin="10px"
+              backgroundColor="rgb(255, 170,0)"
+              onClick={() => {
+                setloading(true);
+              }}
+            >
+              LOADER FULLSSCREEN
+            </AtomButton>
+            <AtomButton
+              margin="10px"
+              backgroundColor="#3d3b38"
+              onClick={() => {
+                setloading(true);
+              }}
+            >
+              LOADER FULLSSCREEN
+            </AtomButton>
+            <AtomButton
+              margin="10px"
+              backgroundColor="#47129c"
+              onClick={() => {
+                setloading(true);
+              }}
+            >
+              LOADER FULLSSCREEN
+            </AtomButton>
+            <AtomButton
+              margin="10px"
+              backgroundColor="#e91ee9"
+              onClick={() => {
+                setloading(true);
+              }}
+            >
+              LOADER FULLSSCREEN
+            </AtomButton>
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapperCard flexDirection="column" padding="25px">

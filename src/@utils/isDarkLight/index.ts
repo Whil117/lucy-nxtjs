@@ -1,82 +1,3 @@
-type Input = {
-  r: number;
-  g: number;
-  b: number;
-};
-const TrainedNet = (input: Input) => {
-  const convert = new Float32Array([input["r"], input["g"], input["b"]]);
-  return {
-    white:
-      1 /
-      (1 +
-        1 /
-          Math.exp(
-            -10.37766170501709 +
-              (12.204835891723633 * 1) /
-                (1 +
-                  1 /
-                    Math.exp(
-                      6.169667720794678 -
-                        4.042087078094482 * (convert[0] || 0) -
-                        19.438833236694336 * (convert[1] || 0) +
-                        14.434931755065918 * (convert[2] || 0)
-                    )) +
-              (11.918014526367188 * 1) /
-                (1 +
-                  1 /
-                    Math.exp(
-                      2.6512327194213867 -
-                        3.513329029083252 * (convert[0] || 0) -
-                        17.795860290527344 * (convert[1] || 0) +
-                        17.435640335083008 * (convert[2] || 0)
-                    )) +
-              (9.877058982849121 * 1) /
-                (1 +
-                  1 /
-                    Math.exp(
-                      5.760010242462158 -
-                        3.2945780754089355 * (convert[0] || 0) -
-                        8.6066312789917 * (convert[1] || 0) -
-                        7.926300525665283 * (convert[2] || 0)
-                    ))
-          )),
-    black:
-      1 /
-      (1 +
-        1 /
-          Math.exp(
-            10.386853218078613 -
-              (12.263668060302734 * 1) /
-                (1 +
-                  1 /
-                    Math.exp(
-                      6.169667720794678 -
-                        4.042087078094482 * (convert[0] || 0) -
-                        19.438833236694336 * (convert[1] || 0) +
-                        14.434931755065918 * (convert[2] || 0)
-                    )) -
-              (11.879143714904785 * 1) /
-                (1 +
-                  1 /
-                    Math.exp(
-                      2.6512327194213867 -
-                        3.513329029083252 * (convert[0] || 0) -
-                        17.795860290527344 * (convert[1] || 0) +
-                        17.435640335083008 * (convert[2] || 0)
-                    )) -
-              (9.865546226501465 * 1) /
-                (1 +
-                  1 /
-                    Math.exp(
-                      5.760010242462158 -
-                        3.2945780754089355 * (convert[0] || 0) -
-                        8.6066312789917 * (convert[1] || 0) -
-                        7.926300525665283 * (convert[2] || 0)
-                    ))
-          )),
-  };
-};
-
 const RGBAOBJ = (color: string, alpha?: number) => {
   const rgba = color.replace(/^rgba?\(|\s+|\)$/g, "").split(",");
   const colorR = parseInt(rgba[0]);
@@ -88,7 +9,9 @@ const RGBAOBJ = (color: string, alpha?: number) => {
     g: colorG,
     b: colorB,
     a: colorA,
-    rgba: `rgba(${colorR},${colorG},${colorB},${colorA || alpha || 1})`,
+    rgba: `rgba(${colorR || 0},${colorG || 0},${colorB || 0},${
+      colorA || alpha || 1
+    })`,
   };
 };
 
@@ -108,15 +31,20 @@ export const HextToRGB = (hex: string, alpha = 1 as number) => {
         g: colorG,
         b: colorB,
         a: alpha,
-        rgba: `rgba(${colorR},${colorG},${colorB},${alpha})`,
+        rgba: `rgba(${colorR || 0},${colorG || 0},${colorB || 0},${alpha})`,
       }
     : RGBAOBJ(hex, alpha);
 };
 
+function isDark(color: string): string {
+  const threshold = 150;
+  const [r, g, b] = color.match(/\d+/g)?.map(Number) ?? [0, 0, 0];
+  const luminosity = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return luminosity < threshold ? "#f7f8f8" : "#1a1a1a";
+}
+
 const isDarkLight = (hex: string) => {
-  return TrainedNet(HextToRGB(hex)).black > TrainedNet(HextToRGB(hex)).white
-    ? "#1a1a1a"
-    : "#f7f8f8";
+  return isDark(HextToRGB(hex).rgba);
 };
 
 export default isDarkLight;
