@@ -15,10 +15,10 @@
   "scripts": {
     "dev": "next dev",
     "test": "rollup -c",
-    "build": "next build",
+    "build": "rollup -c",
     "start": "next start",
     "lint": "next lint",
-    "rollup": "rollup -c "
+    "rollup": "rollup -c"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
