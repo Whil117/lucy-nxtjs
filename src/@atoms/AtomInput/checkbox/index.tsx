@@ -56,7 +56,7 @@ const InputCheckBox: FC<Props> = (props) => {
           value={
             props?.formik && props?.id
               ? props?.formik?.values?.[props?.id]
-              : props?.value
+              : props?.value ?? false
           }
           onClick={() => {
             props?.formik?.setFieldValue?.(

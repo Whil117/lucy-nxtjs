@@ -41,9 +41,11 @@ export default function Home() {
       radioChcek: false,
       myAnswerRadio: "",
       customC: false,
+      textMess: "",
     },
     onSubmit: () => {},
   });
+  console.log(formik.values);
 
   return (
     <AtomWrapper
@@ -201,6 +203,14 @@ export default function Home() {
             onClick={() => {
               formik.setFieldValue("customC", !formik.values.customC);
             }}
+          />
+          <AtomInput
+            type="textbox"
+            label="TEXTAREA123213"
+            labelColor="#999"
+            id="textMess"
+            accentColor="rgb(255, 0, 238)"
+            formik={formik}
           />
         </AtomWrapperCard>
         <AtomWrapper>

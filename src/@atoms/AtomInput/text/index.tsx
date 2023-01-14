@@ -67,12 +67,10 @@ const InputText = (props: AtomInputTypes) => {
             value={
               props?.formik?.values?.[`${props?.id}`] ?? props?.value ?? ""
             }
-            onChange={(event) =>
-              props?.formik?.setFieldValue?.(
-                `${props?.id}`,
-                event.target.value
-              ) ?? props?.onChange?.(event)
-            }
+            onChange={(event) => {
+              props?.formik?.handleChange?.(event);
+              props?.onChange?.(event);
+            }}
           />
         </AtomWrapper>
       </AtomWrapper>
