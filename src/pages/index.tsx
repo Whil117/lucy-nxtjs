@@ -45,7 +45,6 @@ export default function Home() {
     },
     onSubmit: () => {},
   });
-  console.log(formik.values);
 
   return (
     <AtomWrapper
@@ -159,6 +158,8 @@ export default function Home() {
           <AtomText color="#4619e9" fontWeight="bold">
             Request a Feature
           </AtomText>
+          <AtomText width="100%">{formik.values.textMess}</AtomText>
+          <AtomText width="100%">{formik.values.name}</AtomText>
           <AtomInput
             type="text"
             label="Nombre completo"
@@ -199,10 +200,7 @@ export default function Home() {
             labelColor="#999"
             id="custom"
             accentColor="rgb(255, 0, 238)"
-            value={formik.values.customC}
-            onClick={() => {
-              formik.setFieldValue("customC", !formik.values.customC);
-            }}
+            formik={formik}
           />
           <AtomInput
             type="textbox"
