@@ -4,11 +4,12 @@ import { ChangeEvent, FocusEvent } from "react";
 import { AtomTextTypes } from "../AtomText/types";
 
 type AtomInputTypes = {
-  type?: "text" | "date" | "color" | "radio" | "checkbox";
+  type?: "text" | "date" | "color" | "radio" | "checkbox" | "textbox";
   label?: string;
   labelFontWeight?: AtomTextTypes["fontWeight"];
   labelFontSize?: string;
   labelFontFamily?: string;
+  height?: string;
   labelColor?: string;
   labelBackground?: string;
   formik?: FormikCustom<any>;
@@ -19,7 +20,7 @@ type AtomInputTypes = {
   onClick?: () => void;
   customCSS?: SerializedStyles;
   accentColor?: string;
-  onBlur?: (event: FocusEvent<HTMLInputElement, Element>) => void;
+  onBlur?: (event: FocusEvent<any>) => void;
   onIsChecked?: (formik?: FormikCustom<any>) => void;
   isChecked?: (formik?: FormikCustom<any>) => boolean;
   disabled?: boolean;
