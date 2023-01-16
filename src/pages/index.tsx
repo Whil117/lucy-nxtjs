@@ -10,6 +10,7 @@ import {
 import AtomInput from "@Src/@atoms/AtomInput";
 import AtomInputTypes from "@Src/@atoms/AtomInput/types";
 import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
+import getDaysByMotnh from "@Src/@utils/calendar";
 import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { useFormik } from "formik";
@@ -30,6 +31,15 @@ const QuestionsRadios: AtomInputTypes[] = [
   },
 ];
 
+const daysPosition = {
+  0: 7,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+};
 export default function Home() {
   const theme = useTheme();
   const [loading, setloading] = useState(false);
@@ -45,6 +55,9 @@ export default function Home() {
     },
     onSubmit: () => {},
   });
+
+  const [count, setcount] = useState(0);
+  console.log(count);
 
   return (
     <AtomWrapper
@@ -106,6 +119,77 @@ export default function Home() {
             <AtomLoader type="small" />
             <AtomLoader type="small" colorLoad="#0072FF" />
           </AtomWrapper>
+        </AtomWrapper>
+        <AtomWrapper>
+          <AtomButton
+            onClick={() => {
+              setcount((prev) => (prev === 0 ? 0 : prev - 1));
+            }}
+          >
+            Decrease
+          </AtomButton>
+          <AtomButton
+            onClick={() => {
+              setcount((prev) => (prev === 11 ? 11 : prev + 1));
+            }}
+            backgroundLinearGradient={{
+              rotate: "157deg",
+              primary: "rgb(255, 61, 194)",
+              secondary: "rgb(255, 0, 102)",
+            }}
+          >
+            Increase
+          </AtomButton>
+        </AtomWrapper>
+        <AtomText>
+          {new Date(new Date().getFullYear(), count).toLocaleDateString("es", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </AtomText>
+
+        <AtomWrapper
+          customCSS={css`
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+          `}
+        >
+          {[
+            "Lunes",
+            "Martes",
+            "Miercoles",
+            "Jueves",
+            "Viernes",
+            "Sabado",
+            "Domingo",
+          ].map((item) => (
+            <AtomWrapper>
+              <AtomText>{item}</AtomText>
+            </AtomWrapper>
+          ))}
+        </AtomWrapper>
+        <AtomWrapper
+          customCSS={css`
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+          `}
+        >
+          {getDaysByMotnh({
+            month: count,
+          }).map((item) => (
+            <AtomWrapper
+              customCSS={css`
+                background-color: #ebebe9;
+                grid-column: ${daysPosition[item.day]};
+              `}
+              height="120px"
+            >
+              <AtomText>{item.numb}</AtomText>
+            </AtomWrapper>
+          ))}
         </AtomWrapper>
         <AtomWrapper>
           <AtomText>AtomText</AtomText>
