@@ -10,11 +10,12 @@ const AtomText = styled(motion.span)<AtomTextTypes>`
   text-align: ${(props) => props?.textAlign || `left`};
   background-color: ${({ backgroundColor }) =>
     backgroundColor ?? "transparent"};
-  color: var(
-    --text-color,
-    ${({ backgroundColor, color }) =>
-      color ?? isDarkLight(backgroundColor ?? "#ffffff")}
-  );
+  color: ${({ color, backgroundColor }) =>
+    color ??
+    `var(
+      --text-color,
+      ${color ?? isDarkLight(backgroundColor ?? "#ffffff")}
+    )`};
   padding: ${(props) => props?.padding || `0px 0px 0px 0px`};
   opacity: ${({ opacity }) => opacity ?? "1"};
   margin: ${(props) => props?.margin || `0px 0px 0px 0px`};

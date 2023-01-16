@@ -11,6 +11,7 @@ function getDaysByMotnh(props: getDaysInMonth) {
     (_, i) => ({
       date: new Date(year, month, i + 1),
       day: new Date(year, month, i + 1).getDay(),
+      month: new Date(year, month, i + 1).getMonth(),
       numb: i + 1,
     })
   );
