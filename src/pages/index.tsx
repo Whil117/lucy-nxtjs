@@ -20,13 +20,13 @@ import { useState } from "react";
 const QuestionsRadios: AtomInputTypes[] = [
   {
     id: "myAnswerRadio",
-    label: "Question1 formik",
+    label: "Input radio",
     value: "answer1",
     type: "radio",
   },
   {
     id: "myAnswerRadio",
-    label: "Question2 formik",
+    label: "Input radio",
     value: "answer2",
     type: "radio",
   },
@@ -62,6 +62,7 @@ export default function Home() {
       myAnswerRadio: "",
       customC: false,
       textMess: "",
+      colorButton: "",
     },
     onSubmit: () => {},
   });
@@ -293,7 +294,7 @@ export default function Home() {
           <AtomText width="100%">{formik.values.name}</AtomText>
           <AtomInput
             type="text"
-            label="Nombre completo"
+            label="Input text"
             placeholder="Hola escribe aqui"
             labelColor="#999"
             formik={formik}
@@ -308,10 +309,9 @@ export default function Home() {
               id="Rddd"
             />
           ))}
-
           <AtomInput
             type="radio"
-            label="check formik "
+            label="Input radio"
             labelColor="#999"
             id="radioChcek"
             formik={formik}
@@ -319,7 +319,7 @@ export default function Home() {
           />
           <AtomInput
             type="checkbox"
-            label="check formik 2"
+            label="Input checkbox"
             labelColor="#999"
             formik={formik}
             id="checkBox"
@@ -327,7 +327,7 @@ export default function Home() {
           />
           <AtomInput
             type="checkbox"
-            label="check custom"
+            label="Input checkbox"
             labelColor="#999"
             id="custom"
             accentColor="rgb(255, 0, 238)"
@@ -335,12 +335,46 @@ export default function Home() {
           />
           <AtomInput
             type="textbox"
-            label="TEXTAREA123213"
+            label="Input textbox"
             labelColor="#999"
             id="textMess"
             accentColor="rgb(255, 0, 238)"
             formik={formik}
           />
+          <AtomInput
+            type="color"
+            label="Input color"
+            labelColor="#999"
+            id="colorButton"
+            accentColor="rgb(255, 0, 238)"
+            formik={formik}
+            height="80px"
+          />
+          <AtomWrapper
+            flexDirection="row"
+            justifyContent="flex-end"
+            width="100%"
+            gap="10px"
+          >
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+          </AtomWrapper>
         </AtomWrapperCard>
         <AtomWrapper>
           <AtomText>AtomIcon</AtomText>
