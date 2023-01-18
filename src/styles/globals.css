@@ -6,6 +6,7 @@
   --loader-color: #1a1a1a;
   --input-background-color: #ffffff;
   --icon-color: #1a1a1a;
+  --input-date-color: light;
 }
 
 html[data-theme="light"] {
@@ -16,6 +17,7 @@ html[data-theme="light"] {
   --icon-color: #1a1a1a;
   --input-background-color: #ffffff;
   --link-color: #543fd7;
+  --input-date-color: light;
 }
 
 html[data-theme="dark"] {
@@ -26,6 +28,7 @@ html[data-theme="dark"] {
   --input-background-color: #1a1a1a;
   --card-background: #242424;
   --link-color: #828fff;
+  --input-date-color: dark;
 }
 
 body {
@@ -34,7 +37,9 @@ body {
   letter-spacing: 0.5px;
   line-height: 1.3em;
 }
-
+.flatpickr-calendar {
+  font-family: "GT Walsheim medium", sans-serif;
+}
 a {
   color: var(--link-color);
 }

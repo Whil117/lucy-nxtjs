@@ -1,5 +1,5 @@
 const RGBAOBJ = (color: string, alpha?: number) => {
-  const rgba = color.replace(/^rgba?\(|\s+|\)$/g, "").split(",");
+  const rgba = color?.replace(/^rgba?\(|\s+|\)$/g, "").split(",");
   const colorR = parseInt(rgba[0]);
   const colorG = parseInt(rgba[1]);
   const colorB = parseInt(rgba[2]);
@@ -38,7 +38,7 @@ export const HextToRGB = (hex: string, alpha = 1 as number) => {
 
 function isDark(color: string): string {
   const threshold = 150;
-  const [r, g, b] = color.match(/\d+/g)?.map(Number) ?? [0, 0, 0];
+  const [r, g, b] = color?.match(/\d+/g)?.map(Number) ?? [0, 0, 0];
   const luminosity = 0.2126 * r + 0.7152 * g + 0.0722 * b;
   return luminosity < threshold ? "#f7f8f8" : "#1a1a1a";
 }

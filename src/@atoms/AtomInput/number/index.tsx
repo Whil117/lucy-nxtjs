@@ -1,10 +1,10 @@
 import { css } from "@emotion/react";
 import AtomText from "@Src/@atoms/AtomText";
 import AtomWrapper from "@Src/@atoms/AtomWrapper";
+import { InputTextStyled } from "../text/styled";
 import AtomInputTypes from "../types";
-import { InputTextStyled } from "./styled";
 
-const InputText = (props: AtomInputTypes) => {
+const InputNumber = (props: AtomInputTypes) => {
   return (
     <AtomWrapper width="100%">
       {props?.label && (
@@ -69,7 +69,7 @@ const InputText = (props: AtomInputTypes) => {
             }
             onChange={(event) => {
               if (props?.maxLength) {
-                if (event.target.value.length <= props?.maxLength) {
+                if (event.target.value <= props?.maxLength) {
                   props?.formik?.handleChange?.(event);
                   props?.onChange?.(event);
                 }
@@ -85,4 +85,4 @@ const InputText = (props: AtomInputTypes) => {
   );
 };
 
-export default InputText;
+export default InputNumber;

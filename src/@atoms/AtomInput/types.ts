@@ -3,8 +3,8 @@ import { FormikCustom } from "@Src/types/formik";
 import { ChangeEvent, FocusEvent } from "react";
 import { AtomTextTypes } from "../AtomText/types";
 
-type AtomInputTypes = {
-  type?: "text" | "date" | "color" | "radio" | "checkbox" | "textbox";
+type AtomInputTypes<TYPE = any> = {
+  type?: TYPE;
   label?: string;
   labelFontWeight?: AtomTextTypes["fontWeight"];
   labelFontSize?: string;
@@ -13,6 +13,9 @@ type AtomInputTypes = {
   labelColor?: string;
   labelBackground?: string;
   formik?: FormikCustom<any>;
+  min?: number;
+  max?: number;
+  maxLength?: number;
   value?: any;
   id?: string;
   placeholder?: string;

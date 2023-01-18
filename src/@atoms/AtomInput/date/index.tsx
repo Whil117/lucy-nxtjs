@@ -2,9 +2,9 @@ import { css } from "@emotion/react";
 import AtomText from "@Src/@atoms/AtomText";
 import AtomWrapper from "@Src/@atoms/AtomWrapper";
 import AtomInputTypes from "../types";
-import { InputTextStyled } from "./styled";
+import { InputDateStyled } from "./styled";
 
-const InputText = (props: AtomInputTypes) => {
+const InputDate = (props: AtomInputTypes) => {
   return (
     <AtomWrapper width="100%">
       {props?.label && (
@@ -62,21 +62,14 @@ const InputText = (props: AtomInputTypes) => {
             border: 1px solid #ffffff7f;
           `}
         >
-          <InputTextStyled
+          <InputDateStyled
             {...props}
             value={
               props?.formik?.values?.[`${props?.id}`] ?? props?.value ?? ""
             }
             onChange={(event) => {
-              if (props?.maxLength) {
-                if (event.target.value.length <= props?.maxLength) {
-                  props?.formik?.handleChange?.(event);
-                  props?.onChange?.(event);
-                }
-              } else {
-                props?.formik?.handleChange?.(event);
-                props?.onChange?.(event);
-              }
+              props?.formik?.handleChange?.(event);
+              props?.onChange?.(event);
             }}
           />
         </AtomWrapper>
@@ -85,4 +78,4 @@ const InputText = (props: AtomInputTypes) => {
   );
 };
 
-export default InputText;
+export default InputDate;

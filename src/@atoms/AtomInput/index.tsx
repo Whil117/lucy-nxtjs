@@ -1,5 +1,7 @@
 import InputCheckBox from "./checkbox";
 import InputColor from "./color";
+import InputDate from "./date";
+import InputNumber from "./number";
 import InputRadio from "./radio";
 import InputText from "./text";
 import InputTextBox from "./textbox";
@@ -11,9 +13,12 @@ const inputTypes = {
   checkbox: InputCheckBox,
   textbox: InputTextBox,
   color: InputColor,
+  date: InputDate,
+  month: InputDate,
+  number: InputNumber,
 };
 
-type AtomInputProps = AtomInputTypes & {
+type AtomInputProps = AtomInputTypes<keyof typeof inputTypes> & {
   type: keyof typeof inputTypes;
 };
 

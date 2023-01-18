@@ -62,13 +62,17 @@ export default function Home() {
       myAnswerRadio: "",
       customC: false,
       textMess: "",
-      colorButton: "",
+      colorButton: "#000000",
+      myDATE: "",
+      myNumb: 0,
     },
     onSubmit: () => {},
   });
 
   const [count, setcount] = useState(new Date().getMonth());
   console.log(count);
+
+  console.log(formik.values);
 
   return (
     <AtomWrapper
@@ -291,13 +295,16 @@ export default function Home() {
             Request a Feature
           </AtomText>
           <AtomText width="100%">{formik.values.textMess}</AtomText>
-          <AtomText width="100%">{formik.values.name}</AtomText>
+          <AtomText width="100%">
+            {formik.values.name} {formik.values.name.length}
+          </AtomText>
           <AtomInput
             type="text"
             label="Input text"
             placeholder="Hola escribe aqui"
             labelColor="#999"
             formik={formik}
+            maxLength={31}
             id="name"
           />
           {QuestionsRadios?.map((item) => (
@@ -349,6 +356,36 @@ export default function Home() {
             accentColor="rgb(255, 0, 238)"
             formik={formik}
             height="80px"
+          />
+          <AtomInput
+            type="date"
+            label="Input date"
+            labelColor="#999"
+            id="myDATE"
+            accentColor="rgb(255, 0, 238)"
+            formik={formik}
+            height="80px"
+          />
+          <AtomInput
+            type="month"
+            label="Input date month"
+            labelColor="#999"
+            id="myDATE"
+            accentColor="rgb(255, 0, 238)"
+            formik={formik}
+            height="80px"
+          />
+          <AtomInput
+            type="number"
+            label="Input date month"
+            maxLength={10}
+            labelColor="#999"
+            id="myNumb"
+            accentColor="rgb(255, 0, 238)"
+            formik={formik}
+            height="80px"
+            min={1}
+            max={10}
           />
           <AtomWrapper
             flexDirection="row"
