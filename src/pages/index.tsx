@@ -92,12 +92,15 @@ export default function Home() {
       textMess: "",
       colorButton: "#000000",
       myDATE: "",
+      myFile: {},
+      myFiles: [],
       myNumb: 0,
     },
     onSubmit: () => {},
   });
 
   const [count, setcount] = useState(new Date().getMonth());
+  console.log(formik.values);
 
   return (
     <AtomWrapper
@@ -409,6 +412,29 @@ export default function Home() {
             id="myNumb"
             accentColor="rgb(255, 0, 238)"
             formik={formik}
+            step={10}
+            maxLength={100}
+            min={0}
+            max={100}
+            height="80px"
+          />
+          <AtomInput
+            type="file"
+            label="Input file"
+            labelColor="#999"
+            id="myFile"
+            accentColor="rgb(255, 0, 238)"
+            formik={formik}
+            height="80px"
+          />
+          <AtomInput
+            type="file"
+            label="Input files "
+            labelColor="#999"
+            id="myFiles"
+            accentColor="rgb(255, 0, 238)"
+            formik={formik}
+            multiple
             height="80px"
           />
           <AtomWrapper

@@ -7,6 +7,7 @@
   --input-background-color: #ffffff;
   --icon-color: #1a1a1a;
   --input-date-color: light;
+  --input-file-border-dashed: #1a1a1a;
 }
 
 html[data-theme="light"] {
@@ -18,6 +19,7 @@ html[data-theme="light"] {
   --input-background-color: #ffffff;
   --link-color: #543fd7;
   --input-date-color: light;
+  --input-file-border-dashed: #1a1a1a;
 }
 
 html[data-theme="dark"] {
@@ -29,6 +31,7 @@ html[data-theme="dark"] {
   --card-background: #242424;
   --link-color: #828fff;
   --input-date-color: dark;
+  --input-file-border-dashed: #f7f8f8;
 }
 
 body {

@@ -17,7 +17,9 @@ type AtomInputTypes<TYPE = any> = {
   max?: number;
   maxLength?: number;
   value?: any;
+  multiple?: boolean; //FILES MULTIPLES
   id?: string;
+  step?: number;
   placeholder?: string;
   onChange?: (e: ChangeEvent<any>) => void;
   onClick?: () => void;

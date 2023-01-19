@@ -1,6 +1,7 @@
 import InputCheckBox from "./checkbox";
 import InputColor from "./color";
 import InputDate from "./date";
+import InputFile from "./file";
 import InputNumber from "./number";
 import InputRadio from "./radio";
 import InputText from "./text";
@@ -16,6 +17,7 @@ const inputTypes = {
   date: InputDate,
   month: InputDate,
   number: InputNumber,
+  file: InputFile,
 };
 
 type AtomInputProps = AtomInputTypes<keyof typeof inputTypes> & {
