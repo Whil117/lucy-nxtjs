@@ -63,7 +63,7 @@ const InputFile = (props: AtomInputTypes) => {
             box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
               rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
               rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
-            border: 2px dashed var(--input-file-border-dashed, #1a1a1a);
+            border: 2px dashed var(--input-file-border-dashed, #8a8a8a7f);
             position: relative;
             cursor: pointer;
 

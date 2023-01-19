@@ -7,7 +7,7 @@
   --input-background-color: #ffffff;
   --icon-color: #1a1a1a;
   --input-date-color: light;
-  --input-file-border-dashed: #1a1a1a;
+  --input-file-border-dashed: #8a8a8a7f;
 }
 
 html[data-theme="light"] {
@@ -19,7 +19,7 @@ html[data-theme="light"] {
   --input-background-color: #ffffff;
   --link-color: #543fd7;
   --input-date-color: light;
-  --input-file-border-dashed: #1a1a1a;
+  --input-file-border-dashed: #8a8a8a7f;
 }
 
 html[data-theme="dark"] {

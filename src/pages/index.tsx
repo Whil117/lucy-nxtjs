@@ -387,6 +387,31 @@ export default function Home() {
             formik={formik}
             height="80px"
           />
+          <AtomWrapper
+            flexDirection="row"
+            justifyContent="flex-end"
+            width="100%"
+            gap="10px"
+          >
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+            <AtomButton backgroundColor={formik.values.colorButton}>
+              TEST COLOR
+            </AtomButton>
+          </AtomWrapper>
           <AtomInput
             type="date"
             label="Input date"
@@ -437,31 +462,6 @@ export default function Home() {
             multiple
             height="80px"
           />
-          <AtomWrapper
-            flexDirection="row"
-            justifyContent="flex-end"
-            width="100%"
-            gap="10px"
-          >
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-          </AtomWrapper>
         </AtomWrapperCard>
         <AtomWrapper>
           <AtomText>AtomIcon</AtomText>
