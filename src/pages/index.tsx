@@ -92,8 +92,8 @@ export default function Home() {
       textMess: "",
       colorButton: "#000000",
       myDATE: "",
-      myFile: {},
-      myFiles: [],
+      myFile: {} as File,
+      myFiles: [] as File[],
       myNumb: 0,
     },
     onSubmit: () => {},
@@ -452,6 +452,12 @@ export default function Home() {
             formik={formik}
             height="80px"
           />
+          <AtomWrapperCard>
+            <AtomWrapper>
+              <AtomImage src={formik.values.myFile?.blob} />
+              <AtomText>{formik.values.myFile?.name}</AtomText>
+            </AtomWrapper>
+          </AtomWrapperCard>
           <AtomInput
             type="file"
             label="Input files "
@@ -462,6 +468,14 @@ export default function Home() {
             multiple
             height="80px"
           />
+          <AtomWrapperCard>
+            {formik.values.myFiles?.map((item) => (
+              <AtomWrapper>
+                <AtomImage src={item?.blob} />
+                <AtomText>{item?.name}</AtomText>
+              </AtomWrapper>
+            ))}
+          </AtomWrapperCard>
         </AtomWrapperCard>
         <AtomWrapper>
           <AtomText>AtomIcon</AtomText>

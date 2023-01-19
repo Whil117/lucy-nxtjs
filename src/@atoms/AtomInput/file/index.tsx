@@ -6,6 +6,20 @@ import { ChangeEvent } from "react";
 import { InputTextStyled } from "../text/styled";
 import AtomInputTypes from "../types";
 
+const convertFileToDataURL = (inputFile: File): Promise<string> => {
+  const temporaryFileReader = new FileReader();
+  return new Promise((resolve, reject) => {
+    temporaryFileReader.onerror = () => {
+      temporaryFileReader.abort();
+      reject(new DOMException("Problem parsing input file."));
+    };
+    temporaryFileReader.onload = (data) => {
+      resolve(data?.target?.result as string);
+    };
+    temporaryFileReader?.readAsDataURL(inputFile);
+  });
+};
+
 const InputFile = (props: AtomInputTypes) => {
   return (
     <AtomWrapper width="100%">
@@ -96,15 +110,35 @@ const InputFile = (props: AtomInputTypes) => {
             // value={
             //   props?.formik?.values?.[`${props?.id}`] ?? props?.value ?? ""
             // }
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              console.log(event);
-
-              const getFiles = Array.from(event.target.files);
+            onChange={async (event: ChangeEvent<HTMLInputElement>) => {
+              const getFiles = await Promise.all(
+                await Array.from(event.target.files, async (item) => ({
+                  ...item,
+                  lastModified: item.lastModified,
+                  lastModifiedDate: item.lastModifiedDate,
+                  name: item.name,
+                  size: item.size,
+                  type: item.type,
+                  webkitRelativePath: item.webkitRelativePath,
+                  blob: await convertFileToDataURL(item).then((res) => res),
+                }))
+              );
               const getFile = event.target.files?.[0];
+
+              const getFileWithBlob = {
+                ...getFile,
+                lastModified: getFile.lastModified,
+                lastModifiedDate: getFile.lastModifiedDate,
+                name: getFile.name,
+                size: getFile.size,
+                type: getFile.type,
+                webkitRelativePath: getFile.webkitRelativePath,
+                blob: await convertFileToDataURL(getFile).then((res) => res),
+              };
 
               props?.formik?.setFieldValue(
                 `${props?.id}`,
-                props?.multiple ? getFiles : getFile
+                props?.multiple ? getFiles : getFileWithBlob
               );
 
               props?.onChange?.(event);
