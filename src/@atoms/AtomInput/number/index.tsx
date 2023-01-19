@@ -78,6 +78,9 @@ const InputNumber = (props: AtomInputTypes) => {
                 props?.onChange?.(event);
               }
             }}
+            customCSS={css`
+              color-scheme: var(--input-date-color, light);
+            `}
           />
         </AtomWrapper>
       </AtomWrapper>

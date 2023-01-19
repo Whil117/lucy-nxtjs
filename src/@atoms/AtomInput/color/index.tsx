@@ -111,6 +111,9 @@ const InputColor = (props: AtomInputTypes) => {
               props?.formik?.handleChange?.(event);
               props?.onChange?.(event);
             }}
+            customCSS={css`
+              color-scheme: var(--input-date-color, light);
+            `}
           />
         </AtomWrapper>
       </AtomWrapper>

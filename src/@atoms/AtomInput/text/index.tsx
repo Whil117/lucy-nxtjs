@@ -68,15 +68,14 @@ const InputText = (props: AtomInputTypes) => {
               props?.formik?.values?.[`${props?.id}`] ?? props?.value ?? ""
             }
             onChange={(event) => {
-              if (props?.maxLength) {
-                if (event.target.value.length <= props?.maxLength) {
-                  props?.formik?.handleChange?.(event);
-                  props?.onChange?.(event);
-                }
-              } else {
-                props?.formik?.handleChange?.(event);
-                props?.onChange?.(event);
-              }
+              const isMaxLength = event.target.value.length <= props?.maxLength;
+
+              const manualOnchange = props?.onChange?.(event);
+              const formikOnchange = props?.formik?.handleChange?.(event);
+
+              props?.maxLength
+                ? isMaxLength && (formikOnchange || manualOnchange)
+                : formikOnchange || manualOnchange;
             }}
           />
         </AtomWrapper>

@@ -15,7 +15,7 @@ import isDarkLight from "@Src/@utils/isDarkLight";
 import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const QuestionsRadios: AtomInputTypes[] = [
   {
@@ -50,6 +50,34 @@ const dayByLabel = {
   5: 4,
   6: 6,
 };
+
+import { useEffect } from "react";
+
+function CanvasDrawer() {
+  const canvasRef = useRef(null);
+  const MAINREF = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const canvasMain = MAINREF.current;
+    const context2 = canvasMain.getContext("2d");
+
+    const image = new Image();
+    image.src = "https://picsum.photos/200/300";
+    image.onload = function () {
+      context2.drawImage(image, 25, 25, 140, 140);
+    };
+
+    context2.fillRect(0, 0, 600, 600); //dibuj
+  }, []);
+
+  return (
+    <canvas ref={MAINREF}>
+      <canvas ref={canvasRef} />
+    </canvas>
+  );
+}
 export default function Home() {
   const theme = useTheme();
   const [loading, setloading] = useState(false);
@@ -70,9 +98,6 @@ export default function Home() {
   });
 
   const [count, setcount] = useState(new Date().getMonth());
-  console.log(count);
-
-  console.log(formik.values);
 
   return (
     <AtomWrapper
@@ -92,7 +117,7 @@ export default function Home() {
           Lucy
         </AtomText>
       </AtomWrapper>
-
+      <CanvasDrawer />
       <AtomWrapper>
         <AtomText fontSize="42px" fontWeight="bold">
           A network of creators.
@@ -304,7 +329,9 @@ export default function Home() {
             placeholder="Hola escribe aqui"
             labelColor="#999"
             formik={formik}
-            maxLength={31}
+            onChange={(envent) => {
+              console.log(envent.target.value);
+            }}
             id="name"
           />
           {QuestionsRadios?.map((item) => (
@@ -377,15 +404,12 @@ export default function Home() {
           />
           <AtomInput
             type="number"
-            label="Input date month"
-            maxLength={10}
+            label="Input number"
             labelColor="#999"
             id="myNumb"
             accentColor="rgb(255, 0, 238)"
             formik={formik}
             height="80px"
-            min={1}
-            max={10}
           />
           <AtomWrapper
             flexDirection="row"
