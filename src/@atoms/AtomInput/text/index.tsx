@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import AtomText from "@Src/@atoms/AtomText";
+import { LabelInput } from "@Src/@atoms/AtomLabel/styled";
 import AtomWrapper from "@Src/@atoms/AtomWrapper";
 import AtomInputTypes from "../types";
 import { InputTextStyled } from "./styled";
@@ -8,17 +8,19 @@ const InputText = (props: AtomInputTypes) => {
   return (
     <AtomWrapper width="100%">
       {props?.label && (
-        <AtomText
+        <LabelInput
           color={props?.labelColor ?? ""}
+          htmlFor={props?.id}
           customCSS={css`
             padding: 5px;
             font-family: ${props?.labelFontFamily};
             font-weight: ${props?.labelFontWeight ?? "600"};
             font-size: ${props?.labelFontSize ?? "12px"};
+            cursor: pointer;
           `}
         >
           {props?.label}
-        </AtomText>
+        </LabelInput>
       )}
       <AtomWrapper
         customCSS={css`
