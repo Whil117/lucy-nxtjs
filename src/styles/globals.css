@@ -8,6 +8,7 @@
   --icon-color: #1a1a1a;
   --input-date-color: light;
   --input-file-border-dashed: #8a8a8a7f;
+  --calendar-color: #f7f7f7;
 }
 
 html[data-theme="light"] {
@@ -20,6 +21,7 @@ html[data-theme="light"] {
   --link-color: #543fd7;
   --input-date-color: light;
   --input-file-border-dashed: #8a8a8a7f;
+  --calendar-color: #f7f7f7;
 }
 
 html[data-theme="dark"] {
@@ -32,6 +34,7 @@ html[data-theme="dark"] {
   --link-color: #828fff;
   --input-date-color: dark;
   --input-file-border-dashed: #f7f8f8;
+  --calendar-color: #242424;
 }
 
 body {
