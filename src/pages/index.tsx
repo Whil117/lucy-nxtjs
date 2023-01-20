@@ -15,7 +15,7 @@ import isDarkLight from "@Src/@utils/isDarkLight";
 import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { useFormik } from "formik";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const QuestionsRadios: AtomInputTypes[] = [
   {
@@ -51,33 +51,6 @@ const dayByLabel = {
   6: 6,
 };
 
-import { useEffect } from "react";
-
-function CanvasDrawer() {
-  const canvasRef = useRef(null);
-  const MAINREF = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const canvasMain = MAINREF.current;
-    const context2 = canvasMain.getContext("2d");
-
-    const image = new Image();
-    image.src = "https://picsum.photos/200/300";
-    image.onload = function () {
-      context2.drawImage(image, 25, 25, 140, 140);
-    };
-
-    context2.fillRect(0, 0, 600, 600); //dibuj
-  }, []);
-
-  return (
-    <canvas ref={MAINREF}>
-      <canvas ref={canvasRef} />
-    </canvas>
-  );
-}
 export default function Home() {
   const theme = useTheme();
   const [loading, setloading] = useState(false);
@@ -126,47 +99,34 @@ export default function Home() {
           Lucy
         </AtomText>
       </AtomWrapper>
-      <CanvasDrawer />
       <AtomWrapper>
         <AtomText fontSize="42px" fontWeight="bold">
           A network of creators.
         </AtomText>
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>
-          <AtomWrapper
-            flexDirection="row"
-            alignItems="center"
-            width="100%"
-            justifyContent="space-around"
-          >
-            <AtomLoader type="large" />
-            <AtomLoader type="large" colorLoad="#0072FF" />
-
-            {loading && <AtomLoader type="fullscreen" colorLoad="#0072FF" />}
+          <AtomWrapper flexDirection="row" alignItems="center" width="100%">
+            <AtomLoader isLoading type="large" />
+            <AtomLoader isLoading type="large" colorLoad="#0072FF" />
+            <AtomLoader
+              isLoading={false}
+              type="fullscreen"
+              colorLoad="#0072FF"
+            />
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapper>
           <AtomText>AtomLoader Medium</AtomText>
-          <AtomWrapper
-            flexDirection="row"
-            alignItems="center"
-            width="100%"
-            justifyContent="space-around"
-          >
-            <AtomLoader type="medium" />
-            <AtomLoader type="medium" colorLoad="#0072FF" />
+          <AtomWrapper flexDirection="row" alignItems="center" width="100%">
+            <AtomLoader isLoading type="medium" />
+            <AtomLoader isLoading type="medium" colorLoad="#0072FF" />
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapper>
           <AtomText>AtomLoader Small</AtomText>
-          <AtomWrapper
-            flexDirection="row"
-            alignItems="center"
-            width="100%"
-            justifyContent="space-around"
-          >
-            <AtomLoader type="small" />
-            <AtomLoader type="small" colorLoad="#0072FF" />
+          <AtomWrapper flexDirection="row" alignItems="center" width="100%">
+            <AtomLoader isLoading type="small" />
+            <AtomLoader isLoading type="small" colorLoad="#0072FF" />
           </AtomWrapper>
         </AtomWrapper>
         <AtomWrapper>
@@ -201,7 +161,15 @@ export default function Home() {
             </AtomButton>
           </AtomWrapper>
         </AtomWrapper>
-
+        <AtomInput
+          type="color"
+          label="Input color"
+          labelColor="#999"
+          id="colorButton"
+          accentColor="rgb(255, 0, 238)"
+          formik={formik}
+          height="80px"
+        />
         <AtomWrapper
           customCSS={css`
             display: grid;

@@ -66,12 +66,14 @@ AtomLoaderCircle.defaultProps = {
 
 const AtomLoader = (props: AtomLoaderProps) => {
   return (
-    <AtomWrapper
-      backgroundColor={props?.backgroundColor ?? ""}
-      customCSS={FullScreen[props?.type as keyof typeof FullScreen] ?? null}
-    >
-      <AtomLoaderCircle {...props} />
-    </AtomWrapper>
+    props?.isLoading && (
+      <AtomWrapper
+        backgroundColor={props?.backgroundColor ?? ""}
+        customCSS={FullScreen[props?.type as keyof typeof FullScreen] ?? null}
+      >
+        <AtomLoaderCircle {...props} />
+      </AtomWrapper>
+    )
   );
 };
 
