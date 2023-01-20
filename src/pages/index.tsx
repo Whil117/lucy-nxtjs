@@ -224,7 +224,7 @@ export default function Home() {
                 customCSS={css`
                   padding: 8px;
                   background-color: var(--card-background);
-                  /* grid-column: ${daysPosition[item.gridPosition]}; */
+                  grid-column: ${daysPosition[item.gridPosition]};
                   ${item.isToday
                     ? css`
                         background-color: ${formik.values.colorButton};

@@ -9,6 +9,7 @@ const MAPGRID = {
   5: 4,
   4: 3,
   3: 2,
+  2: 1,
   1: 0,
 };
 const MAPGRIDREVERSE = {
@@ -17,6 +18,7 @@ const MAPGRIDREVERSE = {
   3: 4,
   4: 3,
   5: 2,
+  6: 1,
 };
 
 const getBeforeOrAfterMonth = (
