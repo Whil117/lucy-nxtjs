@@ -100,7 +100,13 @@ export default function Home() {
   });
 
   const [count, setcount] = useState(new Date().getMonth());
-  console.log(formik.values);
+  // console.log(formik.values);
+
+  console.log(
+    getDaysByMotnh({
+      month: count,
+    })
+  );
 
   return (
     <AtomWrapper
@@ -184,11 +190,12 @@ export default function Home() {
               onClick={() => {
                 setcount((prev) => (prev === 11 ? 11 : prev + 1));
               }}
-              backgroundLinearGradient={{
-                rotate: "157deg",
-                primary: "rgb(255, 61, 194)",
-                secondary: "rgb(255, 0, 102)",
-              }}
+              // backgroundLinearGradient={{
+              //   rotate: "157deg",
+              //   primary: "rgb(255, 61, 194)",
+              //   secondary: "rgb(255, 0, 102)",
+              // }}
+              backgroundColor={formik.values.colorButton}
             >
               Increase
             </AtomButton>
@@ -223,7 +230,7 @@ export default function Home() {
                 customCSS={css`
                   ${currentDay &&
                   css`
-                    border-bottom: 2px solid rgb(255, 61, 194);
+                    border-bottom: 2px solid ${formik.values.colorButton};
                   `}
                 `}
               >
@@ -236,36 +243,34 @@ export default function Home() {
           customCSS={css`
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            background-color: #f5f5f5;
-            gap: 2.5px;
+            background-color: var(--background-color);
+            gap: 4px;
           `}
         >
           {getDaysByMotnh({
             month: count,
           }).map((item) => {
-            const current = new Date();
-            const currentDay =
-              current.getDate() === item.numb &&
-              item.month === current.getMonth();
-
             return (
               <AtomWrapper
                 customCSS={css`
-                  padding: 5px;
-                  background-color: white;
-                  grid-column: ${daysPosition[item.day]};
-                  ${currentDay &&
+                  padding: 8px;
+                  background-color: var(--card-background);
+                  grid-column: ${daysPosition[item.gridPosition]};
+                  ${item.isToday &&
                   css`
-                    background-color: rgb(255, 61, 194);
+                    background-color: ${formik.values.colorButton};
                   `}
                 `}
                 height="120px"
               >
                 <AtomText
                   fontSize="17px"
-                  color={currentDay && isDarkLight("rgb(255, 61, 194)")}
+                  fontWeight="bold"
+                  color={
+                    item.isToday && isDarkLight(`${formik.values.colorButton}`)
+                  }
                 >
-                  {item.numb}
+                  {item.countNumber}
                 </AtomText>
               </AtomWrapper>
             );

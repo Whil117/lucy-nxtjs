@@ -4,16 +4,29 @@ type getDaysInMonth = {
 };
 
 function getDaysByMotnh(props: getDaysInMonth) {
-  const { year = new Date().getFullYear(), month } = props;
+  const currentTimeDate = new Date();
+
+  const {
+    year = currentTimeDate.getFullYear(),
+    month = currentTimeDate.getMonth(),
+  } = props;
 
   return Array.from(
     { length: new Date(year, month + 1, 0).getDate() },
-    (_, i) => ({
-      date: new Date(year, month, i + 1),
-      day: new Date(year, month, i + 1).getDay(),
-      month: new Date(year, month, i + 1).getMonth(),
-      numb: i + 1,
-    })
+    (_, i) => {
+      const currentDate = new Date(year, month, i + 1);
+      const currentDay = currentTimeDate;
+
+      return {
+        date: currentDate,
+        gridPosition: currentDate.getDay(),
+        isToday:
+          currentDay.getDate() === i + 1 &&
+          currentDate.getMonth() === currentDay.getMonth(),
+        countMonth: currentDate.getMonth(),
+        countNumber: i + 1,
+      };
+    }
   );
 }
 
