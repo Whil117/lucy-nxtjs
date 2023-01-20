@@ -75,6 +75,12 @@ export default function Home() {
   const [count, setcount] = useState(new Date().getMonth());
   // console.log(formik.values);
 
+  console.log(
+    getDaysByMotnh({
+      month: count,
+    })
+  );
+
   return (
     <AtomWrapper
       maxWidth="1440px"
@@ -207,6 +213,7 @@ export default function Home() {
             grid-template-columns: repeat(7, 1fr);
             background-color: var(--background-color);
             gap: 4px;
+            grid-template-rows: repeat(6, auto);
           `}
         >
           {getDaysByMotnh({
@@ -217,7 +224,7 @@ export default function Home() {
                 customCSS={css`
                   padding: 8px;
                   background-color: var(--card-background);
-                  grid-column: ${daysPosition[item.gridPosition]};
+                  /* grid-column: ${daysPosition[item.gridPosition]}; */
                   ${item.isToday
                     ? css`
                         background-color: ${formik.values.colorButton};
@@ -225,6 +232,10 @@ export default function Home() {
                     : css`
                         background-color: var(--calendar-color);
                       `}
+                  ${!item.isMonth &&
+                  css`
+                    background-color: #e7e7e7;
+                  `}
                 `}
                 height="120px"
               >
