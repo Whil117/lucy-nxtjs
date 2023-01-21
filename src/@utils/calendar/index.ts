@@ -24,7 +24,8 @@ const MAPGRIDREVERSE = {
 const getBeforeOrAfterMonth = (
   year: number,
   month: number,
-  type: "after" | "before"
+  type: "after" | "before",
+  mapGrid: number
 ) => {
   const currentMonth = month;
   const currentYear = year;
@@ -53,7 +54,9 @@ const getBeforeOrAfterMonth = (
   });
 
   const sliceByType = type === "before" ? mainData.reverse() : mainData;
-  return sliceByType;
+
+  const getFilter = sliceByType.filter((_, indx) => indx + 1 <= mapGrid);
+  return getFilter;
 };
 
 function getDaysByMotnh(props: getDaysInMonth) {
@@ -83,15 +86,12 @@ function getDaysByMotnh(props: getDaysInMonth) {
     }
   );
 
-  const first = monthCurrent?.[0]?.gridPosition;
-  const last = monthCurrent?.[monthCurrent?.length - 1]?.gridPosition;
+  const first = MAPGRID[monthCurrent?.[0]?.gridPosition];
+  const last =
+    MAPGRIDREVERSE[monthCurrent?.[monthCurrent?.length - 1]?.gridPosition];
 
-  const after = getBeforeOrAfterMonth(year, month, "after").filter(
-    (_, indx) => indx + 1 <= MAPGRIDREVERSE[last]
-  );
-  const before = getBeforeOrAfterMonth(year, month, "before").filter(
-    (_, indx) => indx + 1 <= MAPGRID[first]
-  );
+  const after = getBeforeOrAfterMonth(year, month, "after", last);
+  const before = getBeforeOrAfterMonth(year, month, "before", first).reverse();
 
   return [...before, ...monthCurrent, ...after];
 }
