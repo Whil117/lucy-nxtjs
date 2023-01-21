@@ -75,12 +75,6 @@ export default function Home() {
   const [count, setcount] = useState(new Date().getMonth());
   // console.log(formik.values);
 
-  console.log(
-    getDaysByMotnh({
-      month: count,
-    })
-  );
-
   return (
     <AtomWrapper
       maxWidth="1440px"
