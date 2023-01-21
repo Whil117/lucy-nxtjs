@@ -8,6 +8,7 @@ import {
   AtomWrapper,
 } from "@Src/@atoms";
 import AtomInput from "@Src/@atoms/AtomInput";
+import { InputFileProps } from "@Src/@atoms/AtomInput/file";
 import AtomInputTypes from "@Src/@atoms/AtomInput/types";
 import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
 import getDaysByMotnh from "@Src/@utils/calendar";
@@ -65,8 +66,8 @@ export default function Home() {
       textMess: "",
       colorButton: "#000000",
       myDATE: "",
-      myFile: {} as File,
-      myFiles: [] as File[],
+      myFile: {} as InputFileProps,
+      myFiles: [] as InputFileProps[],
       myNumb: 0,
     },
     onSubmit: () => {},

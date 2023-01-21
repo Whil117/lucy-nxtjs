@@ -20,6 +20,11 @@ const convertFileToDataURL = (inputFile: File): Promise<string> => {
   });
 };
 
+export type InputFileProps = File & {
+  blob: string;
+  lastModifiedDate: Date;
+};
+
 const InputFile = (props: AtomInputTypes) => {
   return (
     <AtomWrapper width="100%">
@@ -112,18 +117,21 @@ const InputFile = (props: AtomInputTypes) => {
             // }
             onChange={async (event: ChangeEvent<HTMLInputElement>) => {
               const getFiles = await Promise.all(
-                await Array.from(event.target.files, async (item) => ({
-                  ...item,
-                  lastModified: item.lastModified,
-                  lastModifiedDate: item.lastModifiedDate,
-                  name: item.name,
-                  size: item.size,
-                  type: item.type,
-                  webkitRelativePath: item.webkitRelativePath,
-                  blob: await convertFileToDataURL(item).then((res) => res),
-                }))
+                await Array.from(
+                  event.target.files as unknown as InputFileProps[],
+                  async (item) => ({
+                    ...item,
+                    lastModified: item.lastModified,
+                    lastModifiedDate: item.lastModifiedDate,
+                    name: item.name,
+                    size: item.size,
+                    type: item.type,
+                    webkitRelativePath: item.webkitRelativePath,
+                    blob: await convertFileToDataURL(item).then((res) => res),
+                  })
+                )
               );
-              const getFile = event.target.files?.[0];
+              const getFile = event.target.files?.[0] as InputFileProps;
 
               const getFileWithBlob = {
                 ...getFile,
