@@ -25,7 +25,8 @@ export const InputDateStyled = styled(motion.input)<AtomInputTypes>`
   font-family: inherit;
   word-wrap: break-word;
   word-break: break-word;
-
+  min-width: 0;
+  width: -webkit-fill-available;
   position: relative;
   cursor: pointer;
   outline: none;

@@ -1,7 +1,12 @@
 import { SerializedStyles } from "@emotion/react";
 import { FormikCustom } from "@Src/types/formik";
 import { MotionProps } from "framer-motion";
-import { ChangeEvent, FocusEvent, KeyboardEventHandler } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  FocusEventHandler,
+  KeyboardEventHandler,
+} from "react";
 import { AtomTextTypes } from "../AtomText/types";
 
 type AtomInputTypes<TYPE = any> = MotionProps & {
@@ -34,7 +39,12 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   onKeyPressCapture?: KeyboardEventHandler<any>;
   onBlur?: (event: FocusEvent<any>) => void;
   onIsChecked?: (formik?: FormikCustom<any>) => void;
+
   isChecked?: (formik?: FormikCustom<any>) => boolean;
+
+  isFocus?: boolean;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  error?: string;
   disabled?: boolean;
 };
 export default AtomInputTypes;

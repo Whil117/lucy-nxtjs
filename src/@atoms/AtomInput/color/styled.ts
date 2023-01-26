@@ -4,7 +4,7 @@ import AtomInputTypes from "../types";
 
 export const InputColorStyled = styled(motion.input)<AtomInputTypes>`
   flex: 1;
-  width: auto;
+  width: 100%;
   line-height: 21px;
   border: 0;
   margin: 0;

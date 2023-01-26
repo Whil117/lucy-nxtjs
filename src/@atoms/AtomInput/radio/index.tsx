@@ -7,7 +7,7 @@ import colorInputRadioCheck from "../utils/colorInputRadioCheck";
 
 const InputRadio = (props: AtomInputTypes) => {
   return (
-    <AtomWrapper flexDirection="row-reverse">
+    <AtomWrapper justifyContent="flex-end" flexDirection="row-reverse">
       {props?.label && (
         <LabelInput
           htmlFor={props?.id}

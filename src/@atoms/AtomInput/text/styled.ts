@@ -33,5 +33,7 @@ export const InputTextStyled = styled(motion.input)<AtomInputTypes>`
   ::placeholder {
     opacity: 0.8;
   }
+  min-width: 0;
+  width: -webkit-fill-available;
   ${(props) => props?.customCSS};
 `;

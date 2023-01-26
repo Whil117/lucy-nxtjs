@@ -4,7 +4,6 @@ import AtomInputTypes from "../types";
 
 export const InputTextBoxStyled = styled(motion.textarea)<AtomInputTypes>`
   flex: 1;
-  width: auto;
   line-height: 21px;
   border: 0;
   margin: 0;
@@ -19,6 +18,7 @@ export const InputTextBoxStyled = styled(motion.textarea)<AtomInputTypes>`
   -webkit-font-smoothing: antialiased;
   opacity: 1;
   min-width: 0;
+  width: -webkit-fill-available;
   user-select: text;
   letter-spacing: 0.01em;
   word-spacing: 0.02em;

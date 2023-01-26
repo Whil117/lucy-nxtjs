@@ -16,7 +16,209 @@ import isDarkLight from "@Src/@utils/isDarkLight";
 import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { useFormik } from "formik";
+import { motion } from "framer-motion";
 import { useState } from "react";
+import * as Yup from "yup";
+
+const SignupForm = () => {
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string().required(),
+      lastName: Yup.string().required(),
+      email: Yup.string().required(),
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <label htmlFor="firstName">First Name</label>
+      <motion.div
+        css={css`
+          display: flex;
+          flex-direction: column;
+          padding: 8px 12px;
+          cursor: text;
+          box-sizing: border-box;
+          border-radius: 5px;
+          padding: 5px;
+          padding: 0px;
+          box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+            rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+            rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+          border: 1px solid #ffffff7f;
+        `}
+      >
+        <motion.input
+          id="firstName"
+          name="firstName"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.firstName}
+          css={css`
+            flex: 1;
+            width: auto;
+            line-height: 21px;
+            border: 0;
+            margin: 0;
+            padding: 8px 12px;
+            resize: none;
+            color: #333;
+            background: none;
+            font-size: 15px;
+            line-height: 22px;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-font-smoothing: antialiased;
+            opacity: 1;
+            min-width: 0;
+            user-select: text;
+            letter-spacing: 0.01em;
+            word-spacing: 0.02em;
+            font-family: inherit;
+            word-wrap: break-word;
+            word-break: break-word;
+            outline: none;
+            height: 100%;
+            color: var(--text-color, #1a1a1a);
+            border-radius: 5px;
+            background-color: var(--input-background-color);
+            ::placeholder {
+              opacity: 0.8;
+            }
+            min-width: 0;
+            width: -webkit-fill-available;
+          `}
+        />
+      </motion.div>
+      <label htmlFor="lastName">Last Name</label>
+      <motion.div
+        css={css`
+          display: flex;
+          flex-direction: column;
+          padding: 8px 12px;
+          cursor: text;
+          box-sizing: border-box;
+          border-radius: 5px;
+          padding: 5px;
+          padding: 0px;
+          box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+            rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+            rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+          border: 1px solid #ffffff7f;
+        `}
+      >
+        <motion.input
+          id="lastName"
+          name="lastName"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.lastName}
+          css={css`
+            flex: 1;
+            width: auto;
+            line-height: 21px;
+            border: 0;
+            margin: 0;
+            padding: 8px 12px;
+            resize: none;
+            color: #333;
+            background: none;
+            font-size: 15px;
+            line-height: 22px;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-font-smoothing: antialiased;
+            opacity: 1;
+            min-width: 0;
+            user-select: text;
+            letter-spacing: 0.01em;
+            word-spacing: 0.02em;
+            font-family: inherit;
+            word-wrap: break-word;
+            word-break: break-word;
+            outline: none;
+            height: 100%;
+            color: var(--text-color, #1a1a1a);
+            border-radius: 5px;
+            background-color: var(--input-background-color);
+            ::placeholder {
+              opacity: 0.8;
+            }
+            min-width: 0;
+            width: -webkit-fill-available;
+          `}
+        />
+      </motion.div>
+      <label htmlFor="email">Email Address</label>
+      <motion.div
+        css={css`
+          display: flex;
+          flex-direction: column;
+          padding: 8px 12px;
+          cursor: text;
+          box-sizing: border-box;
+          border-radius: 5px;
+          padding: 5px;
+          padding: 0px;
+          box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+            rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+            rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+          border: 1px solid #ffffff7f;
+        `}
+      >
+        <motion.input
+          id="email"
+          name="email"
+          type="email"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+          css={css`
+            flex: 1;
+            width: auto;
+            line-height: 21px;
+            border: 0;
+            margin: 0;
+            padding: 8px 12px;
+            resize: none;
+            color: #333;
+            background: none;
+            font-size: 15px;
+            line-height: 22px;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-font-smoothing: antialiased;
+            opacity: 1;
+            min-width: 0;
+            user-select: text;
+            letter-spacing: 0.01em;
+            word-spacing: 0.02em;
+            font-family: inherit;
+            word-wrap: break-word;
+            word-break: break-word;
+            outline: none;
+            height: 100%;
+            color: var(--text-color, #1a1a1a);
+            border-radius: 5px;
+            background-color: var(--input-background-color);
+            ::placeholder {
+              opacity: 0.8;
+            }
+            min-width: 0;
+            width: -webkit-fill-available;
+          `}
+        />
+      </motion.div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
 
 const QuestionsRadios: AtomInputTypes[] = [
   {
@@ -70,21 +272,20 @@ export default function Home() {
       myFiles: [] as InputFileProps[],
       myNumb: 0,
     },
+    validationSchema: Yup.object({
+      name: Yup.string().required("El nombre es requerido"),
+      textMess: Yup.string().required("El textMess es requerido"),
+    }),
     onSubmit: () => {},
   });
 
   const [count, setcount] = useState(new Date().getMonth());
-  // console.log(formik.values);
+
+  const [focus, setfocus] = useState(false);
 
   return (
-    <AtomWrapper
-      maxWidth="1440px"
-      padding="0px 90px"
-      gap="20px"
-      flexDirection="row"
-      alignItems="center"
-    >
-      <AtomWrapper flexDirection="row">
+    <AtomWrapper maxWidth="1440px" padding="0px 90px" gap="20px">
+      <AtomWrapper>
         <AtomIcon
           src="https://res.cloudinary.com/whil/image/upload/v1672601967/LUCY_gsdwo3.svg"
           width="75px"
@@ -98,6 +299,13 @@ export default function Home() {
         <AtomText fontSize="42px" fontWeight="bold">
           A network of creators.
         </AtomText>
+        <motion.div
+          css={css`
+            background-color: red;
+          `}
+        >
+          dfdf
+        </motion.div>
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>
           <AtomWrapper flexDirection="row" alignItems="center" width="100%">
@@ -110,6 +318,7 @@ export default function Home() {
             />
           </AtomWrapper>
         </AtomWrapper>
+        <SignupForm />
         <AtomWrapper>
           <AtomText>AtomLoader Medium</AtomText>
           <AtomWrapper flexDirection="row" alignItems="center" width="100%">
@@ -308,6 +517,7 @@ export default function Home() {
           <AtomText color="#4619e9" fontWeight="bold">
             Request a Feature
           </AtomText>
+          <AtomButton onClick={formik.submitForm}>SUBMIT</AtomButton>
           <AtomText width="100%">{formik.values.textMess}</AtomText>
           <AtomText width="100%">
             {formik.values.name} {formik.values.name.length}
@@ -318,12 +528,10 @@ export default function Home() {
             placeholder="Hola escribe aqui"
             labelColor="#999"
             formik={formik}
-            onChange={(envent) => {
-              console.log(envent.target.value);
-            }}
             id="name"
+            accentColor="rgb(153, 0, 255)"
           />
-          {QuestionsRadios?.map((item) => (
+          {/* {QuestionsRadios?.map((item) => (
             <AtomInput
               type="radio"
               label={item?.label}
@@ -331,7 +539,7 @@ export default function Home() {
               formik={formik}
               id="Rddd"
             />
-          ))}
+          ))} */}
           <AtomInput
             type="radio"
             label="Input radio"
@@ -348,7 +556,7 @@ export default function Home() {
             id="checkBox"
             accentColor="rgb(153, 0, 255)"
           />
-          <AtomInput
+          {/* <AtomInput
             type="checkbox"
             label="Input checkbox"
             labelColor="#999"
@@ -356,15 +564,23 @@ export default function Home() {
             accentColor="rgb(255, 0, 238)"
             formik={formik}
           />
+ */}
           <AtomInput
             type="textbox"
             label="Input textbox"
             labelColor="#999"
             id="textMess"
-            accentColor="rgb(255, 0, 238)"
+            accentColor="rgb(18, 221, 45)"
             formik={formik}
+            isFocus={focus}
+            onFocus={() => {
+              setfocus(true);
+            }}
+            onBlur={() => {
+              setfocus(false);
+            }}
           />
-          <AtomInput
+          {/* <AtomInput
             type="color"
             label="Input color"
             labelColor="#999"
@@ -372,7 +588,8 @@ export default function Home() {
             accentColor="rgb(255, 0, 238)"
             formik={formik}
             height="80px"
-          />
+          /> */}
+
           <AtomWrapper
             flexDirection="row"
             justifyContent="flex-end"

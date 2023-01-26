@@ -2,12 +2,18 @@ import { css } from "@emotion/react";
 import { LabelInput } from "@Src/@atoms/AtomLabel/styled";
 import AtomWrapper from "@Src/@atoms/AtomWrapper";
 import { FC } from "react";
+import InputError from "../error";
 import AtomInputTypes from "../types";
 import { InputTextBoxStyled } from "./styled";
 
 const InputTextBox: FC = (props: AtomInputTypes) => {
+  const formik = props?.formik;
+  const id = props?.id;
+  const isTouched = formik?.touched?.[props?.id];
+  const isError = formik?.errors?.[id];
+
   return (
-    <AtomWrapper width="100%">
+    <AtomWrapper>
       {props?.label && (
         <LabelInput
           color={props?.labelColor ?? ""}
@@ -24,7 +30,6 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
         </LabelInput>
       )}
       <AtomWrapper
-        height="180px"
         {...props}
         customCSS={css`
           padding: 5px;
@@ -41,6 +46,7 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
               rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
             background-color: rgba(255, 255, 255, 0.2);
           }
+
           ${props?.customCSS ?? css``}
         `}
         whileTap={{
@@ -54,6 +60,7 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
       >
         <AtomWrapper
           height="100%"
+          width="100%"
           customCSS={css`
             display: flex;
             flex-direction: column;
@@ -65,6 +72,17 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
               rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
               rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
             border: 1px solid #ffffff7f;
+            ${isError &&
+            isTouched &&
+            css`
+              border: 1px solid #f36;
+            `}
+
+            ${props?.isFocus &&
+            !isError &&
+            css`
+              border: 1.8px solid ${props?.accentColor ?? "#ffffff7f"};
+            `}
           `}
         >
           <InputTextBoxStyled
@@ -74,9 +92,16 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
               props?.onChange?.(event);
               props?.formik?.handleChange(event);
             }}
+            onFocus={(e) => {
+              props?.onFocus?.(e);
+            }}
+            onBlur={(e) => {
+              props?.onBlur?.(e);
+            }}
           />
         </AtomWrapper>
       </AtomWrapper>
+      <InputError {...props} />
     </AtomWrapper>
   );
 };

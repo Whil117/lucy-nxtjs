@@ -12,7 +12,7 @@ type Props = AtomInputTypes & {
 
 const InputCheckBox: FC<Props> = (props) => {
   return (
-    <AtomWrapper flexDirection="row-reverse">
+    <AtomWrapper justifyContent="flex-end" flexDirection="row-reverse">
       {props?.label && (
         <LabelInput
           htmlFor={props?.id}
