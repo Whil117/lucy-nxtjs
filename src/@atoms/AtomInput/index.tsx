@@ -18,6 +18,7 @@ const inputTypes = {
   month: InputDate,
   number: InputNumber,
   file: InputFile,
+  password: InputText,
 };
 
 type AtomInputProps = AtomInputTypes<keyof typeof inputTypes> & {
