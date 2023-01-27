@@ -416,8 +416,7 @@ export default function Home() {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             background-color: var(--background-color);
-            gap: 4px;
-            grid-template-rows: repeat(6, auto);
+            gap: 10px;
           `}
         >
           {getDaysByMotnh({
@@ -425,10 +424,11 @@ export default function Home() {
           }).map((item) => {
             return (
               <AtomWrapper
+                width="auto"
                 customCSS={css`
                   padding: 8px;
                   background-color: var(--card-background);
-                  /* grid-column: ${daysPosition[item.gridPosition]}; */
+                  grid-column: ${daysPosition[item.gridPosition]};
                   ${item.isToday
                     ? css`
                         background-color: ${formik.values.colorButton};
@@ -438,7 +438,7 @@ export default function Home() {
                       `}
                   ${!item.isMonth &&
                   css`
-                    background-color: #e7e7e7;
+                    background-color: var(--card-background);
                   `}
                 `}
                 height="120px"
