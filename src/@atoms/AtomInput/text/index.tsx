@@ -84,7 +84,7 @@ const InputText = (props: AtomInputTypes) => {
         >
           <motion.input
             {...props}
-            value={props?.formik?.values?.[`${id}`] ?? ""}
+            value={props?.formik?.values?.[`${id}`] ?? props?.value ?? ""}
             onChange={(event) => {
               const isMaxLength = event.target.value.length <= props?.maxLength;
 
