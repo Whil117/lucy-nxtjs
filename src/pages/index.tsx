@@ -10,6 +10,7 @@ import {
 import AtomInput from "@Src/@atoms/AtomInput";
 import { InputFileProps } from "@Src/@atoms/AtomInput/file";
 import AtomInputTypes from "@Src/@atoms/AtomInput/types";
+import AtomTextEditor from "@Src/@atoms/AtomTextEditor";
 import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
 import getDaysByMotnh from "@Src/@utils/calendar";
 import isDarkLight from "@Src/@utils/isDarkLight";
@@ -295,6 +296,7 @@ export default function Home() {
           Lucy
         </AtomText>
       </AtomWrapper>
+
       <AtomWrapper>
         <AtomText fontSize="42px" fontWeight="bold">
           A network of creators.
@@ -306,6 +308,22 @@ export default function Home() {
         >
           dfdf
         </motion.div>
+
+        <AtomWrapper
+          width="100%"
+          customCSS={css`
+            iframe {
+              width: 100%;
+            }
+          `}
+          dangerouslySetInnerHTML={{
+            __html: `<iframe src="https://open.spotify.com/embed/track/18OjYSOz2ryc2vLmAeG2de?utm_source=generator" width="auto" height="80px" id="IFRAMEPLAYER" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;"></iframe>`,
+          }}
+        ></AtomWrapper>
+
+        <AtomTextEditor
+          value={`<iframe src="https://open.spotify.com/embed/track/00Cxlg96EHYJG2VoTh7Q3D?utm_source=generator" width="auto" height="80px" id="IFRAMEPLAYER" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;"></iframe>`}
+        />
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>
           <AtomWrapper flexDirection="row" alignItems="center" width="100%">
