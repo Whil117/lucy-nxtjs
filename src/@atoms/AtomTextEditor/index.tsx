@@ -128,6 +128,9 @@ const AtomTextEditor: FC<PropsEditor> = (props) => {
               padding: 8px 12px;
               outline: none;
               width: -webkit-fill-available;
+              img {
+                width: inherit;
+              }
               .video-wrapper {
                 margin: 0px 0px 20px 0px;
                 video {
