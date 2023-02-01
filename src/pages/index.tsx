@@ -323,9 +323,7 @@ export default function Home() {
         <AtomTextEditor
           accentColor="rgb(255, 0, 238)"
           label="Message"
-          onChange={(event) => {
-            console.log(event.editor?.getHTML());
-          }}
+          onChange={(event) => {}}
           value={``}
         />
         <AtomWrapper>
