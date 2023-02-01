@@ -317,12 +317,16 @@ export default function Home() {
             }
           `}
           dangerouslySetInnerHTML={{
-            __html: `<iframe src="https://open.spotify.com/embed/track/18OjYSOz2ryc2vLmAeG2de?utm_source=generator" width="auto" height="80px" id="IFRAMEPLAYER" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;"></iframe>`,
+            __html: `<iframe src="https://open.spotify.com/embed/track/00Cxlg96EHYJG2VoTh7Q3D?utm_source=generator&quot" width="auto" height="80px" id="IFRAMEPLAYER" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;"></iframe>`,
           }}
         ></AtomWrapper>
-
         <AtomTextEditor
-          value={`<iframe src="https://open.spotify.com/embed/track/00Cxlg96EHYJG2VoTh7Q3D?utm_source=generator" width="auto" height="80px" id="IFRAMEPLAYER" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;"></iframe>`}
+          accentColor="rgb(255, 0, 238)"
+          label="Message"
+          onChange={(event) => {
+            console.log(event.editor?.getHTML());
+          }}
+          value={``}
         />
         <AtomWrapper>
           <AtomText>AtomLoader Large</AtomText>

@@ -1,5 +1,10 @@
 import type { SerializedStyles } from "@emotion/react";
-import type { PointerEventHandler, RefObject, UIEventHandler } from "react";
+import type {
+  PointerEventHandler,
+  Ref,
+  RefObject,
+  UIEventHandler,
+} from "react";
 
 export type AtomWrapperTypes = {
   id?: string;
@@ -96,6 +101,7 @@ export type AtomWrapperTypes = {
   asWrapper?: string;
   as?: "div" | "form" | "section" | "li";
   refObject?: RefObject<any>;
+  ref?: Ref<any>;
   customCSS?: SerializedStyles;
   onPointerDown?: PointerEventHandler<any>;
   dangerouslySetInnerHTML?: { __html: string };
