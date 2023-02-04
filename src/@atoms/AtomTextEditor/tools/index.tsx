@@ -5,7 +5,7 @@ import AtomInput from "@Src/@atoms/AtomInput";
 import AtomText from "@Src/@atoms/AtomText";
 import AtomWrapper from "@Src/@atoms/AtomWrapper";
 import isDarkLight from "@Src/@utils/isDarkLight";
-import { Editor } from "@tiptap/react";
+import { Editor } from "@tiptap/core";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PropsEditor } from "..";
