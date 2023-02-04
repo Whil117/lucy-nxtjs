@@ -53,7 +53,7 @@ const toolsMap = (props: Props) => {
       label: "ITALIC",
       slug: "italic",
       onClick: () => {
-        // editor?.chain().focus().toggleItalic().run();
+        editor?.chain().focus()?.toggleItalic().run();
       },
       children: AtomIconGet(
         "https://res.cloudinary.com/whil/image/upload/v1675310099/text-italic_qjc408.svg",
@@ -65,7 +65,7 @@ const toolsMap = (props: Props) => {
       label: "STROKE",
       slug: "strike",
       onClick: () => {
-        editor?.chain().focus().toggleStrike().run();
+        editor?.chain().focus()?.toggleStrike().run();
       },
       children: AtomIconGet(
         "https://res.cloudinary.com/whil/image/upload/v1675311569/textstroke_gbdiib.svg",
