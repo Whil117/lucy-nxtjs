@@ -85,7 +85,7 @@ const InputText = (props: AtomInputTypes) => {
           `}
         >
           <motion.input
-            type="text"
+            type={props?.type ?? "text"}
             value={props?.formik?.values?.[`${id}`] ?? props?.value ?? ""}
             name={`${id}`}
             onChange={(event) => {
