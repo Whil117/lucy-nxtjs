@@ -9,11 +9,13 @@ import {
 } from "@Src/@atoms";
 import AtomInput from "@Src/@atoms/AtomInput";
 import { InputFileProps } from "@Src/@atoms/AtomInput/file";
+import InputText from "@Src/@atoms/AtomInput/text";
 import AtomInputTypes from "@Src/@atoms/AtomInput/types";
 import AtomTextEditor from "@Src/@atoms/AtomTextEditor";
 import AtomWrapperCard from "@Src/@atoms/AtomWrapperCard";
 import getDaysByMotnh from "@Src/@utils/calendar";
 import isDarkLight from "@Src/@utils/isDarkLight";
+import FormFormik from "@Src/components/formFormik";
 import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { useFormik } from "formik";
@@ -21,202 +23,439 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import * as Yup from "yup";
 
-const SignupForm = () => {
+const MyForm = () => {
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
     },
     validationSchema: Yup.object({
-      firstName: Yup.string().required(),
-      lastName: Yup.string().required(),
-      email: Yup.string().required(),
+      name: Yup.string().required(),
     }),
-    onSubmit: (values) => {
+    onSubmit: (values, formikHelpers) => {
       alert(JSON.stringify(values, null, 2));
+      formikHelpers.setSubmitting(false);
     },
   });
+
   return (
     <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="firstName">First Name</label>
+      {/* <InputText formik={formik} id="name" />
+      <InputText formik={formik} id="name" />
+      <InputText formik={formik} id="name" />
+      <InputText formik={formik} id="name" />
+      <InputText formik={formik} id="name" /> */}
+
+      {formik.errors.name && formik.touched.name && formik.errors.name}
+
       <motion.div
         css={css`
-          display: flex;
-          flex-direction: column;
-          padding: 8px 12px;
-          cursor: text;
-          box-sizing: border-box;
-          border-radius: 5px;
           padding: 5px;
-          padding: 0px;
-          box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
-            rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
-            rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
-          border: 1px solid #ffffff7f;
+          border-radius: 5px;
+          &:hover {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+          &:focus {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
         `}
+        whileTap={{
+          scale: 0.99,
+        }}
+        whileHover={{ scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
       >
-        <motion.input
-          id="firstName"
-          name="firstName"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.firstName}
+        <motion.div
           css={css`
-            flex: 1;
-            width: auto;
-            line-height: 21px;
-            border: 0;
-            margin: 0;
+            display: flex;
+            flex-direction: column;
             padding: 8px 12px;
-            resize: none;
-            color: #333;
-            background: none;
-            font-size: 15px;
-            line-height: 22px;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-font-smoothing: antialiased;
-            opacity: 1;
-            min-width: 0;
-            user-select: text;
-            letter-spacing: 0.01em;
-            word-spacing: 0.02em;
-            font-family: inherit;
-            word-wrap: break-word;
-            word-break: break-word;
-            outline: none;
-            height: 100%;
-            color: var(--text-color, #1a1a1a);
+            cursor: text;
+            box-sizing: border-box;
             border-radius: 5px;
-            background-color: var(--input-background-color);
-            ::placeholder {
-              opacity: 0.8;
-            }
-            min-width: 0;
-            width: -webkit-fill-available;
+            padding: 5px;
+            padding: 0px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+              rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+              rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+            border: 1px solid #ffffff7f;
           `}
-        />
+        >
+          <motion.input
+            type="email"
+            name="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className="InputDefault"
+          />
+        </motion.div>
       </motion.div>
-      <label htmlFor="lastName">Last Name</label>
+
       <motion.div
         css={css`
-          display: flex;
-          flex-direction: column;
-          padding: 8px 12px;
-          cursor: text;
-          box-sizing: border-box;
-          border-radius: 5px;
+          height: 100px;
           padding: 5px;
-          padding: 0px;
-          box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
-            rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
-            rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
-          border: 1px solid #ffffff7f;
+          border-radius: 5px;
+          &:hover {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+          &:focus {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
         `}
+        whileTap={{
+          scale: 0.99,
+        }}
+        whileHover={{ scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
       >
-        <motion.input
-          id="lastName"
-          name="lastName"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.lastName}
+        <motion.div
           css={css`
-            flex: 1;
-            width: auto;
-            line-height: 21px;
-            border: 0;
-            margin: 0;
+            display: flex;
+            height: 100px;
+            flex-direction: column;
             padding: 8px 12px;
-            resize: none;
-            color: #333;
-            background: none;
-            font-size: 15px;
-            line-height: 22px;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-font-smoothing: antialiased;
-            opacity: 1;
-            min-width: 0;
-            user-select: text;
-            letter-spacing: 0.01em;
-            word-spacing: 0.02em;
-            font-family: inherit;
-            word-wrap: break-word;
-            word-break: break-word;
-            outline: none;
-            height: 100%;
-            color: var(--text-color, #1a1a1a);
+            cursor: text;
+            box-sizing: border-box;
             border-radius: 5px;
-            background-color: var(--input-background-color);
-            ::placeholder {
-              opacity: 0.8;
-            }
-            min-width: 0;
-            width: -webkit-fill-available;
+            padding: 5px;
+            padding: 0px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+              rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+              rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+            border: 1px solid #ffffff7f;
           `}
-        />
+        >
+          <motion.input
+            type="color"
+            name="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className="InputDefault"
+          />
+        </motion.div>
       </motion.div>
-      <label htmlFor="email">Email Address</label>
+
       <motion.div
         css={css`
-          display: flex;
-          flex-direction: column;
-          padding: 8px 12px;
-          cursor: text;
-          box-sizing: border-box;
-          border-radius: 5px;
           padding: 5px;
-          padding: 0px;
-          box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
-            rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
-            rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
-          border: 1px solid #ffffff7f;
+          border-radius: 5px;
+          &:hover {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+          &:focus {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
         `}
+        whileTap={{
+          scale: 0.99,
+        }}
+        whileHover={{ scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
       >
-        <motion.input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          value={formik.values.email}
+        <motion.div
           css={css`
-            flex: 1;
-            width: auto;
-            line-height: 21px;
-            border: 0;
-            margin: 0;
+            display: flex;
+            flex-direction: column;
             padding: 8px 12px;
-            resize: none;
-            color: #333;
-            background: none;
-            font-size: 15px;
-            line-height: 22px;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-font-smoothing: antialiased;
-            opacity: 1;
-            min-width: 0;
-            user-select: text;
-            letter-spacing: 0.01em;
-            word-spacing: 0.02em;
-            font-family: inherit;
-            word-wrap: break-word;
-            word-break: break-word;
-            outline: none;
-            height: 100%;
-            color: var(--text-color, #1a1a1a);
+            cursor: text;
+            box-sizing: border-box;
             border-radius: 5px;
-            background-color: var(--input-background-color);
-            ::placeholder {
-              opacity: 0.8;
-            }
-            min-width: 0;
-            width: -webkit-fill-available;
+            padding: 5px;
+            padding: 0px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+              rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+              rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+            border: 1px solid #ffffff7f;
           `}
-        />
+        >
+          <motion.input
+            type="email"
+            name="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className="InputDefault"
+          />
+        </motion.div>
       </motion.div>
-      <button type="submit">Submit</button>
+
+      <motion.div
+        css={css`
+          padding: 5px;
+          border-radius: 5px;
+          &:hover {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+          &:focus {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+        `}
+        whileTap={{
+          scale: 0.99,
+        }}
+        whileHover={{ scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <motion.div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            padding: 8px 12px;
+            cursor: text;
+            box-sizing: border-box;
+            border-radius: 5px;
+            padding: 5px;
+            padding: 0px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+              rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+              rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+            border: 1px solid #ffffff7f;
+          `}
+        >
+          <motion.input
+            type="email"
+            name="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className="InputDefault"
+          />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        css={css`
+          padding: 5px;
+          border-radius: 5px;
+          &:hover {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+          &:focus {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+        `}
+        whileTap={{
+          scale: 0.99,
+        }}
+        whileHover={{ scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <motion.div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            padding: 8px 12px;
+            cursor: text;
+            box-sizing: border-box;
+            border-radius: 5px;
+            padding: 5px;
+            padding: 0px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+              rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+              rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+            border: 1px solid #ffffff7f;
+          `}
+        >
+          <motion.input
+            type="email"
+            name="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className="InputDefault"
+          />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        css={css`
+          padding: 5px;
+          border-radius: 5px;
+          &:hover {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+          &:focus {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+        `}
+        whileTap={{
+          scale: 0.99,
+        }}
+        whileHover={{ scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <motion.div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            padding: 8px 12px;
+            cursor: text;
+            box-sizing: border-box;
+            border-radius: 5px;
+            padding: 5px;
+            padding: 0px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+              rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+              rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+            border: 1px solid #ffffff7f;
+          `}
+        >
+          <motion.input
+            type="email"
+            name="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className="InputDefault"
+          />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        css={css`
+          padding: 5px;
+          border-radius: 5px;
+          &:hover {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+          &:focus {
+            box-shadow: rgb(0 0 0 / 4%) 0px 0.60323px 3.01615px -1.25px,
+              rgb(0 0 0 / 3%) 0px 2.29021px 11.4511px -2.5px,
+              rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+        `}
+        whileTap={{
+          scale: 0.99,
+        }}
+        whileHover={{ scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <motion.div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            padding: 8px 12px;
+            cursor: text;
+            box-sizing: border-box;
+            border-radius: 5px;
+            padding: 5px;
+            padding: 0px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
+              rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
+              rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
+            border: 1px solid #ffffff7f;
+          `}
+        >
+          <motion.input
+            type="email"
+            name="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className="InputDefault"
+          />
+        </motion.div>
+      </motion.div>
+
+      {formik.errors.email && formik.touched.email && formik.errors.email}
+
+      <button type="submit" disabled={formik.isSubmitting}>
+        Submit
+      </button>
+    </form>
+  );
+};
+
+const MyForm222222 = () => {
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required(),
+    }),
+    onSubmit: (values, formikHelpers) => {
+      alert(JSON.stringify(values, null, 2));
+      formikHelpers.setSubmitting(false);
+    },
+  });
+
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <InputText formik={formik} id="name" />
+      <InputText formik={formik} id="name" />
+      <InputText formik={formik} id="name" />
+      <InputText formik={formik} id="name" />
+      <InputText formik={formik} id="name" />
+
+      <button type="submit" disabled={formik.isSubmitting}>
+        Submit
+      </button>
     </form>
   );
 };
@@ -257,7 +496,6 @@ const dayByLabel = {
 
 export default function Home() {
   const theme = useTheme();
-  const [loading, setloading] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -281,8 +519,6 @@ export default function Home() {
   });
 
   const [count, setcount] = useState(new Date().getMonth());
-
-  const [focus, setfocus] = useState(false);
 
   return (
     <AtomWrapper maxWidth="1440px" padding="0px 90px" gap="20px">
@@ -320,9 +556,16 @@ export default function Home() {
             __html: `<iframe src="https://open.spotify.com/embed/track/00Cxlg96EHYJG2VoTh7Q3D?utm_source=generator&quot" width="auto" height="80px" id="IFRAMEPLAYER" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;"></iframe>`,
           }}
         ></AtomWrapper>
+        <iframe
+          src="https://open.spotify.com/embed/album/4WKAzZ4LdjbtQu1Nhh5KDx?utm_source=generator"
+          width="100%"
+          height="352"
+          frameBorder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
         <AtomTextEditor
-          accentColor="rgb(255, 0, 238)"
-          label="Message"
+          accentColor="rgb(18, 221, 45)"
           onChange={(event) => {}}
           value={``}
         />
@@ -338,7 +581,8 @@ export default function Home() {
             />
           </AtomWrapper>
         </AtomWrapper>
-        <SignupForm />
+        <MyForm />
+        <MyForm222222 />
         <AtomWrapper>
           <AtomText>AtomLoader Medium</AtomText>
           <AtomWrapper flexDirection="row" alignItems="center" width="100%">
@@ -539,142 +783,10 @@ export default function Home() {
           </AtomText>
           <AtomButton onClick={formik.submitForm}>SUBMIT</AtomButton>
           <AtomText width="100%">{formik.values.textMess}</AtomText>
-          <AtomText width="100%">
-            {formik.values.name} {formik.values.name.length}
-          </AtomText>
-          <AtomInput
-            type="text"
-            label="Input text"
-            placeholder="Hola escribe aqui"
-            labelColor="#999"
-            formik={formik}
-            id="name"
-            accentColor="rgb(153, 0, 255)"
-          />
-          {/* {QuestionsRadios?.map((item) => (
-            <AtomInput
-              type="radio"
-              label={item?.label}
-              labelColor="#999"
-              formik={formik}
-              id="Rddd"
-            />
-          ))} */}
-          <AtomInput
-            type="radio"
-            label="Input radio"
-            labelColor="#999"
-            id="radioChcek"
-            formik={formik}
-            accentColor="rgb(253, 119, 2)"
-          />
-          <AtomInput
-            type="checkbox"
-            label="Input checkbox"
-            labelColor="#999"
-            formik={formik}
-            id="checkBox"
-            accentColor="rgb(153, 0, 255)"
-          />
-          {/* <AtomInput
-            type="checkbox"
-            label="Input checkbox"
-            labelColor="#999"
-            id="custom"
-            accentColor="rgb(255, 0, 238)"
-            formik={formik}
-          />
- */}
-          <AtomInput
-            type="textbox"
-            label="Input textbox"
-            labelColor="#999"
-            id="textMess"
-            accentColor="rgb(18, 221, 45)"
-            formik={formik}
-            isFocus={focus}
-            onFocus={() => {
-              setfocus(true);
-            }}
-            onBlur={() => {
-              setfocus(false);
-            }}
-          />
-          {/* <AtomInput
-            type="color"
-            label="Input color"
-            labelColor="#999"
-            id="colorButton"
-            accentColor="rgb(255, 0, 238)"
-            formik={formik}
-            height="80px"
-          /> */}
+          <AtomText width="100%"></AtomText>
 
-          <AtomWrapper
-            flexDirection="row"
-            justifyContent="flex-end"
-            width="100%"
-            gap="10px"
-          >
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-            <AtomButton backgroundColor={formik.values.colorButton}>
-              TEST COLOR
-            </AtomButton>
-          </AtomWrapper>
-          <AtomInput
-            type="date"
-            label="Input date"
-            labelColor="#999"
-            id="myDATE"
-            accentColor="rgb(255, 0, 238)"
-            formik={formik}
-            height="80px"
-          />
-          <AtomInput
-            type="month"
-            label="Input date month"
-            labelColor="#999"
-            id="myDATE"
-            accentColor="rgb(255, 0, 238)"
-            formik={formik}
-            height="80px"
-          />
-          <AtomInput
-            type="number"
-            label="Input number"
-            labelColor="#999"
-            id="myNumb"
-            accentColor="rgb(255, 0, 238)"
-            formik={formik}
-            step={10}
-            maxLength={100}
-            min={0}
-            max={100}
-            height="80px"
-          />
-          <AtomInput
-            type="file"
-            label="Input file"
-            labelColor="#999"
-            id="myFile"
-            accentColor="rgb(255, 0, 238)"
-            formik={formik}
-            height="80px"
-          />
+          <FormFormik />
+
           <AtomWrapperCard>
             <AtomWrapper>
               <AtomImage src={formik.values.myFile?.blob} />
@@ -691,14 +803,6 @@ export default function Home() {
             multiple
             height="80px"
           />
-          <AtomWrapperCard>
-            {formik.values.myFiles?.map((item) => (
-              <AtomWrapper>
-                <AtomImage src={item?.blob} />
-                <AtomText>{item?.name}</AtomText>
-              </AtomWrapper>
-            ))}
-          </AtomWrapperCard>
         </AtomWrapperCard>
         <AtomWrapper>
           <AtomText>AtomIcon</AtomText>
@@ -855,45 +959,35 @@ export default function Home() {
                 primary: "rgb(255, 0, 238) 0%",
                 secondary: "rgb(255, 170,0) 100%",
               }}
-              onClick={() => {
-                setloading(true);
-              }}
+              onClick={() => {}}
             >
               LOADER FULLSSCREEN
             </AtomButton>
             <AtomButton
               margin="10px"
               backgroundColor="rgb(255, 170,0)"
-              onClick={() => {
-                setloading(true);
-              }}
+              onClick={() => {}}
             >
               LOADER FULLSSCREEN
             </AtomButton>
             <AtomButton
               margin="10px"
               backgroundColor="#3d3b38"
-              onClick={() => {
-                setloading(true);
-              }}
+              onClick={() => {}}
             >
               LOADER FULLSSCREEN
             </AtomButton>
             <AtomButton
               margin="10px"
               backgroundColor="#47129c"
-              onClick={() => {
-                setloading(true);
-              }}
+              onClick={() => {}}
             >
               LOADER FULLSSCREEN
             </AtomButton>
             <AtomButton
               margin="10px"
               backgroundColor="#e91ee9"
-              onClick={() => {
-                setloading(true);
-              }}
+              onClick={() => {}}
             >
               LOADER FULLSSCREEN
             </AtomButton>

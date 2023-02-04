@@ -5,11 +5,10 @@ import Dropcursor from "@tiptap/extension-dropcursor";
 import Image from "@tiptap/extension-image";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
+import Underline from "@tiptap/extension-underline";
 import { Editor, EditorContent, EditorOptions, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { FC, ReactNode } from "react";
-import { LabelInput } from "../AtomLabel/styled";
-import { AtomTextTypes } from "../AtomText/types";
 import AtomWrapper from "../AtomWrapper";
 import Iframe from "./iframe";
 import ToolsBar from "./tools";
@@ -19,14 +18,8 @@ export type PropsEditor = {
   children?: ReactNode;
   options?: Partial<EditorOptions>;
   value: string;
-  label?: string;
-  labelFontWeight?: AtomTextTypes["fontWeight"];
-  labelFontSize?: string;
-  labelColor?: string;
   accentColor?: string;
   id?: string;
-  labelBackground?: string;
-  labelFontFamily?: string;
   formik?: FormikCustom<any>;
   onChange?: (editor: Editor) => void;
   customCSS?: SerializedStyles;
@@ -44,6 +37,7 @@ const AtomTextEditor: FC<PropsEditor> = (props) => {
       Dropcursor,
       Iframe,
       VideoCustom,
+      Underline,
     ],
     content: formik?.values?.[`${id}`] ?? props?.value ?? ``,
     onUpdate: (values) => {
@@ -55,21 +49,6 @@ const AtomTextEditor: FC<PropsEditor> = (props) => {
 
   return (
     <AtomWrapper zIndex="1">
-      {props?.label && (
-        <LabelInput
-          color={props?.labelColor ?? ""}
-          htmlFor={props?.id}
-          customCSS={css`
-            padding: 5px;
-            font-family: ${props?.labelFontFamily};
-            font-weight: ${props?.labelFontWeight ?? "600"};
-            font-size: ${props?.labelFontSize ?? "12px"};
-            cursor: pointer;
-          `}
-        >
-          {props?.label}
-        </LabelInput>
-      )}
       <AtomWrapper
         customCSS={css`
           padding: 5px;
@@ -88,14 +67,6 @@ const AtomTextEditor: FC<PropsEditor> = (props) => {
             background-color: rgba(255, 255, 255, 0.2);
           }
         `}
-        whileTap={{
-          scale: 0.99,
-        }}
-        whileHover={{ scale: 1 }}
-        transition={{
-          duration: 0.8,
-          ease: [0, 0.71, 0.2, 1.01],
-        }}
       >
         <ToolsBar editor={editor} {...props} />
 
@@ -146,9 +117,68 @@ const AtomTextEditor: FC<PropsEditor> = (props) => {
                   /* height: 100%; */
                 }
               }
+              > * + * {
+                margin-top: 0.75em;
+              }
+
+              ul,
+              ol {
+                padding: 0 1rem;
+              }
+
+              h1,
+              h2,
+              h3,
+              h4,
+              h5,
+              h6 {
+                line-height: 1.1;
+              }
+
+              code {
+                background-color: rgba(#616161, 0.1);
+                color: #616161;
+              }
+
+              pre {
+                background: #0d0d0d;
+                color: #fff;
+                font-family: "JetBrainsMono", monospace;
+                padding: 0.75rem 1rem;
+                border-radius: 0.5rem;
+
+                code {
+                  color: inherit;
+                  padding: 0;
+                  background: none;
+                  font-size: 0.8rem;
+                }
+              }
+
+              img {
+                max-width: 100%;
+                height: auto;
+              }
+
+              hr {
+                margin: 1rem 0;
+              }
+
+              blockquote {
+                padding-left: 1rem;
+                border-left: 2px solid rgba(#0d0d0d, 0.1);
+              }
             }
             ${customCSS ?? css``}
           `}
+          // whileTap={{
+          //   scale: 0.99,
+          // }}
+          // whileHover={{ scale: 1 }}
+          // transition={{
+          //   duration: 0.8,
+          //   ease: [0, 0.71, 0.2, 1.01],
+          // }}
         >
           <EditorContent
             editor={editor}

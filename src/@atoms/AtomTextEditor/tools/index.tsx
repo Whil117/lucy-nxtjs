@@ -7,15 +7,109 @@ import AtomWrapper from "@Src/@atoms/AtomWrapper";
 import isDarkLight from "@Src/@utils/isDarkLight";
 import { Editor } from "@tiptap/react";
 import { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { PropsEditor } from "..";
-
 type Props = PropsEditor & {
   editor: Editor;
 };
 
 const regexIframe = /iframe/;
 
-const ToolsBar = ({ editor, accentColor }: Props) => {
+const AtomIconGet = (src: string, accentColor: string) => [
+  <AtomIcon
+    src={src}
+    color="default"
+    width="25px"
+    height="25px"
+    customCSS={css`
+      svg {
+        path {
+          fill: none;
+          stroke-width: 2px;
+          stroke: ${isDarkLight(accentColor ?? "")};
+        }
+      }
+    `}
+  />,
+];
+
+const toolsMap = (props: Props) => {
+  const { editor, accentColor } = props;
+  return [
+    {
+      id: uuidv4(),
+      label: "BOLD",
+      slug: "bold",
+      onClick: () => {
+        editor?.chain().focus().toggleBold().run();
+      },
+      children: AtomIconGet(
+        "https://res.cloudinary.com/whil/image/upload/v1675308653/textbold_cj0ssj.svg",
+        accentColor
+      ),
+    },
+    {
+      id: uuidv4(),
+      label: "ITALIC",
+      slug: "italic",
+      onClick: () => {
+        editor?.chain().focus().toggleItalic().run();
+      },
+      children: AtomIconGet(
+        "https://res.cloudinary.com/whil/image/upload/v1675310099/text-italic_qjc408.svg",
+        accentColor
+      ),
+    },
+    {
+      id: uuidv4(),
+      label: "STROKE",
+      slug: "strike",
+      onClick: () => {
+        editor?.chain().focus().toggleStrike().run();
+      },
+      children: AtomIconGet(
+        "https://res.cloudinary.com/whil/image/upload/v1675311569/textstroke_gbdiib.svg",
+        accentColor
+      ),
+    },
+    {
+      id: uuidv4(),
+      label: "UNDERLINE",
+      slug: "underline",
+      onClick: () => {
+        editor?.chain().focus().toggleUnderline().run();
+      },
+      children: AtomIconGet(
+        "https://res.cloudinary.com/whil/image/upload/v1675310821/text-underline_w6yk9o.svg",
+        accentColor
+      ),
+    },
+    {
+      id: uuidv4(),
+      label: "PARAGRAPH",
+      onClick: () => {
+        editor?.chain().focus().setParagraph().run();
+      },
+      children: AtomIconGet(
+        "https://res.cloudinary.com/whil/image/upload/v1675312568/text-P_eu95jk.svg",
+        accentColor
+      ),
+    },
+    {
+      id: uuidv4(),
+      label: "H1",
+      onClick: () => {
+        editor?.chain().focus().setParagraph().run();
+      },
+      children: AtomIconGet(
+        "https://res.cloudinary.com/whil/image/upload/v1675312568/text-P_eu95jk.svg",
+        accentColor
+      ),
+    },
+  ];
+};
+const ToolsBar = (props: Props) => {
+  const { editor, accentColor } = props;
   const [showModalUrls, setshowModalUrls] = useState(false);
   const [url, seturl] = useState("");
   const ref = useRef(null);
@@ -99,7 +193,7 @@ const ToolsBar = ({ editor, accentColor }: Props) => {
               padding="5px"
             >
               <AtomIcon
-                src="https://res.cloudinary.com/whil/image/upload/v1665020520/Vector3_wbh0px.svg"
+                src="https://res.cloudinary.com/whil/image/upload/v1675307897/links_mhsrbi.svg"
                 color="default"
                 width="25px"
                 height="25px"
@@ -124,42 +218,198 @@ const ToolsBar = ({ editor, accentColor }: Props) => {
           </AtomWrapper>
         </AtomWrapper>
       )}
-      <AtomButton
-        onClick={() => {
-          setshowModalUrls(true);
-        }}
-        padding="7px 8px"
-        backgroundColor="#f00"
+      <AtomWrapper
+        customCSS={css`
+          /* Basic editor styles */
+          .ProseMirror {
+            > * + * {
+              margin-top: 0.75em;
+            }
+
+            ul,
+            ol {
+              padding: 0 1rem;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+              line-height: 1.1;
+            }
+
+            code {
+              background-color: rgba(#616161, 0.1);
+              color: #616161;
+            }
+
+            pre {
+              background: #0d0d0d;
+              color: #fff;
+              font-family: "JetBrainsMono", monospace;
+              padding: 0.75rem 1rem;
+              border-radius: 0.5rem;
+
+              code {
+                color: inherit;
+                padding: 0;
+                background: none;
+                font-size: 0.8rem;
+              }
+            }
+
+            img {
+              max-width: 100%;
+              height: auto;
+            }
+
+            hr {
+              margin: 1rem 0;
+            }
+
+            blockquote {
+              padding-left: 1rem;
+              border-left: 2px solid rgba(#0d0d0d, 0.1);
+            }
+          }
+        `}
       >
-        <svg height="20px" version="1.1" viewBox="0 0 68 48" width="100%">
-          <path
-            d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"
-            fill="#ffffff"
-          ></path>
-          <path d="M 45,24 27,14 27,34" fill="#f00"></path>
-        </svg>
-      </AtomButton>
-      <AtomButton
-        onClick={() => {
-          setshowModalUrls(true);
-        }}
-        padding="7px 8px"
-        backgroundColor="#1db954"
-      >
-        <svg
-          role="img"
-          height="20"
-          width="32"
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          data-encore-id="icon"
+        <AtomButton
+          onClick={() => {
+            setshowModalUrls(true);
+          }}
+          padding="7px 8px"
+          backgroundColor={accentColor}
         >
-          <path
-            d="M12 1a11 11 0 100 22 11 11 0 000-22zm5.045 15.866a.686.686 0 01-.943.228c-2.583-1.579-5.834-1.935-9.663-1.06a.686.686 0 01-.306-1.337c4.19-.958 7.785-.546 10.684 1.226a.686.686 0 01.228.943zm1.346-2.995a.858.858 0 01-1.18.282c-2.956-1.817-7.464-2.344-10.961-1.282a.856.856 0 01-1.11-.904.858.858 0 01.611-.737c3.996-1.212 8.962-.625 12.357 1.462a.857.857 0 01.283 1.179zm.116-3.119c-3.546-2.106-9.395-2.3-12.78-1.272a1.029 1.029 0 01-.597-1.969c3.886-1.18 10.345-.952 14.427 1.471a1.029 1.029 0 01-1.05 1.77z"
-            fill="#fdfdfd"
-          ></path>
-        </svg>
-      </AtomButton>
+          <AtomIcon
+            src="https://res.cloudinary.com/whil/image/upload/v1675307897/links_mhsrbi.svg"
+            color="default"
+            width="25px"
+            height="25px"
+            customCSS={css`
+              svg {
+                path {
+                  fill: none;
+                  stroke-width: 2px;
+                  stroke: ${isDarkLight(accentColor ?? "")};
+                }
+              }
+            `}
+          />
+        </AtomButton>
+        {toolsMap(props)?.map((item) => (
+          <AtomButton padding="7px 8px" backgroundColor={accentColor} {...item}>
+            {item.children}
+          </AtomButton>
+        ))}
+
+        <button
+          onClick={() => editor?.chain().focus().setParagraph().run()}
+          className={editor?.isActive("paragraph") ? "is-active" : ""}
+        >
+          paragraph
+        </button>
+        <button
+          onClick={() =>
+            editor?.chain().focus().toggleHeading({ level: 1 }).run()
+          }
+          className={
+            editor?.isActive("heading", { level: 1 }) ? "is-active" : ""
+          }
+        >
+          h1
+        </button>
+        <button
+          onClick={() =>
+            editor?.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+          className={
+            editor?.isActive("heading", { level: 2 }) ? "is-active" : ""
+          }
+        >
+          h2
+        </button>
+        <button
+          onClick={() =>
+            editor?.chain().focus().toggleHeading({ level: 3 }).run()
+          }
+          className={
+            editor?.isActive("heading", { level: 3 }) ? "is-active" : ""
+          }
+        >
+          h3
+        </button>
+        <button
+          onClick={() =>
+            editor?.chain().focus().toggleHeading({ level: 4 }).run()
+          }
+          className={
+            editor?.isActive("heading", { level: 4 }) ? "is-active" : ""
+          }
+        >
+          h4
+        </button>
+        <button
+          onClick={() =>
+            editor?.chain().focus().toggleHeading({ level: 5 }).run()
+          }
+          className={
+            editor?.isActive("heading", { level: 5 }) ? "is-active" : ""
+          }
+        >
+          h5
+        </button>
+        <button
+          onClick={() =>
+            editor?.chain().focus().toggleHeading({ level: 6 }).run()
+          }
+          className={
+            editor?.isActive("heading", { level: 6 }) ? "is-active" : ""
+          }
+        >
+          h6
+        </button>
+        <button
+          onClick={() => editor?.chain().focus().toggleBulletList().run()}
+          className={editor?.isActive("bulletList") ? "is-active" : ""}
+        >
+          bullet list
+        </button>
+        <button
+          onClick={() => editor?.chain().focus().toggleOrderedList().run()}
+          className={editor?.isActive("orderedList") ? "is-active" : ""}
+        >
+          ordered list
+        </button>
+        <button
+          onClick={() => editor?.chain().focus().toggleCodeBlock().run()}
+          className={editor?.isActive("codeBlock") ? "is-active" : ""}
+        >
+          code block
+        </button>
+        <button
+          onClick={() => editor?.chain().focus().toggleBlockquote().run()}
+          className={editor?.isActive("blockquote") ? "is-active" : ""}
+        >
+          blockquote
+        </button>
+        <button
+          onClick={() => editor?.chain().focus().setHorizontalRule().run()}
+        >
+          horizontal rule
+        </button>
+        <button onClick={() => editor?.chain().focus().setHardBreak().run()}>
+          hard break
+        </button>
+        <button onClick={() => editor?.chain().focus().undo().run()}>
+          undo
+        </button>
+        <button onClick={() => editor?.chain().focus().redo().run()}>
+          redo
+        </button>
+      </AtomWrapper>
     </AtomWrapper>
   );
 };

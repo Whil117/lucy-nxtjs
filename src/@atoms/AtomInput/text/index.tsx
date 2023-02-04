@@ -45,6 +45,7 @@ const InputText = (props: AtomInputTypes) => {
               rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
             background-color: rgba(255, 255, 255, 0.2);
           }
+          ${props?.customCSS?.()}
         `}
         whileTap={{
           scale: 0.99,
@@ -65,6 +66,7 @@ const InputText = (props: AtomInputTypes) => {
             border-radius: 5px;
             padding: 5px;
             padding: 0px;
+            height: 100%;
             box-shadow: rgb(0 0 0 / 10%) 0px 0.60323px 3.01615px -0.833333px,
               rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
               rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
@@ -83,24 +85,18 @@ const InputText = (props: AtomInputTypes) => {
           `}
         >
           <motion.input
-            {...props}
+            type="text"
             value={props?.formik?.values?.[`${id}`] ?? props?.value ?? ""}
+            name={`${id}`}
             onChange={(event) => {
-              const isMaxLength = event.target.value.length <= props?.maxLength;
-
-              if (props?.maxLength && isMaxLength) {
-                props?.onChange?.(event);
-                props?.formik?.handleChange?.(event);
-              } else {
-                props?.onChange?.(event);
-                props?.formik?.handleChange?.(event);
-              }
+              props?.onChange?.(event);
+              props?.formik?.handleChange?.(event);
             }}
             onFocus={props?.onFocus}
             onBlur={props?.onBlur}
             css={css`
               flex: 1;
-              width: auto;
+              width: 100%;
               line-height: 21px;
               border: 0;
               margin: 0;
@@ -130,7 +126,6 @@ const InputText = (props: AtomInputTypes) => {
                 opacity: 0.8;
               }
               min-width: 0;
-              width: -webkit-fill-available;
             `}
           />
         </motion.div>
