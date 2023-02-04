@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PropsEditor } from "..";
 type Props = PropsEditor & {
-  editor: Editor;
+  editor: Editor | null;
 };
 
 const regexIframe = /iframe/;
