@@ -1,12 +1,13 @@
 import { css, SerializedStyles } from "@emotion/react";
 import { FormikCustom } from "@Src/types/formik";
+import { Editor } from "@tiptap/core";
 import Document from "@tiptap/extension-document";
 import Dropcursor from "@tiptap/extension-dropcursor";
 import Image from "@tiptap/extension-image";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Underline from "@tiptap/extension-underline";
-import { Editor, EditorContent, EditorOptions, useEditor } from "@tiptap/react";
+import { EditorContent, EditorOptions, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { FC, ReactNode } from "react";
 import AtomWrapper from "../AtomWrapper";
