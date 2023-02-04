@@ -15,7 +15,7 @@
   "scripts": {
     "dev": "next dev",
     "test": "rollup -c",
-    "build": "next build",
+    "build": "rollup -c",
     "start": "next start",
     "lint": "next lint",
     "rollup": "rollup -c"
