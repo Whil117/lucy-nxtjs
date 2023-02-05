@@ -1,3 +1,4 @@
+import { SerializedStyles } from "@emotion/react";
 import { MotionProps } from "framer-motion";
 
 type AtomLoaderProps = MotionProps & {
@@ -5,5 +6,6 @@ type AtomLoaderProps = MotionProps & {
   backgroundColor?: string;
   isLoading: boolean;
   colorLoad?: string;
+  customCSS?: () => SerializedStyles;
 };
 export default AtomLoaderProps;
