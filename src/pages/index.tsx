@@ -20,8 +20,113 @@ import { useTheme } from "@Src/hooks";
 import { handleSetTheme, handleToggleTheme } from "@Src/utils";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
+
+import { useRef } from "react";
+
+// const elements = [
+//   { id: uuidv4(), x: 50, y: 50, radius: 15, color: "pink" },
+//   { id: uuidv4(), x: 150, y: 150, radius: 50, color: "green" },
+//   { id: uuidv4(), x: 110, y: 150, radius: 50, color: "blue" },
+//   { id: uuidv4(), x: 120, y: 150, radius: 50, color: "yellow" },
+//   { id: uuidv4(), x: 180, y: 220, radius: 50, color: "#e20e0e" },
+// ];
+
+const DrawBox = () => {
+  const canvasRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const [ctx, setCtx] = useState(null);
+
+  const [currentElement, setcurrentElement] = useState(
+    {} as {
+      x: number;
+      y: number;
+      id: string;
+      radius: number;
+      color: string;
+    }
+  );
+
+  const [circles, setCircles] = useState([]);
+
+  const startDrawing = (e) => {
+    setIsDrawing(true);
+    setX(e.clientX);
+    setY(e.clientY);
+  };
+
+  useEffect(() => {
+    setCtx(canvasRef.current.getContext("2d"));
+  }, []);
+
+  const continueDrawing = (e) => {
+    const x = e.clientX - e.target.offsetLeft;
+    const y = e.clientY - e.target.offsetTop;
+    // const selected = circles.find(
+    //   (circle) =>
+    //     Math.sqrt((x - circle.x) ** 2 + (y - circle.y) ** 2) < circle.radius
+    // );
+  };
+
+  useEffect(() => {
+    if (ctx) {
+      circles.forEach((circle) => {
+        ctx.fillStyle = circle.color;
+        ctx.beginPath();
+        ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+        ctx.fill();
+      });
+    }
+  }, [circles, ctx]);
+
+  const handleClick = (e) => {
+    const x = e.clientX - e.target.offsetLeft;
+    const y = e.clientY - e.target.offsetTop;
+    const selected = circles.find(
+      (circle) =>
+        Math.sqrt((x - circle.x) ** 2 + (y - circle.y) ** 2) < circle.radius
+    );
+    if (Object?.values?.(selected ?? {})?.length) {
+      console.log(selected);
+
+      setcurrentElement(selected || null);
+    } else {
+      // setCircles((prev) => [...prev, newAtomFigure(x, y)]);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (ctx) {
+  //     ctx.font = "30px Arial";
+  //     ctx.fillStyle = "black";
+  //     ctx.fillText("Hello123123, Canvas!", 30, 80);
+  //   }
+  // }, [ctx]);
+
+  const stopDrawing = () => {
+    setIsDrawing(false);
+  };
+
+  console.log({ circles });
+
+  return (
+    <AtomWrapper>
+      <canvas
+        ref={canvasRef}
+        style={{ border: "1px solid black" }}
+        width={800}
+        height={600}
+        onMouseDown={startDrawing}
+        onMouseMove={continueDrawing}
+        onMouseUp={stopDrawing}
+        onClick={handleClick}
+      />
+    </AtomWrapper>
+  );
+};
 
 const MyForm = () => {
   const formik = useFormik({
@@ -544,6 +649,7 @@ export default function Home() {
         >
           dfdf
         </motion.div>
+        <DrawBox />
 
         <AtomWrapper
           width="100%"
