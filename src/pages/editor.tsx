@@ -4,7 +4,8 @@ type Props = {
   children?: ReactNode;
 };
 
-import { AtomButton, AtomInput, AtomWrapper } from "@Src/@atoms";
+import { css } from "@emotion/react";
+import { AtomButton, AtomInput, AtomText, AtomWrapper } from "@Src/@atoms";
 import { motion } from "framer-motion";
 import { atom, useAtom } from "jotai";
 import { useRef } from "react";
@@ -38,8 +39,8 @@ const circleItem = ({ x, y, type }: NewProps) => ({
   y: y,
   type: type ?? "CIRCLE",
   radius: 50,
-  width: 100,
-  height: 100,
+  width: 10,
+  height: 10,
   color: "#e20e0e",
 });
 
@@ -56,7 +57,7 @@ const drawTypeFigure = (
     },
     BOX: () => {
       ctx.fillStyle = element.color;
-      ctx.fillRect(element.x, element.y, element.width, element.width);
+      ctx.fillRect(element.x, element.y, element.width, element.height);
     },
   };
 };
@@ -78,10 +79,12 @@ const EditorPage: FC<Props> = () => {
   const [elements, setElements] = useState([] as ElementsProps[]);
 
   const startDrawing = (e) => {
-    const x = e.clientX - e.target.offsetLeft;
-    const y = e.clientY - e.target.offsetTop;
-    setX(x);
-    setY(y);
+    if (controlState !== "VIEW") {
+      const x = e.clientX - e.target.offsetLeft;
+      const y = e.clientY - e.target.offsetTop;
+      setX(x);
+      setY(y);
+    }
   };
 
   useEffect(() => {
@@ -116,17 +119,19 @@ const EditorPage: FC<Props> = () => {
   }, [elements, currentElement, x, y]);
 
   const continueDrawing = (e) => {
-    const x = e.clientX - e.target.offsetLeft;
-    const y = e.clientY - e.target.offsetTop;
-    setX(x);
-    setY(y);
+    if (controlState !== "VIEW") {
+      const x = e.clientX - e.target.offsetLeft;
+      const y = e.clientY - e.target.offsetTop;
+      setX(x);
+      setY(y);
+    }
   };
 
   useEffect(() => {
     if (ctx) {
       elements.forEach((item) => drawTypeFigure(ctx, item)[item.type]());
     }
-  }, [elements, ctx]);
+  }, [elements, ctx, currentElement]);
 
   const handleClick = (e) => {
     const x = e.clientX - e.target.offsetLeft;
@@ -155,6 +160,9 @@ const EditorPage: FC<Props> = () => {
   const stopDrawing = () => {};
 
   const handleUpdate = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     setElements(
       elements.map((elem) =>
         elem.id === currentElement.id ? currentElement : elem
@@ -206,15 +214,15 @@ const EditorPage: FC<Props> = () => {
         />
         <AtomWrapper
           height="auto"
-          alignItems="flex-start"
-          justifyContent="flex-start"
+          alignItems="center"
+          justifyContent="center"
           flexDirection="row"
           gap="10px"
         >
-          <button onClick={handleLeft}>Left</button>
-          <button onClick={handleRight}>Right</button>
-          <button onClick={handleUp}>Up</button>
-          <button onClick={handleDown}>Down</button>
+          <AtomButton onClick={handleLeft}>Left</AtomButton>
+          <AtomButton onClick={handleRight}>Right</AtomButton>
+          <AtomButton onClick={handleUp}>Up</AtomButton>
+          <AtomButton onClick={handleDown}>Down</AtomButton>
           <AtomButton
             backgroundLinearGradient={{
               rotate: "315deg",
@@ -284,10 +292,47 @@ const EditorPage: FC<Props> = () => {
           flexDirection="row"
           alignItems="flex-start"
           justifyContent="flex-start"
+          customCSS={css`
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          `}
         >
+          <AtomWrapper>
+            <AtomText>Editor Props</AtomText>
+            <AtomInput
+              type="number"
+              label="Width"
+              value={currentElement?.width}
+              onChange={(event) => {
+                console.log(event.target.value);
+
+                setcurrentElement((prev) => ({
+                  ...prev,
+                  width: Number(event.target.value),
+                }));
+              }}
+            />
+            <AtomInput
+              type="number"
+              label="Height"
+              value={currentElement?.height}
+              onChange={(event) => {
+                console.log(event.target.value);
+
+                setcurrentElement((prev) => ({
+                  ...prev,
+                  height: Number(event.target.value),
+                }));
+              }}
+            />
+            <AtomButton onClick={handleUpdate}>Update</AtomButton>
+          </AtomWrapper>
           <motion.canvas
             ref={canvasRef}
-            style={{ border: "1px solid black" }}
+            style={{
+              border: "1px solid black",
+            }}
             width={1440}
             height={600}
             onMouseDown={startDrawing}
