@@ -12,17 +12,6 @@ import { useRef } from "react";
 import { v4 } from "uuid";
 
 type ElementsProps = {
-  x: number;
-  y: number;
-  id: string;
-  radius: number;
-  color: string;
-  width: number;
-  height: number;
-  type: string;
-};
-
-type NewProps = {
   x?: number;
   y?: number;
   id?: string;
@@ -33,7 +22,7 @@ type NewProps = {
   type?: string;
 };
 
-const circleItem = ({ x, y, type }: NewProps) => ({
+const circleItem = ({ x, y, type }: ElementsProps) => ({
   id: v4(),
   x: x,
   y: y,
@@ -69,10 +58,16 @@ const STATE_CONTROL_ATOM = atom<"VIEW" | "ADD" | "EDITOR" | "MOVE" | "UPDATE">(
 const EditorPage: FC<Props> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [controlState, setControlState] = useAtom(STATE_CONTROL_ATOM);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-  const [ctx, setCtx] = useState<CanvasRenderingContext2D>(null);
-  const [typeFigure, setTypeFigure] = useState<"BOX" | "CIRCLE">("BOX");
+  const [coordinates, setCoordinates] = useState({
+    x: 0,
+    y: 0,
+  });
+  const { x, y } = coordinates;
+
+  const canvas = canvasRef.current && canvasRef.current;
+  const ctx = canvasRef.current && canvasRef.current.getContext("2d");
+
+  const [selectTypeFigure, setTypeFigure] = useState<"BOX" | "CIRCLE">("BOX");
 
   const [currentElement, setcurrentElement] = useState({} as ElementsProps);
 
@@ -82,20 +77,15 @@ const EditorPage: FC<Props> = () => {
     if (controlState !== "VIEW") {
       const x = e.clientX - e.target.offsetLeft;
       const y = e.clientY - e.target.offsetTop;
-      setX(x);
-      setY(y);
+      setCoordinates({
+        x,
+        y,
+      });
     }
   };
 
   useEffect(() => {
-    setCtx(canvasRef.current.getContext("2d"));
-  }, []);
-
-  useEffect(() => {
     if (currentElement?.id && controlState === "MOVE") {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      // Clear the canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       setElements(
@@ -119,12 +109,15 @@ const EditorPage: FC<Props> = () => {
   }, [elements, currentElement, x, y]);
 
   const continueDrawing = (e) => {
-    if (controlState !== "VIEW") {
-      const x = e.clientX - e.target.offsetLeft;
-      const y = e.clientY - e.target.offsetTop;
-      setX(x);
-      setY(y);
-    }
+    startDrawing(e);
+    // if (controlState !== "VIEW") {
+    //   const x = e.clientX - e.target.offsetLeft;
+    //   const y = e.clientY - e.target.offsetTop;
+    //   setCoordinates({
+    //     x,
+    //     y,
+    //   });
+    // }
   };
 
   useEffect(() => {
@@ -151,13 +144,13 @@ const EditorPage: FC<Props> = () => {
         circleItem({
           x,
           y,
-          type: typeFigure,
+          type: selectTypeFigure,
         }),
       ]);
     }
   };
 
-  const stopDrawing = () => {};
+  // const stopDrawing = () => {};
 
   const handleUpdate = () => {
     const canvas = canvasRef.current;
@@ -171,47 +164,48 @@ const EditorPage: FC<Props> = () => {
   };
 
   const handleLeft = () => {
-    setX(x - 10);
+    setCoordinates((prev) => ({
+      ...prev,
+      x: x - 10,
+    }));
   };
 
   const handleRight = () => {
-    setX(x + 10);
+    setCoordinates((prev) => ({
+      ...prev,
+      x: x + 10,
+    }));
   };
 
   const handleUp = () => {
-    setY(y - 10);
+    setCoordinates((prev) => ({
+      ...prev,
+      y: y - 10,
+    }));
   };
 
   const handleDown = () => {
-    setY(y + 10);
+    setCoordinates((prev) => ({
+      ...prev,
+      y: y + 10,
+    }));
   };
 
   return (
     <AtomWrapper
       width="100%"
-      height="100vh"
       justifyContent="center"
       alignItems="center"
       gap="20px"
     >
       <AtomWrapper
-        width="1440px"
         gap="20px"
         alignItems="center"
         justifyContent="center"
-        height="auto"
+        height="100%"
+        padding="20px"
       >
         {JSON.stringify(currentElement)} {x}, {y}
-        <AtomInput
-          type="color"
-          value={currentElement.color}
-          onChange={(event) => {
-            setcurrentElement((prev) => ({
-              ...prev,
-              color: event.target.value,
-            }));
-          }}
-        />
         <AtomWrapper
           height="auto"
           alignItems="center"
@@ -219,6 +213,16 @@ const EditorPage: FC<Props> = () => {
           flexDirection="row"
           gap="10px"
         >
+          <AtomInput
+            type="color"
+            value={currentElement.color}
+            onChange={(event) => {
+              setcurrentElement((prev) => ({
+                ...prev,
+                color: event.target.value,
+              }));
+            }}
+          />
           <AtomButton onClick={handleLeft}>Left</AtomButton>
           <AtomButton onClick={handleRight}>Right</AtomButton>
           <AtomButton onClick={handleUp}>Up</AtomButton>
@@ -289,6 +293,37 @@ const EditorPage: FC<Props> = () => {
           {controlState}
         </AtomWrapper>
         <AtomWrapper
+          alignItems="flex-start"
+          justifyContent="flex-start"
+          flexDirection="row"
+          gap="20px"
+        >
+          <AtomButton
+            backgroundLinearGradient={{
+              rotate: "315deg",
+              secondary: "#2c07ff",
+              primary: "#0f97ff",
+            }}
+            onClick={() => {
+              setTypeFigure("BOX");
+            }}
+          >
+            BOX
+          </AtomButton>
+          <AtomButton
+            backgroundLinearGradient={{
+              rotate: "315deg",
+              secondary: "#b907ff",
+              primary: "#ff0f7f",
+            }}
+            onClick={() => {
+              setTypeFigure("CIRCLE");
+            }}
+          >
+            CIRCLE
+          </AtomButton>
+        </AtomWrapper>
+        <AtomWrapper
           flexDirection="row"
           alignItems="flex-start"
           justifyContent="flex-start"
@@ -333,39 +368,13 @@ const EditorPage: FC<Props> = () => {
             style={{
               border: "1px solid black",
             }}
-            width={1440}
+            width="1440px"
             height={600}
             onMouseDown={startDrawing}
             onMouseMove={continueDrawing}
-            onMouseUp={stopDrawing}
+            // onMouseUp={stopDrawing}
             onClick={handleClick}
           />
-          <AtomWrapper alignItems="flex-start" justifyContent="flex-start">
-            <AtomButton
-              backgroundLinearGradient={{
-                rotate: "315deg",
-                secondary: "#2c07ff",
-                primary: "#0f97ff",
-              }}
-              onClick={() => {
-                setTypeFigure("BOX");
-              }}
-            >
-              BOX
-            </AtomButton>
-            <AtomButton
-              backgroundLinearGradient={{
-                rotate: "315deg",
-                secondary: "#b907ff",
-                primary: "#ff0f7f",
-              }}
-              onClick={() => {
-                setTypeFigure("CIRCLE");
-              }}
-            >
-              CIRCLE
-            </AtomButton>
-          </AtomWrapper>
         </AtomWrapper>
       </AtomWrapper>
     </AtomWrapper>
