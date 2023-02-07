@@ -4,7 +4,7 @@ type Props = {
   children?: ReactNode;
 };
 
-import { AtomButton, AtomWrapper } from "@Src/@atoms";
+import { AtomButton, AtomInput, AtomWrapper } from "@Src/@atoms";
 import { motion } from "framer-motion";
 import { atom, useAtom } from "jotai";
 import { useRef } from "react";
@@ -16,15 +16,30 @@ type ElementsProps = {
   id: string;
   radius: number;
   color: string;
+  width: number;
+  height: number;
   type: string;
 };
 
-const circleItem = ({ x, y }: { x: number; y: number }) => ({
+type NewProps = {
+  x?: number;
+  y?: number;
+  id?: string;
+  radius?: number;
+  color?: string;
+  width?: number;
+  height?: number;
+  type?: string;
+};
+
+const circleItem = ({ x, y, type }: NewProps) => ({
   id: v4(),
   x: x,
   y: y,
-  type: "CIRCLE",
+  type: type ?? "CIRCLE",
   radius: 50,
+  width: 100,
+  height: 100,
   color: "#e20e0e",
 });
 
@@ -34,90 +49,133 @@ const drawTypeFigure = (
 ) => {
   return {
     CIRCLE: () => {
-      ctx.fillStyle = "red";
+      ctx.fillStyle = element.color;
       ctx.beginPath();
       ctx.arc(element.x, element.y, element.radius, 0, 2 * Math.PI);
       ctx.fill();
     },
     BOX: () => {
-      ctx.fillStyle = "red";
-      ctx.fillRect(10, 10, 100, 100);
+      ctx.fillStyle = element.color;
+      ctx.fillRect(element.x, element.y, element.width, element.width);
     },
   };
 };
 
-const STATE_CONTROL_ATOM = atom<"VIEW" | "ADD" | "EDITOR" | "MOVE">("VIEW");
+const STATE_CONTROL_ATOM = atom<"VIEW" | "ADD" | "EDITOR" | "MOVE" | "UPDATE">(
+  "VIEW"
+);
 
 const EditorPage: FC<Props> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
   const [controlState, setControlState] = useAtom(STATE_CONTROL_ATOM);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D>(null);
+  const [typeFigure, setTypeFigure] = useState<"BOX" | "CIRCLE">("BOX");
 
   const [currentElement, setcurrentElement] = useState({} as ElementsProps);
 
-  const [circles, setCircles] = useState([
-    { id: v4(), x: 180, y: 220, type: "CIRCLE", radius: 50, color: "#e20e0e" },
-  ] as ElementsProps[]);
+  const [elements, setElements] = useState([] as ElementsProps[]);
 
   const startDrawing = (e) => {
-    setIsDrawing(true);
-    setX(e.clientX);
-    setY(e.clientY);
+    const x = e.clientX - e.target.offsetLeft;
+    const y = e.clientY - e.target.offsetTop;
+    setX(x);
+    setY(y);
   };
 
   useEffect(() => {
     setCtx(canvasRef.current.getContext("2d"));
   }, []);
 
+  useEffect(() => {
+    if (currentElement?.id && controlState === "MOVE") {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      setElements(
+        elements.map((element) => {
+          if (element.id === currentElement.id) {
+            ctx.fillStyle = "pink";
+            ctx.fillRect(x, y, element.width, element.height);
+            return {
+              ...element,
+              x,
+              y,
+            };
+          } else {
+            ctx.fillStyle = "black";
+            ctx.fillRect(element.x, element.y, element.width, element.height);
+            return element;
+          }
+        })
+      );
+    }
+  }, [elements, currentElement, x, y]);
+
   const continueDrawing = (e) => {
     const x = e.clientX - e.target.offsetLeft;
     const y = e.clientY - e.target.offsetTop;
-    console.log({ x, y });
-
-    // if (controlState === "MOVE") {
-    //   setCircles(
-    //     circles?.map((item) =>
-    //       item.id === currentElement?.id
-    //         ? {
-    //             ...currentElement,
-    //             x: x,
-    //             y,
-    //           }
-    //         : item
-    //     )
-    //   );
-    // }
+    setX(x);
+    setY(y);
   };
 
   useEffect(() => {
     if (ctx) {
-      circles.forEach((item) => drawTypeFigure(ctx, item)[item.type]());
+      elements.forEach((item) => drawTypeFigure(ctx, item)[item.type]());
     }
-  }, [circles, ctx]);
+  }, [elements, ctx]);
 
   const handleClick = (e) => {
     const x = e.clientX - e.target.offsetLeft;
     const y = e.clientY - e.target.offsetTop;
-    // const selected = circles.find(
-    //   (circle) =>
-    //     Math.sqrt((x - circle.x) ** 2 + (y - circle.y) ** 2) < circle.radius
-    // );
+    if (controlState === "EDITOR") {
+      const selected = elements.find(
+        (circle) =>
+          Math.sqrt((x - circle.x) ** 2 + (y - circle.y) ** 2) < circle.radius
+      );
+      if (selected) {
+        setcurrentElement(selected);
+      }
+    }
     if (controlState === "ADD") {
-      setCircles((prev) => [
+      setElements((prev) => [
         ...prev,
         circleItem({
           x,
           y,
+          type: typeFigure,
         }),
       ]);
     }
   };
 
-  const stopDrawing = () => {
-    setIsDrawing(false);
+  const stopDrawing = () => {};
+
+  const handleUpdate = () => {
+    setElements(
+      elements.map((elem) =>
+        elem.id === currentElement.id ? currentElement : elem
+      )
+    );
+  };
+
+  const handleLeft = () => {
+    setX(x - 10);
+  };
+
+  const handleRight = () => {
+    setX(x + 10);
+  };
+
+  const handleUp = () => {
+    setY(y - 10);
+  };
+
+  const handleDown = () => {
+    setY(y + 10);
   };
 
   return (
@@ -135,6 +193,17 @@ const EditorPage: FC<Props> = () => {
         justifyContent="center"
         height="auto"
       >
+        {JSON.stringify(currentElement)} {x}, {y}
+        <AtomInput
+          type="color"
+          value={currentElement.color}
+          onChange={(event) => {
+            setcurrentElement((prev) => ({
+              ...prev,
+              color: event.target.value,
+            }));
+          }}
+        />
         <AtomWrapper
           height="auto"
           alignItems="flex-start"
@@ -142,6 +211,10 @@ const EditorPage: FC<Props> = () => {
           flexDirection="row"
           gap="10px"
         >
+          <button onClick={handleLeft}>Left</button>
+          <button onClick={handleRight}>Right</button>
+          <button onClick={handleUp}>Up</button>
+          <button onClick={handleDown}>Down</button>
           <AtomButton
             backgroundLinearGradient={{
               rotate: "315deg",
@@ -184,6 +257,17 @@ const EditorPage: FC<Props> = () => {
           <AtomButton
             backgroundLinearGradient={{
               rotate: "315deg",
+              secondary: "#0741ff",
+              primary: "#b30fff",
+            }}
+            focus
+            onClick={handleUpdate}
+          >
+            UPDATE
+          </AtomButton>
+          <AtomButton
+            backgroundLinearGradient={{
+              rotate: "315deg",
               secondary: "#c507ff",
               primary: "#ff0fcb",
             }}
@@ -218,6 +302,9 @@ const EditorPage: FC<Props> = () => {
                 secondary: "#2c07ff",
                 primary: "#0f97ff",
               }}
+              onClick={() => {
+                setTypeFigure("BOX");
+              }}
             >
               BOX
             </AtomButton>
@@ -226,6 +313,9 @@ const EditorPage: FC<Props> = () => {
                 rotate: "315deg",
                 secondary: "#b907ff",
                 primary: "#ff0f7f",
+              }}
+              onClick={() => {
+                setTypeFigure("CIRCLE");
               }}
             >
               CIRCLE
