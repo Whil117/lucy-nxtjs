@@ -7,7 +7,7 @@ type Props = {
 import { css } from "@emotion/react";
 import { AtomButton, AtomInput, AtomText, AtomWrapper } from "@Src/@atoms";
 import { motion } from "framer-motion";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useSetAtom } from "jotai";
 import { useRef } from "react";
 import { v4 } from "uuid";
 
@@ -22,7 +22,7 @@ type ElementsProps = {
   type?: string;
 };
 
-const circleItem = ({ x, y, type }: ElementsProps) => ({
+const newItemAtom = ({ x, y, type }: ElementsProps) => ({
   id: v4(),
   x: x,
   y: y,
@@ -55,23 +55,112 @@ const STATE_CONTROL_ATOM = atom<"VIEW" | "ADD" | "EDITOR" | "MOVE" | "UPDATE">(
   "VIEW"
 );
 
+const MOVE_ELEMENT_ATOM = atom(null, (get, set) => {
+  const canvas = get(CANVAS_ATOM);
+  const ctx = canvas?.getContext("2d");
+  const elements = get(ELEMENTS_ATOM);
+
+  const elementSelected = get(SELECTED_ELEMENT_ATOM);
+  const stateElement = get(STATE_CONTROL_ATOM);
+
+  const { x, y } = get(STATE_COORDINATES_ATOM);
+
+  if (elementSelected?.id && stateElement === "MOVE") {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    set(SELECTED_ELEMENT_ATOM, {
+      ...elementSelected,
+      x,
+      y,
+    });
+
+    set(
+      ELEMENTS_ATOM,
+      elements.map((element) => {
+        if (element.id === elementSelected.id) {
+          ctx.fillStyle = element.color;
+          ctx.fillRect(x, y, element.width, element.height);
+          return {
+            ...element,
+            x,
+            y,
+          };
+        } else {
+          ctx.fillStyle = element.color;
+          ctx.fillRect(element.x, element.y, element.width, element.height);
+          return element;
+        }
+      })
+    );
+  }
+});
+
+const STATE_COORDINATES_ATOM = atom(
+  {
+    x: 0,
+    y: 0,
+  },
+  (get, set, args) => {
+    set(STATE_COORDINATES_ATOM, args);
+    set(MOVE_ELEMENT_ATOM, null);
+  }
+);
+
+const SELECTED_ELEMENT_ATOM = atom({} as ElementsProps);
+const ELEMENTS_ATOM = atom([] as ElementsProps[]);
+
+const CANVAS_ATOM = atom(null as HTMLCanvasElement);
+
+const ELEMENTS_TO_CANVAS_ATOM = atom(null, (get) => {
+  const elemnets = get(ELEMENTS_ATOM);
+  const canvas = get(CANVAS_ATOM);
+  const ctx = canvas?.getContext("2d");
+  elemnets.forEach((item) => drawTypeFigure(ctx, item)[item.type]());
+});
+
+const UPDATE_ELEMENTS_ATOM = atom(null, (get, set) => {
+  const canvas = get(CANVAS_ATOM);
+  const elements = get(ELEMENTS_ATOM);
+  const currrentElement = get(SELECTED_ELEMENT_ATOM);
+  const ctx = canvas?.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  set(
+    ELEMENTS_ATOM,
+    elements.map((elem) => {
+      return elem.id === currrentElement.id ? currrentElement : elem;
+    })
+  );
+});
+
 const EditorPage: FC<Props> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [controlState, setControlState] = useAtom(STATE_CONTROL_ATOM);
-  const [coordinates, setCoordinates] = useState({
-    x: 0,
-    y: 0,
-  });
+  const [coordinates, setCoordinates] = useAtom(STATE_COORDINATES_ATOM);
   const { x, y } = coordinates;
 
   const canvas = canvasRef.current && canvasRef.current;
-  const ctx = canvasRef.current && canvasRef.current.getContext("2d");
-
   const [selectTypeFigure, setTypeFigure] = useState<"BOX" | "CIRCLE">("BOX");
+  const [currentElement, setcurrentElement] = useAtom(SELECTED_ELEMENT_ATOM);
+  const [elements, setElements] = useAtom(ELEMENTS_ATOM);
+  const setContextCanvas = useSetAtom(CANVAS_ATOM);
+  const setCanvasToElements = useSetAtom(ELEMENTS_TO_CANVAS_ATOM);
+  const setUpdateElements = useSetAtom(UPDATE_ELEMENTS_ATOM);
 
-  const [currentElement, setcurrentElement] = useState({} as ElementsProps);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
 
-  const [elements, setElements] = useState([] as ElementsProps[]);
+    const image = new Image();
+    image.src = "https://picsum.photos/200/300";
+    image.crossOrigin = "anonymous";
+    image.width = 100;
+    image.height = 100;
+
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0);
+    };
+  }, []);
 
   const startDrawing = (e) => {
     if (controlState !== "VIEW") {
@@ -85,46 +174,13 @@ const EditorPage: FC<Props> = () => {
   };
 
   useEffect(() => {
-    if (currentElement?.id && controlState === "MOVE") {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      setElements(
-        elements.map((element) => {
-          if (element.id === currentElement.id) {
-            ctx.fillStyle = "pink";
-            ctx.fillRect(x, y, element.width, element.height);
-            return {
-              ...element,
-              x,
-              y,
-            };
-          } else {
-            ctx.fillStyle = "black";
-            ctx.fillRect(element.x, element.y, element.width, element.height);
-            return element;
-          }
-        })
-      );
-    }
-  }, [elements, currentElement, x, y]);
+    setContextCanvas(canvas);
+    setCanvasToElements();
+  }, [elements, canvas, currentElement]);
 
   const continueDrawing = (e) => {
     startDrawing(e);
-    // if (controlState !== "VIEW") {
-    //   const x = e.clientX - e.target.offsetLeft;
-    //   const y = e.clientY - e.target.offsetTop;
-    //   setCoordinates({
-    //     x,
-    //     y,
-    //   });
-    // }
   };
-
-  useEffect(() => {
-    if (ctx) {
-      elements.forEach((item) => drawTypeFigure(ctx, item)[item.type]());
-    }
-  }, [elements, ctx, currentElement]);
 
   const handleClick = (e) => {
     const x = e.clientX - e.target.offsetLeft;
@@ -141,7 +197,7 @@ const EditorPage: FC<Props> = () => {
     if (controlState === "ADD") {
       setElements((prev) => [
         ...prev,
-        circleItem({
+        newItemAtom({
           x,
           y,
           type: selectTypeFigure,
@@ -150,17 +206,8 @@ const EditorPage: FC<Props> = () => {
     }
   };
 
-  // const stopDrawing = () => {};
-
   const handleUpdate = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setElements(
-      elements.map((elem) =>
-        elem.id === currentElement.id ? currentElement : elem
-      )
-    );
+    setUpdateElements();
   };
 
   const handleLeft = () => {
@@ -190,6 +237,8 @@ const EditorPage: FC<Props> = () => {
       y: y + 10,
     }));
   };
+
+  console.log({ elements });
 
   return (
     <AtomWrapper
@@ -353,8 +402,6 @@ const EditorPage: FC<Props> = () => {
               label="Height"
               value={currentElement?.height}
               onChange={(event) => {
-                console.log(event.target.value);
-
                 setcurrentElement((prev) => ({
                   ...prev,
                   height: Number(event.target.value),
