@@ -4,9 +4,7 @@ type Props = {
   children?: ReactNode;
 };
 
-import { css } from "@emotion/react";
-import { AtomButton, AtomInput, AtomText, AtomWrapper } from "@Src/@atoms";
-import { motion } from "framer-motion";
+import LayoutEditor from "@Src/components/layout/editor";
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useRef } from "react";
 import { v4 } from "uuid";
@@ -273,237 +271,241 @@ const EditorPage: FC<Props> = () => {
   };
 
   return (
-    <AtomWrapper
-      width="100%"
-      justifyContent="center"
-      alignItems="center"
-      gap="20px"
-    >
-      <AtomWrapper
-        gap="20px"
-        alignItems="center"
+    <>
+      <LayoutEditor />
+
+      {/* <AtomWrapper
+        width="100%"
         justifyContent="center"
-        height="100%"
-        padding="20px"
+        alignItems="center"
+        gap="20px"
       >
-        {JSON.stringify(currentElement)} {x}, {y}
         <AtomWrapper
-          height="auto"
+          gap="20px"
           alignItems="center"
           justifyContent="center"
-          flexDirection="row"
-          gap="10px"
+          height="100%"
+          padding="20px"
         >
-          <AtomInput
-            type="color"
-            value={currentElement.color}
-            onChange={(event) => {
-              setcurrentElement((prev) => ({
-                ...prev,
-                color: event.target.value,
-              }));
-            }}
-          />
-          <AtomButton onClick={handleLeft}>Left</AtomButton>
-          <AtomButton onClick={handleRight}>Right</AtomButton>
-          <AtomButton onClick={handleUp}>Up</AtomButton>
-          <AtomButton onClick={handleDown}>Down</AtomButton>
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#07deff",
-              primary: "#0f97ff",
-            }}
-            focus
-            onClick={() => {
-              setControlState("VIEW");
-            }}
+          {JSON.stringify(currentElement)} {x}, {y}
+          <AtomWrapper
+            height="auto"
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="row"
+            gap="10px"
           >
-            View
-          </AtomButton>
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#07ff1c",
-              primary: "#47ff0f",
-            }}
-            focus
-            onClick={() => {
-              setControlState("ADD");
-            }}
-          >
-            Add
-          </AtomButton>
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#ff4107",
-              primary: "#ff670f",
-            }}
-            focus
-            onClick={() => {
-              setControlState("EDITOR");
-            }}
-          >
-            Editor
-          </AtomButton>
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#0741ff",
-              primary: "#b30fff",
-            }}
-            focus
-            onClick={handleUpdate}
-          >
-            UPDATE
-          </AtomButton>
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#c507ff",
-              primary: "#ff0fcb",
-            }}
-            focus
-            onClick={() => {
-              setControlState("MOVE");
-            }}
-          >
-            Move
-          </AtomButton>
-          {controlState}
-        </AtomWrapper>
-        <AtomWrapper
-          alignItems="flex-start"
-          justifyContent="flex-start"
-          flexDirection="row"
-          gap="20px"
-        >
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#2c07ff",
-              primary: "#0f97ff",
-            }}
-            onClick={() => {
-              setTypeFigure("BOX");
-            }}
-          >
-            BOX
-          </AtomButton>
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#b907ff",
-              primary: "#ff0f7f",
-            }}
-            onClick={() => {
-              setTypeFigure("CIRCLE");
-            }}
-          >
-            CIRCLE
-          </AtomButton>
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#b907ff",
-              primary: "#ff0f7f",
-            }}
-            onClick={() => {
-              setTypeFigure("TEXT");
-            }}
-          >
-            TEXT
-          </AtomButton>
-          <AtomButton
-            backgroundLinearGradient={{
-              rotate: "315deg",
-              secondary: "#b907ff",
-              primary: "#ff0f7f",
-            }}
-            onClick={() => {
-              setTypeFigure("IMAGE");
-            }}
-          >
-            IMAGE
-          </AtomButton>
-        </AtomWrapper>
-        <AtomWrapper
-          flexDirection="row"
-          alignItems="flex-start"
-          justifyContent="flex-start"
-          customCSS={css`
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-          `}
-        >
-          <AtomWrapper>
-            <AtomText>Editor Props</AtomText>
             <AtomInput
-              type="number"
-              label="Width"
-              value={currentElement?.width}
-              onChange={(event) => {
-                console.log(event.target.value);
-
-                setcurrentElement((prev) => ({
-                  ...prev,
-                  width: Number(event.target.value),
-                }));
-              }}
-            />
-            <AtomInput
-              type="number"
-              label="Height"
-              value={currentElement?.height}
+              type="color"
+              value={currentElement.color}
               onChange={(event) => {
                 setcurrentElement((prev) => ({
                   ...prev,
-                  height: Number(event.target.value),
+                  color: event.target.value,
                 }));
               }}
             />
-            <AtomInput
-              type="text"
-              label="Text"
-              value={currentElement?.text}
-              onChange={(event) => {
-                setcurrentElement((prev) => ({
-                  ...prev,
-                  text: event.target.value,
-                }));
+            <AtomButton onClick={handleLeft}>Left</AtomButton>
+            <AtomButton onClick={handleRight}>Right</AtomButton>
+            <AtomButton onClick={handleUp}>Up</AtomButton>
+            <AtomButton onClick={handleDown}>Down</AtomButton>
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#07deff",
+                primary: "#0f97ff",
               }}
-            />
-            <AtomInput
-              type="text"
-              label="URL image"
-              value={currentElement?.text}
-              onChange={(event) => {
-                setcurrentElement((prev) => ({
-                  ...prev,
-                  src: event.target.value,
-                }));
+              focus
+              onClick={() => {
+                setControlState("VIEW");
               }}
-            />
-            <AtomButton onClick={handleUpdate}>Update</AtomButton>
+            >
+              View
+            </AtomButton>
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#07ff1c",
+                primary: "#47ff0f",
+              }}
+              focus
+              onClick={() => {
+                setControlState("ADD");
+              }}
+            >
+              Add
+            </AtomButton>
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#ff4107",
+                primary: "#ff670f",
+              }}
+              focus
+              onClick={() => {
+                setControlState("EDITOR");
+              }}
+            >
+              Editor
+            </AtomButton>
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#0741ff",
+                primary: "#b30fff",
+              }}
+              focus
+              onClick={handleUpdate}
+            >
+              UPDATE
+            </AtomButton>
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#c507ff",
+                primary: "#ff0fcb",
+              }}
+              focus
+              onClick={() => {
+                setControlState("MOVE");
+              }}
+            >
+              Move
+            </AtomButton>
+            {controlState}
           </AtomWrapper>
-          <motion.canvas
-            ref={canvasRef}
-            style={{
-              border: "1px solid black",
-              // cursor: "grabbing",
-            }}
-            width="1440px"
-            height={600}
-            onMouseDown={handleOnMouseDown}
-            onMouseUp={handleOnMouseUp}
-            onMouseMove={handleOnMouseMove}
-            onClick={handleClick}
-          />
+          <AtomWrapper
+            alignItems="flex-start"
+            justifyContent="flex-start"
+            flexDirection="row"
+            gap="20px"
+          >
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#2c07ff",
+                primary: "#0f97ff",
+              }}
+              onClick={() => {
+                setTypeFigure("BOX");
+              }}
+            >
+              BOX
+            </AtomButton>
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#b907ff",
+                primary: "#ff0f7f",
+              }}
+              onClick={() => {
+                setTypeFigure("CIRCLE");
+              }}
+            >
+              CIRCLE
+            </AtomButton>
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#b907ff",
+                primary: "#ff0f7f",
+              }}
+              onClick={() => {
+                setTypeFigure("TEXT");
+              }}
+            >
+              TEXT
+            </AtomButton>
+            <AtomButton
+              backgroundLinearGradient={{
+                rotate: "315deg",
+                secondary: "#b907ff",
+                primary: "#ff0f7f",
+              }}
+              onClick={() => {
+                setTypeFigure("IMAGE");
+              }}
+            >
+              IMAGE
+            </AtomButton>
+          </AtomWrapper>
+          <AtomWrapper
+            flexDirection="row"
+            alignItems="flex-start"
+            justifyContent="flex-start"
+            customCSS={css`
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+            `}
+          >
+            <AtomWrapper>
+              <AtomText>Editor Props</AtomText>
+              <AtomInput
+                type="number"
+                label="Width"
+                value={currentElement?.width}
+                onChange={(event) => {
+                  console.log(event.target.value);
+
+                  setcurrentElement((prev) => ({
+                    ...prev,
+                    width: Number(event.target.value),
+                  }));
+                }}
+              />
+              <AtomInput
+                type="number"
+                label="Height"
+                value={currentElement?.height}
+                onChange={(event) => {
+                  setcurrentElement((prev) => ({
+                    ...prev,
+                    height: Number(event.target.value),
+                  }));
+                }}
+              />
+              <AtomInput
+                type="text"
+                label="Text"
+                value={currentElement?.text}
+                onChange={(event) => {
+                  setcurrentElement((prev) => ({
+                    ...prev,
+                    text: event.target.value,
+                  }));
+                }}
+              />
+              <AtomInput
+                type="text"
+                label="URL image"
+                value={currentElement?.text}
+                onChange={(event) => {
+                  setcurrentElement((prev) => ({
+                    ...prev,
+                    src: event.target.value,
+                  }));
+                }}
+              />
+              <AtomButton onClick={handleUpdate}>Update</AtomButton>
+            </AtomWrapper>
+            <motion.canvas
+              ref={canvasRef}
+              style={{
+                border: "1px solid black",
+                // cursor: "grabbing",
+              }}
+              width="1440px"
+              height={600}
+              onMouseDown={handleOnMouseDown}
+              onMouseUp={handleOnMouseUp}
+              onMouseMove={handleOnMouseMove}
+              onClick={handleClick}
+            />
+          </AtomWrapper>
         </AtomWrapper>
-      </AtomWrapper>
-    </AtomWrapper>
+      </AtomWrapper> */}
+    </>
   );
 };
 
