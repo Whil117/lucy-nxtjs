@@ -89,3 +89,15 @@ a:hover {
 .InputDefault::placeholder {
   opacity: 0.8;
 }
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  letter-spacing: 0.5px;
+  line-height: 1.3em;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  display: flex;
+  height: 100vh;
+}

@@ -25,7 +25,7 @@ type ElementsProps = {
 };
 
 const MOVING_ELEMENT_ATOM = atom(false);
-const SELECTED_ELEMENT_ATOM = atom({} as ElementsProps);
+export const SELECTED_ELEMENT_ATOM = atom({} as ElementsProps);
 
 export const ELEMENTS_ATOM = atom([] as ElementsProps[]);
 const CANVAS_ATOM = atom(null as HTMLCanvasElement);
