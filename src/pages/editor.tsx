@@ -20,6 +20,9 @@ type ElementsProps = {
   width?: number;
   height?: number;
   type?: string;
+  text?: string;
+  src?: string;
+  font?: string;
 };
 
 const newItemAtom = ({ x, y, type }: ElementsProps) => ({
@@ -30,6 +33,9 @@ const newItemAtom = ({ x, y, type }: ElementsProps) => ({
   radius: 50,
   width: 10,
   height: 10,
+  text: "Default Text",
+  font: "30px Arial",
+  src: "https://picsum.photos/200/300",
   color: "#e20e0e",
 });
 
@@ -47,6 +53,23 @@ const drawTypeFigure = (
     BOX: () => {
       ctx.fillStyle = element.color;
       ctx.fillRect(element.x, element.y, element.width, element.height);
+    },
+    TEXT: () => {
+      ctx.font = element.font;
+      ctx.fillStyle = element.color;
+      ctx.fillRect(element.x, element.y, element.width, element.height);
+      ctx.fillText(element.text, element.x, element.y);
+    },
+    IMAGE: () => {
+      const image = new Image();
+      image.src = element.src;
+      image.crossOrigin = "anonymous";
+      image.width = element.width;
+      image.height = element.height;
+
+      image.onload = () => {
+        ctx.drawImage(image, element.x, element.y);
+      };
     },
   };
 };
@@ -78,7 +101,7 @@ const MOVE_ELEMENT_ATOM = atom(null, (get, set) => {
       ELEMENTS_ATOM,
       elements.map((element) => {
         if (element.id === elementSelected.id) {
-          ctx.fillStyle = element.color;
+          // ctx.fillStyle = element.color;
           ctx.fillRect(x, y, element.width, element.height);
           return {
             ...element,
@@ -86,7 +109,7 @@ const MOVE_ELEMENT_ATOM = atom(null, (get, set) => {
             y,
           };
         } else {
-          ctx.fillStyle = element.color;
+          // ctx.fillStyle = element.color;
           ctx.fillRect(element.x, element.y, element.width, element.height);
           return element;
         }
@@ -133,6 +156,8 @@ const UPDATE_ELEMENTS_ATOM = atom(null, (get, set) => {
   );
 });
 
+const MOVING_ELEMENT_ATOM = atom(false);
+
 const EditorPage: FC<Props> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [controlState, setControlState] = useAtom(STATE_CONTROL_ATOM);
@@ -140,32 +165,45 @@ const EditorPage: FC<Props> = () => {
   const { x, y } = coordinates;
 
   const canvas = canvasRef.current && canvasRef.current;
-  const [selectTypeFigure, setTypeFigure] = useState<"BOX" | "CIRCLE">("BOX");
+  const [selectTypeFigure, setTypeFigure] = useState<
+    "BOX" | "CIRCLE" | "TEXT" | "IMAGE"
+  >("BOX");
   const [currentElement, setcurrentElement] = useAtom(SELECTED_ELEMENT_ATOM);
   const [elements, setElements] = useAtom(ELEMENTS_ATOM);
   const setContextCanvas = useSetAtom(CANVAS_ATOM);
   const setCanvasToElements = useSetAtom(ELEMENTS_TO_CANVAS_ATOM);
   const setUpdateElements = useSetAtom(UPDATE_ELEMENTS_ATOM);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+  const [isMovingElement, setIsMoving] = useAtom(MOVING_ELEMENT_ATOM);
 
-    const image = new Image();
-    image.src = "https://picsum.photos/200/300";
-    image.crossOrigin = "anonymous";
-    image.width = 100;
-    image.height = 100;
+  const handleOnMouseDown = (e) => {
+    setIsMoving(true);
+    const x = e.clientX - e.target.offsetLeft;
+    const y = e.clientY - e.target.offsetTop;
 
-    image.onload = () => {
-      ctx.drawImage(image, 0, 0);
-    };
-  }, []);
+    const selected = elements.find(
+      (circle) =>
+        Math.sqrt((x - circle.x) ** 2 + (y - circle.y) ** 2) < circle.radius
+    );
+    if (selected) {
+      setcurrentElement(selected);
+    }
 
-  const startDrawing = (e) => {
-    if (controlState !== "VIEW") {
-      const x = e.clientX - e.target.offsetLeft;
-      const y = e.clientY - e.target.offsetTop;
+    setCoordinates({
+      x,
+      y,
+    });
+  };
+
+  const handleOnMouseUp = () => {
+    setIsMoving(false);
+  };
+
+  const handleOnMouseMove = (e) => {
+    const x = e.clientX - e.target.offsetLeft;
+    const y = e.clientY - e.target.offsetTop;
+
+    if (isMovingElement) {
       setCoordinates({
         x,
         y,
@@ -177,10 +215,6 @@ const EditorPage: FC<Props> = () => {
     setContextCanvas(canvas);
     setCanvasToElements();
   }, [elements, canvas, currentElement]);
-
-  const continueDrawing = (e) => {
-    startDrawing(e);
-  };
 
   const handleClick = (e) => {
     const x = e.clientX - e.target.offsetLeft;
@@ -237,8 +271,6 @@ const EditorPage: FC<Props> = () => {
       y: y + 10,
     }));
   };
-
-  console.log({ elements });
 
   return (
     <AtomWrapper
@@ -371,6 +403,30 @@ const EditorPage: FC<Props> = () => {
           >
             CIRCLE
           </AtomButton>
+          <AtomButton
+            backgroundLinearGradient={{
+              rotate: "315deg",
+              secondary: "#b907ff",
+              primary: "#ff0f7f",
+            }}
+            onClick={() => {
+              setTypeFigure("TEXT");
+            }}
+          >
+            TEXT
+          </AtomButton>
+          <AtomButton
+            backgroundLinearGradient={{
+              rotate: "315deg",
+              secondary: "#b907ff",
+              primary: "#ff0f7f",
+            }}
+            onClick={() => {
+              setTypeFigure("IMAGE");
+            }}
+          >
+            IMAGE
+          </AtomButton>
         </AtomWrapper>
         <AtomWrapper
           flexDirection="row"
@@ -408,18 +464,41 @@ const EditorPage: FC<Props> = () => {
                 }));
               }}
             />
+            <AtomInput
+              type="text"
+              label="Text"
+              value={currentElement?.text}
+              onChange={(event) => {
+                setcurrentElement((prev) => ({
+                  ...prev,
+                  text: event.target.value,
+                }));
+              }}
+            />
+            <AtomInput
+              type="text"
+              label="URL image"
+              value={currentElement?.text}
+              onChange={(event) => {
+                setcurrentElement((prev) => ({
+                  ...prev,
+                  src: event.target.value,
+                }));
+              }}
+            />
             <AtomButton onClick={handleUpdate}>Update</AtomButton>
           </AtomWrapper>
           <motion.canvas
             ref={canvasRef}
             style={{
               border: "1px solid black",
+              // cursor: "grabbing",
             }}
             width="1440px"
             height={600}
-            onMouseDown={startDrawing}
-            onMouseMove={continueDrawing}
-            // onMouseUp={stopDrawing}
+            onMouseDown={handleOnMouseDown}
+            onMouseUp={handleOnMouseUp}
+            onMouseMove={handleOnMouseMove}
             onClick={handleClick}
           />
         </AtomWrapper>
