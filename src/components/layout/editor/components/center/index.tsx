@@ -85,9 +85,9 @@ const newItemAtom = ({ x, y, type }: ElementsProps) => ({
   x: x,
   y: y,
   type: type ?? "CIRCLE",
-  radius: 50,
-  width: 10,
-  height: 10,
+  radius: 100,
+  width: 100,
+  height: 100,
   text: "Default Text",
   font: "30px Arial",
   src: "https://picsum.photos/200/300",
@@ -157,12 +157,12 @@ const CenterLayoutEditor: FC<Props> = () => {
     const x = e.clientX - canvasRect.left;
     const y = e.clientY - canvasRect.top;
 
-    console.log({ x, y });
-
-    const selected = elements.find(
-      (circle) =>
-        Math.sqrt((x - circle.x) ** 2 + (y - circle.y) ** 2) < circle.radius
-    );
+    const selected = elements.find((circle) => {
+      return (
+        Math.max(Math.abs(x - circle.x), Math.abs(y - circle.y)) <=
+        circle.radius
+      );
+    });
     if (selected) {
       setcurrentElement(selected);
     }
