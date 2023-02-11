@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
-import { STATE_CONTROL_ATOM } from "../headers";
+import { STATE_CONTROL_ATOM } from "../left/components/listMethods";
 
 type Props = {
   children?: ReactNode;
