@@ -4,13 +4,16 @@ import { motion } from "framer-motion";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
+import { TYPE_FIGURE_ATOM } from "../headers/components/listTypesForms";
 import { STATE_CONTROL_ATOM } from "../left/components/listMethods";
+import { COORDINATE_X_ATOM_INPUT } from "../right/components/coordinates/coordinate_x";
+import { COORDINATE_Y_ATOM_INPUT } from "../right/components/coordinates/coordinate_y";
 
 type Props = {
   children?: ReactNode;
 };
 
-type ElementsProps = {
+export type ElementsProps = {
   x?: number;
   y?: number;
   id?: string;
@@ -25,15 +28,57 @@ type ElementsProps = {
 };
 
 const MOVING_ELEMENT_ATOM = atom(false);
-export const SELECTED_ELEMENT_ATOM = atom({} as ElementsProps);
+export const SELECTED_ELEMENT_ATOM = atom(
+  {} as ElementsProps,
+  (get, set, args: ElementsProps) => {
+    set(COORDINATE_X_ATOM_INPUT, args?.x);
+    set(SELECTED_ELEMENT_ATOM, args);
+    set(COORDINATE_Y_ATOM_INPUT, args.y);
+  }
+);
 
 export const ELEMENTS_ATOM = atom([] as ElementsProps[]);
-const CANVAS_ATOM = atom(null as HTMLCanvasElement);
+export const CANVAS_ATOM = atom(null as HTMLCanvasElement);
+
+type PropsData = {
+  elements: ElementsProps[];
+  currentElement: ElementsProps;
+  ctx: CanvasRenderingContext2D;
+  coordinates: {
+    x: number;
+    y: number;
+  };
+};
+
+const reMapsElementsMovingElement = (props: PropsData) => {
+  const {
+    elements,
+    currentElement,
+    ctx,
+    coordinates: { x, y },
+  } = props;
+
+  const map = new Map<string, ElementsProps>();
+  for (const element of elements) {
+    if (element.id === currentElement.id) {
+      drawTypeFigure(ctx, currentElement)[currentElement.type]();
+      map.set(element.id, {
+        ...element,
+        x,
+        y,
+      });
+    } else {
+      drawTypeFigure(ctx, element)[element.type]();
+      map.set(element.id, element);
+    }
+  }
+  return Array.from(map.values());
+};
+
 const MOVE_ELEMENT_ATOM = atom(null, (get, set) => {
   const canvas = get(CANVAS_ATOM);
   const ctx = canvas?.getContext("2d");
   const elements = get(ELEMENTS_ATOM);
-
   const elementSelected = get(SELECTED_ELEMENT_ATOM);
   const stateElement = get(STATE_CONTROL_ATOM);
 
@@ -41,7 +86,6 @@ const MOVE_ELEMENT_ATOM = atom(null, (get, set) => {
 
   if (elementSelected?.id && stateElement === "MOVE") {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     set(SELECTED_ELEMENT_ATOM, {
       ...elementSelected,
       x,
@@ -50,20 +94,14 @@ const MOVE_ELEMENT_ATOM = atom(null, (get, set) => {
 
     set(
       ELEMENTS_ATOM,
-      elements.map((element) => {
-        if (element.id === elementSelected.id) {
-          // ctx.fillStyle = element.color;
-          ctx.fillRect(x, y, element.width, element.height);
-          return {
-            ...element,
-            x,
-            y,
-          };
-        } else {
-          // ctx.fillStyle = element.color;
-          ctx.fillRect(element.x, element.y, element.width, element.height);
-          return element;
-        }
+      reMapsElementsMovingElement({
+        elements,
+        currentElement: elementSelected,
+        ctx,
+        coordinates: {
+          y,
+          x,
+        },
       })
     );
   }
@@ -111,8 +149,8 @@ const drawTypeFigure = (
     },
     TEXT: () => {
       ctx.font = element.font;
+      // ctx.font = "11px Arial";
       ctx.fillStyle = element.color;
-      ctx.fillRect(element.x, element.y, element.width, element.height);
       ctx.fillText(element.text, element.x, element.y);
     },
     IMAGE: () => {
@@ -121,7 +159,6 @@ const drawTypeFigure = (
       image.crossOrigin = "anonymous";
       image.width = element.width;
       image.height = element.height;
-
       image.onload = () => {
         ctx.drawImage(image, element.x, element.y);
       };
@@ -130,13 +167,14 @@ const drawTypeFigure = (
 };
 
 const ELEMENTS_TO_CANVAS_ATOM = atom(null, (get) => {
-  const elemnets = get(ELEMENTS_ATOM);
+  const elements = get(ELEMENTS_ATOM);
   const canvas = get(CANVAS_ATOM);
   const ctx = canvas?.getContext("2d");
-  elemnets.forEach((item) => drawTypeFigure(ctx, item)[item.type]());
-});
 
-const TYPE_FIGURE_ATOM = atom<"BOX" | "CIRCLE" | "TEXT" | "IMAGE">("BOX");
+  for (const item of elements) {
+    drawTypeFigure(ctx, item)[item.type]();
+  }
+});
 
 const CenterLayoutEditor: FC<Props> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -146,10 +184,24 @@ const CenterLayoutEditor: FC<Props> = () => {
   const controlState = useAtomValue(STATE_CONTROL_ATOM);
   const selectTypeFigure = useAtomValue(TYPE_FIGURE_ATOM);
   const [currentElement, setcurrentElement] = useAtom(SELECTED_ELEMENT_ATOM);
+
   const setContextCanvas = useSetAtom(CANVAS_ATOM);
   const setCanvasToElements = useSetAtom(ELEMENTS_TO_CANVAS_ATOM);
 
+  console.log({ elements });
+
   const canvas = canvasRef.current && canvasRef.current;
+
+  const handleSetCoordinates = (e) => {
+    const canvasRect = e.target.getBoundingClientRect();
+    const x = e.clientX - canvasRect.left;
+    const y = e.clientY - canvasRect.top;
+
+    setCoordinates({
+      x,
+      y,
+    });
+  };
 
   const handleOnMouseDown = (e) => {
     setIsMoving(true);
@@ -167,10 +219,7 @@ const CenterLayoutEditor: FC<Props> = () => {
       setcurrentElement(selected);
     }
 
-    setCoordinates({
-      x,
-      y,
-    });
+    handleSetCoordinates(e);
   };
 
   const handleOnMouseUp = () => {
@@ -178,15 +227,8 @@ const CenterLayoutEditor: FC<Props> = () => {
   };
 
   const handleOnMouseMove = (e) => {
-    const canvasRect = e.target.getBoundingClientRect();
-    const x = e.clientX - canvasRect.left;
-    const y = e.clientY - canvasRect.top;
-
     if (isMovingElement) {
-      setCoordinates({
-        x,
-        y,
-      });
+      handleSetCoordinates(e);
     }
   };
 

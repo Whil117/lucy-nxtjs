@@ -1,25 +1,25 @@
 :root {
   --background-color: #fff;
-  --text-color: #1a1a1a;
+  --text-color: #f7f8f8;
   --link-color: #543fd7;
   --card-background: #ffffff;
   --loader-color: #1a1a1a;
-  --input-background-color: #ffffff;
+  --input-background-color: #1a1a1a;
   --icon-color: #1a1a1a;
-  --input-date-color: light;
+  --input-date-color: dark;
   --input-file-border-dashed: #8a8a8a7f;
   --calendar-color: #f7f7f7;
 }
 
 html[data-theme="light"] {
   --background-color: #fff;
-  --text-color: rgb(26, 26, 26);
+  --text-color: #f7f8f8;
   --loader-color: #1a1a1a;
   --card-background: #ffffff;
   --icon-color: #1a1a1a;
-  --input-background-color: #ffffff;
+  --input-background-color: #1a1a1a;
   --link-color: #543fd7;
-  --input-date-color: light;
+  --input-date-color: dark;
   --input-file-border-dashed: #8a8a8a7f;
   --calendar-color: #f7f7f7;
 }

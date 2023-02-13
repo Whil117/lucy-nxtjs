@@ -94,6 +94,7 @@ const InputNumber = (props: AtomInputTypes) => {
               props?.formik?.handleChange?.(event);
               props?.onChange?.(event);
             }}
+            onKeyDown={(event) => props?.onKeyDown?.(event)}
             css={css`
               flex: 1;
               width: auto;

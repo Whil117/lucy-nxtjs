@@ -52,6 +52,7 @@
     "graphql": "^16.6.0",
     "jotai": "^1.12.1",
     "js-cookie": "^3.0.1",
+    "jspdf": "^2.5.1",
     "next": "13.1.1",
     "prosemirror-commands": "^1.5.0",
     "prosemirror-dropcursor": "^1.6.1",
