@@ -28,6 +28,43 @@ export type ElementsProps = {
 };
 
 const MOVING_ELEMENT_ATOM = atom(false);
+
+const coordinatesByLine = (
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  canvas: HTMLCanvasElement
+) => {
+  ctx.strokeStyle = "#07deff";
+  ctx.lineWidth = 2;
+
+  ctx.setLineDash([10, 10]);
+
+  ctx.beginPath();
+  ctx.moveTo(x, 0);
+  ctx.lineTo(x, canvas.height);
+  ctx.stroke();
+
+  // Dibujar línea horizontal
+  ctx.beginPath();
+  ctx.moveTo(0, y);
+  ctx.lineTo(canvas.width, y);
+  ctx.stroke();
+
+  // Dibujar línea vertical
+  ctx.beginPath();
+  ctx.moveTo(x, y - 10);
+  ctx.lineTo(x, y + 10);
+  ctx.moveTo(x - 10, y);
+  ctx.lineTo(x + 10, y);
+  ctx.stroke();
+
+  // ctx.font = "11px Arial";
+  ctx.fillStyle = "#07deff";
+  ctx.fillText(`${x} x`, x + 10, y - 10);
+  ctx.fillText(`${y} y`, x - 35, y + 25);
+};
+
 export const SELECTED_ELEMENT_ATOM = atom(
   {} as ElementsProps,
   (get, set, args: ElementsProps) => {
@@ -91,6 +128,8 @@ const MOVE_ELEMENT_ATOM = atom(null, (get, set) => {
       x,
       y,
     });
+
+    coordinatesByLine(ctx, x, y, canvas);
 
     set(
       ELEMENTS_ATOM,
@@ -237,14 +276,12 @@ const CenterLayoutEditor: FC<Props> = () => {
     const x = e.clientX - canvasRect.left;
     const y = e.clientY - canvasRect.top;
 
-    if (controlState === "EDITOR") {
+    if (controlState === "EDITOR" || controlState === "VIEW") {
       const selected = elements.find(
         (circle) =>
           Math.sqrt((x - circle.x) ** 2 + (y - circle.y) ** 2) < circle.radius
       );
-      if (selected) {
-        setcurrentElement(selected);
-      }
+      setcurrentElement(selected ?? {});
     }
     if (controlState === "ADD") {
       setElements((prev) => [

@@ -1,14 +1,18 @@
 import { css } from "@emotion/react";
 import { AtomText, AtomWrapper } from "@Src/@atoms";
+import { useAtom } from "jotai";
 import { FC, ReactNode } from "react";
+import { SELECTED_ELEMENT_ATOM } from "../center";
 import CoordinatesXInput from "./components/coordinates/coordinate_x";
 import CoordinatesYInput from "./components/coordinates/coordinate_y";
+import StandByPage from "./components/views/stand";
 
 type Props = {
   children?: ReactNode;
 };
 
 const SideBarLayoutEditorRight: FC<Props> = () => {
+  const [currElement, setCurrElement] = useAtom(SELECTED_ELEMENT_ATOM);
   return (
     <AtomWrapper
       backgroundColor="#252424"
@@ -19,6 +23,7 @@ const SideBarLayoutEditorRight: FC<Props> = () => {
       `}
       padding="20px"
     >
+      <StandByPage />
       <AtomText color="white">Properties</AtomText>
       <AtomWrapper
         height="auto"
@@ -30,6 +35,7 @@ const SideBarLayoutEditorRight: FC<Props> = () => {
       >
         <CoordinatesXInput />
         <CoordinatesYInput />
+        {currElement?.id}
       </AtomWrapper>
     </AtomWrapper>
   );

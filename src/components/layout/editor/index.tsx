@@ -10,13 +10,13 @@ type Props = {
   children?: ReactNode;
 };
 
-const LayoutEditor: FC<Props> = (props) => {
+const LayoutEditor: FC<Props> = () => {
   return (
     <>
       <AtomWrapper
         customCSS={css`
           display: grid;
-          grid-template-columns: 320px 1fr 320px;
+          grid-template-columns: 300px 1fr 300px;
           grid-template-rows: 67px 1fr;
           height: 100vh;
           overflow: hidden;
