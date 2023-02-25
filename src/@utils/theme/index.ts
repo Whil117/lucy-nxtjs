@@ -1,7 +1,7 @@
 import handleSetTheme from "./setTheme";
 import handleValueTheme from "./theme";
 
-type TypesThemes = "dark" | "light";
+// type TypesThemes = "dark" | "light";
 
 type CreateThemeDefaultValues<S> = {
   defaultTheme: () => S;
