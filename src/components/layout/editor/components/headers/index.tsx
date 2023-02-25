@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { AtomText, AtomWrapper } from "@Src/@atoms";
 import { FC, ReactNode } from "react";
-import ExportCanvas from "./components/export";
 import ListTypesForms from "./components/listTypesForms";
 
 type Props = {
@@ -26,7 +25,6 @@ const HeaderBarLayoutEditor: FC<Props> = () => {
         Harmony Alph.2
       </AtomText>
       <ListTypesForms />
-      <ExportCanvas />
     </AtomWrapper>
   );
 };

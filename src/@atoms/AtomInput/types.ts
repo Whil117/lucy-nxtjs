@@ -41,5 +41,12 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   isFocus?: boolean;
   error?: string;
   disabled?: boolean;
+
+  defaultTextValue?: string;
+  options?: (formik: FormikCustom<any>) => {
+    id: string;
+    label: string;
+    value: string;
+  }[];
 };
 export default AtomInputTypes;

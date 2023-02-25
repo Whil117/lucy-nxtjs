@@ -1,7 +1,4 @@
-import { css } from "@emotion/react";
-import { AtomButton, AtomIcon, AtomText, AtomWrapper } from "@Src/@atoms";
-import { isDarkLight } from "@Src/utils";
-import { atom, useAtom } from "jotai";
+import { AtomButton, AtomText, AtomWrapper } from "@Src/@atoms";
 import { FC, ReactNode } from "react";
 
 type Props = {
@@ -10,7 +7,7 @@ type Props = {
 
 type headerOptions = {
   id: number;
-  typeState: "VIEW" | "ADD" | "EDITOR" | "MOVE" | "UPDATE";
+  typeState: string;
   backgroundLinearGradient: {
     rotate: string;
     secondary: string;
@@ -19,10 +16,10 @@ type headerOptions = {
   icon: string;
 };
 
-const headerOptions: headerOptions[] = [
+export const headerOptions: headerOptions[] = [
   {
     id: 1,
-    typeState: "VIEW",
+    typeState: "NONE",
     backgroundLinearGradient: {
       rotate: "315deg",
       secondary: "#07deff",
@@ -32,7 +29,7 @@ const headerOptions: headerOptions[] = [
   },
   {
     id: 2,
-    typeState: "ADD",
+    typeState: "MOVING",
     backgroundLinearGradient: {
       rotate: "315deg",
       secondary: "#07ff1c",
@@ -42,7 +39,7 @@ const headerOptions: headerOptions[] = [
   },
   {
     id: 3,
-    typeState: "EDITOR",
+    typeState: "RESIZING",
     backgroundLinearGradient: {
       rotate: "315deg",
       secondary: "#ff4107",
@@ -52,7 +49,7 @@ const headerOptions: headerOptions[] = [
   },
   {
     id: 4,
-    typeState: "UPDATE",
+    typeState: "WRITING",
     backgroundLinearGradient: {
       rotate: "315deg",
       secondary: "#0741ff",
@@ -62,7 +59,7 @@ const headerOptions: headerOptions[] = [
   },
   {
     id: 5,
-    typeState: "MOVE",
+    typeState: "DRAWING",
     backgroundLinearGradient: {
       rotate: "315deg",
       secondary: "#c507ff",
@@ -72,47 +69,22 @@ const headerOptions: headerOptions[] = [
   },
 ];
 
-export const STATE_CONTROL_ATOM = atom<
-  "VIEW" | "ADD" | "EDITOR" | "MOVE" | "UPDATE"
->("VIEW");
-
 const ListMethods: FC<Props> = () => {
-  const [stateControl, setStateControl] = useAtom(STATE_CONTROL_ATOM);
   return (
     <AtomWrapper gap="10px" height="auto">
       <AtomText color="white">Methods</AtomText>
 
-      <AtomWrapper
-        flexDirection="row"
-        justifyContent="space-between"
-        height="auto"
-      >
+      <AtomWrapper flexDirection="row" height="auto" flexWrap="wrap" gap="5px">
         {headerOptions?.map((item) => {
-          const isValid = stateControl === item.typeState;
           return (
             <AtomButton
               focus
-              onClick={() => {
-                setStateControl(item.typeState);
-              }}
+              onClick={() => {}}
               padding="2px 10px"
               key={item.id}
-              backgroundLinearGradient={
-                isValid && item?.backgroundLinearGradient
-              }
+              backgroundLinearGradient={item?.backgroundLinearGradient}
             >
-              <AtomIcon
-                src={item.icon}
-                color={
-                  isValid &&
-                  isDarkLight(`${item.backgroundLinearGradient?.primary}`)
-                }
-                width="15px"
-                customCSS={css`
-                  margin: 2px 4px;
-                  /* margin-left: 5px; */
-                `}
-              />
+              {item.typeState}
             </AtomButton>
           );
         })}

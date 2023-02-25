@@ -1,16 +1,14 @@
 import { css } from "@emotion/react";
 import { AtomButton, AtomText, AtomWrapper } from "@Src/@atoms";
-import { useAtom, useAtomValue } from "jotai";
 import { FC, ReactNode } from "react";
-import { ELEMENTS_ATOM, SELECTED_ELEMENT_ATOM } from "../../../center";
 
 type Props = {
   children?: ReactNode;
 };
 
 const ListElements: FC<Props> = () => {
-  const elements = useAtomValue(ELEMENTS_ATOM);
-  const [currentElement, setCurrentElement] = useAtom(SELECTED_ELEMENT_ATOM);
+  const [currentElement, setCurrentElement] = [{}, {}];
+  const elements = [];
   return (
     <AtomWrapper gap="10px" height="auto">
       <AtomText color="white">Elements</AtomText>
@@ -49,9 +47,7 @@ const ListElements: FC<Props> = () => {
                 ? "1px solid #07deff"
                 : "1px solid #14616d"
             }
-            onClick={() => {
-              setCurrentElement(item);
-            }}
+            onClick={() => {}}
             whileHover={{
               scale: 1,
             }}
