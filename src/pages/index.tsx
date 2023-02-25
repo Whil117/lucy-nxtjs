@@ -5,19 +5,23 @@ import {
   AtomInput,
   AtomText,
   AtomWrapper,
+  createAtomSeoPage,
 } from "@Src/@atoms";
-import useThemeLucy from "@Src/@atoms/AtomThemeProvider/tools";
+import Head from "next/head";
 import { FC, ReactNode, useState } from "react";
 
 type Props = {
   children?: ReactNode;
 };
 
+const { AtomSeoPage } = createAtomSeoPage(Head);
+
 const Template: FC<Props> = (props) => {
   const [state, setstate] = useState("");
-  const { theme, setTheme } = useThemeLucy();
+
   return (
     <AtomWrapper customCSS={(css) => css``}>
+      <AtomSeoPage title="Main page" icon="https://picsum.photos/200/300" />
       <AtomText
         customCSS={(css) => css`
           background-color: red;
@@ -45,9 +49,7 @@ const Template: FC<Props> = (props) => {
           primary: "#0f97ff",
         }}
         padding="10px 15px"
-        onClick={() => {
-          setTheme("dark");
-        }}
+        onClick={() => {}}
       >
         DARK
       </AtomButton>
@@ -62,9 +64,7 @@ const Template: FC<Props> = (props) => {
           primary: "#0f97ff",
         }}
         padding="10px 15px"
-        onClick={() => {
-          setTheme("light");
-        }}
+        onClick={() => {}}
       >
         LIGHT
       </AtomButton>

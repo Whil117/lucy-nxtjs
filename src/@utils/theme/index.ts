@@ -1,4 +1,3 @@
-import { atom, useAtom } from "jotai";
 import handleSetTheme from "./setTheme";
 import handleValueTheme from "./theme";
 
@@ -21,22 +20,4 @@ const createTheme = <T>({ defaultTheme }: CreateThemeDefaultValues<T>) => {
   };
 };
 
-const { theme, setTheme } = createTheme<TypesThemes>({
-  defaultTheme: () => "light",
-});
-
-const ThemeWithAtom = atom(theme());
-
-const useThemeLucy = () => {
-  const [state, set] = useAtom(ThemeWithAtom);
-
-  return {
-    theme: state,
-    setTheme: (args: TypesThemes) => {
-      set(args);
-      setTheme(args);
-    },
-  };
-};
-
-export default useThemeLucy;
+export default createTheme;

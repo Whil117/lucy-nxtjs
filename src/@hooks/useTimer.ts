@@ -6,7 +6,7 @@ type Props = {
   end?: number;
 };
 
-const useTimerHook = (props: Props) => {
+const useTimer = (props: Props) => {
   const { callback, ms, end } = props;
   const [timer, setTimer] = useState(3);
 
@@ -38,4 +38,4 @@ const useTimerHook = (props: Props) => {
   };
 };
 
-export default useTimerHook;
+export default useTimer;
