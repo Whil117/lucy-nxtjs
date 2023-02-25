@@ -7,6 +7,7 @@ import {
   AtomWrapper,
   createAtomSeoPage,
 } from "@Src/@atoms";
+import AtomModal from "@Src/@atoms/AtomModal";
 import Head from "next/head";
 import { FC, ReactNode, useState } from "react";
 
@@ -18,10 +19,18 @@ const { AtomSeoPage } = createAtomSeoPage(Head);
 
 const Template: FC<Props> = (props) => {
   const [state, setstate] = useState("");
-
+  const [isShow, setIsShow] = useState(false);
   return (
     <AtomWrapper customCSS={(css) => css``}>
       <AtomSeoPage title="Main page" icon="https://picsum.photos/200/300" />
+      <AtomModal
+        isShow={isShow}
+        onCloseShow={() => {
+          setIsShow(false);
+        }}
+      >
+        <AtomText>HOLA</AtomText>
+      </AtomModal>
       <AtomText
         customCSS={(css) => css`
           background-color: red;
@@ -29,6 +38,13 @@ const Template: FC<Props> = (props) => {
       >
         Hdsffd
       </AtomText>
+      <AtomButton
+        onClick={() => {
+          setIsShow((prev) => !prev);
+        }}
+      >
+        Toggle modal
+      </AtomButton>
       <AtomImage
         src="https://picsum.photos/200/300"
         width="auto"
