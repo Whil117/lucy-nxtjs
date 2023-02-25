@@ -51,7 +51,7 @@ const AtomTextEditor: FC<PropsEditor> = (props) => {
   return (
     <AtomWrapper zIndex="1">
       <AtomWrapper
-        customCSS={css`
+        customCSS={() => css`
           padding: 5px;
           border-radius: 5px;
           gap: 5px;
@@ -74,7 +74,7 @@ const AtomTextEditor: FC<PropsEditor> = (props) => {
         <AtomWrapper
           height="100%"
           width="100%"
-          customCSS={css`
+          customCSS={() => css`
             display: flex;
             flex-direction: column;
             cursor: text;

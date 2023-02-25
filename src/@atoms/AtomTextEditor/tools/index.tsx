@@ -21,7 +21,7 @@ const AtomIconGet = (src: string, accentColor: string) => [
     color="default"
     width="25px"
     height="25px"
-    customCSS={css`
+    customCSS={() => css`
       svg {
         path {
           fill: none;
@@ -139,7 +139,7 @@ const ToolsBar = (props: Props) => {
       {showModalUrls && (
         <AtomWrapper
           ref={ref}
-          customCSS={css`
+          customCSS={() => css`
             position: absolute;
             background-color: var(--card-background, #ffffff);
             padding: 8px 12px;
@@ -197,7 +197,7 @@ const ToolsBar = (props: Props) => {
                 color="default"
                 width="25px"
                 height="25px"
-                customCSS={css`
+                customCSS={() => css`
                   svg {
                     path {
                       fill: none;
@@ -219,7 +219,7 @@ const ToolsBar = (props: Props) => {
         </AtomWrapper>
       )}
       <AtomWrapper
-        customCSS={css`
+        customCSS={() => css`
           /* Basic editor styles */
           .ProseMirror {
             > * + * {
@@ -288,7 +288,7 @@ const ToolsBar = (props: Props) => {
             color="default"
             width="25px"
             height="25px"
-            customCSS={css`
+            customCSS={() => css`
               svg {
                 path {
                   fill: none;

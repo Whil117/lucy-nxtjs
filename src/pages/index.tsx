@@ -6,6 +6,7 @@ import {
   AtomText,
   AtomWrapper,
 } from "@Src/@atoms";
+import useThemeLucy from "@Src/@atoms/AtomThemeProvider/tools";
 import { FC, ReactNode, useState } from "react";
 
 type Props = {
@@ -14,9 +15,9 @@ type Props = {
 
 const Template: FC<Props> = (props) => {
   const [state, setstate] = useState("");
+  const { theme, setTheme } = useThemeLucy();
   return (
     <AtomWrapper customCSS={(css) => css``}>
-      <h1>Template</h1>
       <AtomText
         customCSS={(css) => css`
           background-color: red;
@@ -44,8 +45,28 @@ const Template: FC<Props> = (props) => {
           primary: "#0f97ff",
         }}
         padding="10px 15px"
+        onClick={() => {
+          setTheme("dark");
+        }}
       >
-        hola
+        DARK
+      </AtomButton>
+      <AtomButton
+        customCSS={(css) => css`
+          color: #ffffff;
+        `}
+        isFocus
+        backgroundLinearGradient={{
+          rotate: "315deg",
+          secondary: "#07deff",
+          primary: "#0f97ff",
+        }}
+        padding="10px 15px"
+        onClick={() => {
+          setTheme("light");
+        }}
+      >
+        LIGHT
       </AtomButton>
       <AtomInput
         type="text"
