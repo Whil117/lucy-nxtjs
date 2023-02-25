@@ -1,4 +1,5 @@
 import { SerializedStyles } from "@emotion/react";
+import WithCSS from "@Src/types/Emotion/WithCSS";
 import { FormikCustom } from "@Src/types/formik";
 import { MotionProps } from "framer-motion";
 import { ChangeEvent, FocusEvent, KeyboardEventHandler } from "react";
@@ -24,7 +25,7 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   placeholder?: string;
   onChange?: (e: ChangeEvent<any>) => void;
   onClick?: () => void;
-  customCSS?: () => SerializedStyles;
+  customCSS?: (css?: WithCSS) => SerializedStyles;
   accentColor?: string;
   onKeyDown?: KeyboardEventHandler<any>;
   onKeyDownCapture?: KeyboardEventHandler<any>;

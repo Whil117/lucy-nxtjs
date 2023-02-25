@@ -11,7 +11,7 @@ const AtomWrapperCard: FC<Props> = (props) => {
   const { children } = props;
   return (
     <AtomWrapper
-      customCSS={css`
+      customCSS={() => css`
         padding: 5px;
         border-radius: 20px;
         border-color: rgba(255, 255, 255, 0.1);
@@ -25,7 +25,7 @@ const AtomWrapperCard: FC<Props> = (props) => {
         gap="20px"
         padding="10px"
         {...props}
-        customCSS={css`
+        customCSS={() => css`
           border-bottom-width: 1px;
           border-color: rgba(255, 255, 255, 0.5);
           border-left-width: 1px;
@@ -43,7 +43,7 @@ const AtomWrapperCard: FC<Props> = (props) => {
           overflow: hidden;
           position: relative;
           will-change: transform;
-          ${props.customCSS}
+          ${props.customCSS?.()}
         `}
       >
         {children}

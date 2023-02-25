@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { AtomImageImgStyled, AtomImageStyled } from "./styled";
+import { AtomImageContainerStyled, AtomImageImgStyled } from "./styled";
 import type AtomImageTypes from "./types";
 
 const DEFAULTIMG =
@@ -8,9 +8,9 @@ const DEFAULTIMG =
 const AtomImage: FC<AtomImageTypes> = (props) => {
   const { src, alt } = props;
   return (
-    <AtomImageStyled {...{ ...props, src: "" }}>
+    <AtomImageContainerStyled {...{ ...props, src: "" }}>
       <AtomImageImgStyled src={src ?? DEFAULTIMG} alt={alt ?? ""} />
-    </AtomImageStyled>
+    </AtomImageContainerStyled>
   );
 };
 export default AtomImage;

@@ -53,6 +53,7 @@ const InputCheckBox: FC<Props> = (props) => {
             display: flex;
             align-items: center;
             justify-content: center;
+            ${props?.customCSS?.(css)}
           `}
           whileTap={{
             scale: 0.99,

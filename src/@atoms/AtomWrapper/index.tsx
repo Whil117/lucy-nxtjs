@@ -1,7 +1,7 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import type AtomWrapperTypes from "./types";
-
 export const AtomWrapper = styled(motion.div)<AtomWrapperTypes>`
   display: flex;
   height: ${(props) => props.height ?? "100%"};
@@ -29,6 +29,6 @@ export const AtomWrapper = styled(motion.div)<AtomWrapperTypes>`
   position: ${(props) => props?.position || `static`};
   cursor: ${(props) => props?.cursor || `default`};
   mix-blend-mode: ${(props) => props?.mixBlendMode || `normal`};
-  ${(props) => props?.customCSS};
+  ${(props) => props?.customCSS?.(css)};
 `;
 export default AtomWrapper;

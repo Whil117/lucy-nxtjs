@@ -1,4 +1,5 @@
 import type { SerializedStyles } from "@emotion/react";
+import WithCSS from "@Src/types/Emotion/WithCSS";
 import type { Ref } from "react";
 
 type TagsTexts =
@@ -200,7 +201,7 @@ export type AtomTextTypes = {
     | "custom";
   backgroundColor?: string;
   htmlFor?: string;
-  customCSS?: SerializedStyles;
+  customCSS?: (css?: WithCSS) => SerializedStyles;
   dangerouslySetInnerHTML?: { __html: string };
   opacity?: string;
 };

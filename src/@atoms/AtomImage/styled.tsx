@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import type AtomImageTypes from "./types";
@@ -14,7 +15,7 @@ export const AtomImageImgStyled = styled.img<AtomImageTypes>`
   object-fit: cover;
 `;
 
-export const AtomImageStyled = styled(motion.div)<AtomImageTypes>`
+export const AtomImageContainerStyled = styled(motion.div)<AtomImageTypes>`
   width: ${({ width }) => width || `100%`};
   max-width: ${({ maxWidth }) => maxWidth || `initial`};
   height: ${({ height }) => height || `100%`};
@@ -33,5 +34,5 @@ export const AtomImageStyled = styled(motion.div)<AtomImageTypes>`
   }
   z-index: ${({ zIndex }) => zIndex || `initial`};
 
-  ${({ customCSS }) => customCSS};
+  ${({ customCSS }) => customCSS?.(css)};
 `;

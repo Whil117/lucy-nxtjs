@@ -1,4 +1,5 @@
 import type { SerializedStyles } from "@emotion/react";
+import WithCSS from "@Src/types/Emotion/WithCSS";
 
 type AtomImageTypes = {
   width?: string;
@@ -20,7 +21,7 @@ type AtomImageTypes = {
   bottom?: string;
   objectPosition?: string;
   zIndex?: string;
-  customCSS?: SerializedStyles;
+  customCSS?: (css?: WithCSS) => SerializedStyles;
   borderRadius?: string;
   src: string;
   alt?: string;

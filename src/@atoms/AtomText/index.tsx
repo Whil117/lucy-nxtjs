@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import isDarkLight from "@Src/@utils/isDarkLight";
 import { motion } from "framer-motion";
@@ -28,6 +29,6 @@ const AtomText = styled(motion.span)<AtomTextTypes>`
   * {
     cursor: ${(props) => props?.cursor || `text`};
   }
-  ${(props) => props?.customCSS};
+  ${(props) => props?.customCSS?.(css)};
 `;
 export default AtomText;

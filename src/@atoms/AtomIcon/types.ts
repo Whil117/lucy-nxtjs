@@ -1,4 +1,5 @@
 import type { SerializedStyles } from "@emotion/react";
+import WithCSS from "@Src/types/Emotion/WithCSS";
 import { MotionProps } from "framer-motion";
 import type { PointerEventHandler } from "react";
 
@@ -7,7 +8,7 @@ export interface AtomIconTypes extends MotionProps {
   color?: string;
   width?: string;
   height?: string;
-  customCSS?: SerializedStyles;
+  customCSS?: (css?: WithCSS) => SerializedStyles;
   className?: string;
   onPointerDown?: PointerEventHandler<HTMLDivElement>;
 }

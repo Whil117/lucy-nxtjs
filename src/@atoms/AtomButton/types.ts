@@ -1,9 +1,10 @@
 import { SerializedStyles } from "@emotion/react";
+import WithCSS from "@Src/types/Emotion/WithCSS";
 import { MotionProps } from "framer-motion";
 import { PointerEventHandler, RefObject } from "react";
 
 interface AtomButtonTypes extends MotionProps {
-  focus?: boolean;
+  isFocus?: boolean;
   color?: string;
   width?: string;
   height?: string;
@@ -84,7 +85,7 @@ interface AtomButtonTypes extends MotionProps {
     | "grab"
     | "grabbing"
     | "custom";
-  customCSS?: SerializedStyles;
+  customCSS?: (css?: WithCSS) => SerializedStyles;
   refObject?: RefObject<any>;
   flexDirection?: "column" | "row" | "row-reverse" | "column-reverse";
   alignItems?: "center" | "flex-start" | "flex-end";

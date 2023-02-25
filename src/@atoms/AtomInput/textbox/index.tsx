@@ -49,7 +49,7 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
             background-color: rgba(255, 255, 255, 0.2);
           }
           height: 120px;
-          ${props?.customCSS?.()}
+          ${props?.customCSS?.(css)}
         `}
         whileTap={{
           scale: 0.99,

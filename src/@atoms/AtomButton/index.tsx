@@ -33,7 +33,7 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
   border: ${({ border }) => border ?? "none"};
 
   ${({
-    focus,
+    isFocus,
     backgroundColor,
     backgroundLinearGradient,
     color,
@@ -69,7 +69,7 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
         box-shadow: rgb(${`${hex.r} ${hex.g} ${hex.b} / 35%`}) 0px 0px 0px 4px;
       }
 
-      ${focus &&
+      ${isFocus &&
       css`
         box-shadow: rgb(${convert}) 0px 0px 0px 4px;
       `}
@@ -89,7 +89,7 @@ const AtomButton = styled(motion.button)<AtomButtonTypes>`
   ////////////////////////////// FONTS //////////////////////////////
 
   outline: none;
-  ${({ customCSS }) => customCSS}
+  ${({ customCSS }) => customCSS?.(css)}
 `;
 AtomButton.defaultProps = {
   whileHover: {

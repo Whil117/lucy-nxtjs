@@ -45,7 +45,7 @@ const InputNumber = (props: AtomInputTypes) => {
               rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
             background-color: rgba(255, 255, 255, 0.2);
           }
-          ${props?.customCSS?.()}
+          ${props?.customCSS?.(css)}
         `}
         whileTap={{
           scale: 0.99,

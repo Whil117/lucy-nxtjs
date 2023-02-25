@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import useSWR from "swr";
@@ -21,7 +22,7 @@ export const AtomIconStyled = styled(motion.div)<AtomIconTypes>`
     }
   }
 
-  ${({ customCSS }) => customCSS};
+  ${({ customCSS }) => customCSS?.(css)};
 `;
 
 const fetcher = (url: string) => fetch(url).then((res) => res.text());
