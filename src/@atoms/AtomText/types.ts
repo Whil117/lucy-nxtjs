@@ -1,6 +1,6 @@
 import type { SerializedStyles } from "@emotion/react";
-import WithCSS from "@Src/types/Emotion/WithCSS";
 import type { Ref } from "react";
+import WithCSS from "../../types/Emotion/WithCSS";
 
 type TagsTexts =
   | "htmlFor"

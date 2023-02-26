@@ -1,7 +1,7 @@
 import { SerializedStyles } from "@emotion/react";
-import WithCSS from "@Src/types/Emotion/WithCSS";
 import { MotionProps } from "framer-motion";
 import { PointerEventHandler, RefObject } from "react";
+import WithCSS from "../../types/Emotion/WithCSS";
 
 interface AtomButtonTypes extends MotionProps {
   isFocus?: boolean;

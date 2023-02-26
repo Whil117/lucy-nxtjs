@@ -1,8 +1,8 @@
 import { SerializedStyles } from "@emotion/react";
-import WithCSS from "@Src/types/Emotion/WithCSS";
 import { FormikCustom } from "@Src/types/formik";
 import { MotionProps } from "framer-motion";
 import { ChangeEvent, FocusEvent, KeyboardEventHandler } from "react";
+import WithCSS from "../../types/Emotion/WithCSS";
 import { AtomTextTypes } from "../AtomText/types";
 
 type AtomInputTypes<TYPE = any> = MotionProps & {

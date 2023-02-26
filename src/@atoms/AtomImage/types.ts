@@ -1,5 +1,5 @@
 import type { SerializedStyles } from "@emotion/react";
-import WithCSS from "@Src/types/Emotion/WithCSS";
+import WithCSS from "../../types/Emotion/WithCSS";
 
 type AtomImageTypes = {
   width?: string;

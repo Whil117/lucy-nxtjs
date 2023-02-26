@@ -71,7 +71,7 @@ const AtomLoader = (props: AtomLoaderProps) => {
         backgroundColor={props?.backgroundColor ?? ""}
         customCSS={(css) => css`
           ${FullScreen[props?.type as keyof typeof FullScreen] ?? null}
-          ${props?.customCSS?.()}
+          ${props?.customCSS?.(css)}
         `}
       >
         <AtomLoaderCircle {...props} />

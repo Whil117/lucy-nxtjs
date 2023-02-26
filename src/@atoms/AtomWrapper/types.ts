@@ -1,11 +1,11 @@
 import type { SerializedStyles } from "@emotion/react";
-import WithCSS from "@Src/types/Emotion/WithCSS";
 import type {
   PointerEventHandler,
   Ref,
   RefObject,
   UIEventHandler,
 } from "react";
+import WithCSS from "../../types/Emotion/WithCSS";
 
 export type AtomWrapperTypes = {
   id?: string;
