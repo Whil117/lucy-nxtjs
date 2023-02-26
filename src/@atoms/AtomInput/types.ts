@@ -18,6 +18,7 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   min?: number;
   max?: number;
   maxLength?: number;
+  defaultTextValue?: string;
   value?: any;
   multiple?: boolean; //FILES MULTIPLES
   id?: string;
@@ -36,7 +37,11 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   onFocus?: (event: FocusEvent<any>) => void;
   onBlur?: (event: FocusEvent<any>) => void;
   onIsChecked?: (formik?: FormikCustom<any>) => void;
-
+  options?: (formik: FormikCustom<any>) => {
+    label: string;
+    id: string;
+    value: string;
+  }[];
   isChecked?: (formik?: FormikCustom<any>) => boolean;
 
   isFocus?: boolean;
