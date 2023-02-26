@@ -3,6 +3,7 @@ import InputColor from "./color";
 import InputDate from "./date";
 import InputNumber from "./number";
 import InputRadio from "./radio";
+import InputSelect from "./select";
 import InputText from "./text";
 import InputTextBox from "./textbox";
 import AtomInputTypes from "./types";
@@ -17,6 +18,7 @@ const inputTypes = {
   month: InputDate,
   number: InputNumber,
   password: InputText,
+  select: InputSelect,
 };
 
 type AtomInputProps = AtomInputTypes<keyof typeof inputTypes> & {
