@@ -95,6 +95,7 @@ const InputNumber = (props: AtomInputTypes) => {
               props?.onChange?.(event);
             }}
             onKeyDown={(event) => props?.onKeyDown?.(event)}
+            placeholder={props?.placeholder}
             css={css`
               flex: 1;
               width: auto;

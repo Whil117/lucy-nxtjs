@@ -94,6 +94,7 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
               props?.onChange?.(event);
               props?.formik?.handleChange?.(event);
             }}
+            placeholder={props?.placeholder}
             css={css`
               flex: 1;
               width: 100%;

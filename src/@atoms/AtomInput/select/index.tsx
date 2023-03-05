@@ -96,6 +96,7 @@ const InputSelect = (props: AtomInputTypes) => {
             }}
             onFocus={props?.onFocus}
             onBlur={props?.onBlur}
+            placeholder={props?.placeholder}
             css={css`
               flex: 1;
               width: 100%;

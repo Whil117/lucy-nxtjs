@@ -92,6 +92,7 @@ const InputText = (props: AtomInputTypes) => {
               props?.onChange?.(event);
               props?.formik?.handleChange?.(event);
             }}
+            placeholder={props?.placeholder}
             onFocus={props?.onFocus}
             onBlur={props?.onBlur}
             css={css`
