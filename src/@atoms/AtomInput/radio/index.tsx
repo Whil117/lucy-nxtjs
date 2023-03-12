@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import InputError from "../error";
+import AtomLabelInput from "../label";
 import AtomInputTypes from "../types";
 import colorInputRadioCheck from "../utils/colorInputRadioCheck";
 
@@ -22,25 +23,8 @@ const InputRadio = (props: AtomInputTypes) => {
           align-items: center;
         `}
       >
-        {props?.label && (
-          <motion.label
-            htmlFor={props?.id}
-            color={props?.labelColor ?? ""}
-            css={css`
-              cursor: pointer;
-              padding: 5px;
-              font-family: ${props?.labelFontFamily};
-              font-weight: ${props?.labelFontWeight ?? "600"};
-              font-size: ${props?.labelFontSize ?? "12px"};
-              ${props?.disabled &&
-              css`
-                opacity: 0.5;
-              `}
-            `}
-          >
-            {props?.label}
-          </motion.label>
-        )}
+        <AtomLabelInput {...props} />
+
         <motion.div
           css={css`
             cursor: pointer;
@@ -59,16 +43,8 @@ const InputRadio = (props: AtomInputTypes) => {
           }}
         >
           <motion.input
+            {...props}
             type="radio"
-            value={props?.formik?.values?.[props?.id] ?? props?.value ?? false}
-            name={`${props?.id}`}
-            onClick={() => {
-              props?.formik?.setFieldValue?.(
-                `${props?.id}`,
-                !props?.formik?.values?.[props?.id]
-              );
-              props?.onClick?.();
-            }}
             css={css`
               appearance: none;
               width: 18px;

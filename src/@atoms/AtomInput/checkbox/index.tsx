@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FC, ReactNode } from "react";
 import InputError from "../error";
+import AtomLabelInput from "../label";
 import AtomInputTypes from "../types";
 import colorInputRadioCheck from "../utils/colorInputRadioCheck";
 
@@ -27,26 +28,7 @@ const InputCheckBox: FC<Props> = (props) => {
           align-items: center;
         `}
       >
-        {props?.label && (
-          <motion.label
-            htmlFor={props?.id}
-            color={props?.labelColor ?? ""}
-            css={css`
-              user-select: none;
-              cursor: pointer;
-              padding: 5px;
-              font-family: ${props?.labelFontFamily};
-              font-weight: ${props?.labelFontWeight ?? "600"};
-              font-size: ${props?.labelFontSize ?? "12px"};
-              ${props?.disabled &&
-              css`
-                opacity: 0.5;
-              `}
-            `}
-          >
-            {props?.label}
-          </motion.label>
-        )}
+        <AtomLabelInput {...props} />
         <motion.div
           css={css`
             cursor: pointer;
@@ -65,21 +47,8 @@ const InputCheckBox: FC<Props> = (props) => {
           }}
         >
           <motion.input
+            {...props}
             type="checkbox"
-            name={`${props?.id}`}
-            value={
-              props?.formik && props?.id
-                ? props?.formik?.values?.[props?.id]
-                : props?.value ?? false
-            }
-            onClick={() => {
-              props?.formik?.setFieldValue?.(
-                `${props?.id}`,
-
-                !props?.formik?.values?.[props?.id]
-              );
-              props?.onClick?.();
-            }}
             css={css`
               appearance: none;
               width: 18px;

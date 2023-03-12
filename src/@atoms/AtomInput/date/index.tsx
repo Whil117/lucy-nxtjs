@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
+import AtomLabelInput from "../label";
 import AtomInputTypes from "../types";
 
 const InputDate = (props: AtomInputTypes) => {
@@ -9,21 +10,7 @@ const InputDate = (props: AtomInputTypes) => {
         width: 100%;
       `}
     >
-      {props?.label && (
-        <motion.label
-          color={props?.labelColor ?? ""}
-          htmlFor={props?.id}
-          css={css`
-            padding: 5px;
-            font-family: ${props?.labelFontFamily};
-            font-weight: ${props?.labelFontWeight ?? "600"};
-            font-size: ${props?.labelFontSize ?? "12px"};
-            cursor: pointer;
-          `}
-        >
-          {props?.label}
-        </motion.label>
-      )}
+      <AtomLabelInput {...props} />
       <motion.div
         css={css`
           padding: 5px;
@@ -71,8 +58,8 @@ const InputDate = (props: AtomInputTypes) => {
           `}
         >
           <motion.input
+            {...props}
             type="date"
-            name={`${props?.id}`}
             css={css`
               flex: 1;
               width: auto;
@@ -110,13 +97,6 @@ const InputDate = (props: AtomInputTypes) => {
                 opacity: 0.8;
               }
             `}
-            value={
-              props?.formik?.values?.[`${props?.id}`] ?? props?.value ?? ""
-            }
-            onChange={(event) => {
-              props?.formik?.handleChange?.(event);
-              props?.onChange?.(event);
-            }}
           />
         </motion.div>
       </motion.div>

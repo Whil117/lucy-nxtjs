@@ -20,6 +20,7 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   maxLength?: number;
   defaultTextValue?: string;
   value?: any;
+  name?: string;
   multiple?: boolean; //FILES MULTIPLES
   id?: string;
   step?: number;
@@ -35,9 +36,10 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   onKeyPress?: KeyboardEventHandler<any>;
   onKeyPressCapture?: KeyboardEventHandler<any>;
   onFocus?: (event: FocusEvent<any>) => void;
+  onError?: () => string | null | undefined | boolean;
   onBlur?: (event: FocusEvent<any>) => void;
   onIsChecked?: (formik?: FormikCustom<any>) => void;
-  options?: (formik: FormikCustom<any>) => {
+  options?: (props: AtomInputTypes) => {
     label: string;
     id: string;
     value: string;

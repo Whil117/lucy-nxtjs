@@ -1,34 +1,18 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import InputError from "../error";
+import AtomLabelInput from "../label";
 import AtomInputTypes from "../types";
 
 const InputNumber = (props: AtomInputTypes) => {
-  const formik = props?.formik;
-  const id = props?.id;
-  const isTouched = formik?.touched?.[props?.id];
-  const isError = formik?.errors?.[id];
+  const { onError } = props;
   return (
     <motion.div
       css={css`
         width: 100%;
       `}
     >
-      {props?.label && (
-        <motion.label
-          color={props?.labelColor ?? ""}
-          htmlFor={props?.id}
-          css={css`
-            padding: 5px;
-            font-family: ${props?.labelFontFamily};
-            font-weight: ${props?.labelFontWeight ?? "600"};
-            font-size: ${props?.labelFontSize ?? "12px"};
-            cursor: pointer;
-          `}
-        >
-          {props?.label}
-        </motion.label>
-      )}
+      <AtomLabelInput {...props} />
       <motion.div
         css={css`
           padding: 5px;
@@ -71,31 +55,20 @@ const InputNumber = (props: AtomInputTypes) => {
               rgb(0 0 0 / 10%) 0px 2.29021px 11.4511px -1.66667px,
               rgb(0 0 0 / 10%) 0px 10px 50px -2.5px;
             border: 1px solid #ffffff7f;
-            ${isError &&
-            isTouched &&
+            ${Boolean(onError?.()) &&
             css`
               border: 1px solid #f36;
             `}
 
-            ${props?.isFocus &&
-            !isError &&
+            ${!Boolean(onError?.()) &&
             css`
               border: 1.8px solid ${props?.accentColor ?? "#ffffff7f"};
             `}
           `}
         >
           <motion.input
+            {...props}
             type="number"
-            name={`${props?.id}`}
-            value={
-              props?.formik?.values?.[`${props?.id}`] ?? props?.value ?? ""
-            }
-            onChange={(event) => {
-              props?.formik?.handleChange?.(event);
-              props?.onChange?.(event);
-            }}
-            onKeyDown={(event) => props?.onKeyDown?.(event)}
-            placeholder={props?.placeholder}
             css={css`
               flex: 1;
               width: auto;

@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import InputError from "../error";
+import AtomLabelInput from "../label";
 import AtomInputTypes from "../types";
 
 const InputColor = (props: AtomInputTypes) => {
@@ -10,21 +11,7 @@ const InputColor = (props: AtomInputTypes) => {
         width: 100%;
       `}
     >
-      {props?.label && (
-        <motion.label
-          color={props?.labelColor ?? ""}
-          htmlFor={props?.id}
-          css={css`
-            padding: 5px;
-            font-family: ${props?.labelFontFamily};
-            font-weight: ${props?.labelFontWeight ?? "600"};
-            font-size: ${props?.labelFontSize ?? "12px"};
-            cursor: pointer;
-          `}
-        >
-          {props?.label}
-        </motion.label>
-      )}
+      <AtomLabelInput {...props} />
       <motion.div
         css={css`
           padding: 5px;
@@ -72,15 +59,8 @@ const InputColor = (props: AtomInputTypes) => {
           `}
         >
           <motion.input
+            {...props}
             type="color"
-            name={`${props?.id}`}
-            value={
-              props?.formik?.values?.[`${props?.id}`] ?? props?.value ?? ""
-            }
-            onChange={(event) => {
-              props?.formik?.handleChange?.(event);
-              props?.onChange?.(event);
-            }}
             css={css`
               flex: 1;
               width: 100%;

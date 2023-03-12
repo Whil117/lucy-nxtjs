@@ -4,13 +4,10 @@ import { FC } from "react";
 import AtomInputTypes from "../types";
 
 const InputError: FC<AtomInputTypes> = (props) => {
-  const { formik, id, error } = props;
-  const errorFound = (formik?.errors?.[id] as string) ?? error;
-
-  const isTouched = formik?.touched?.[id];
+  const { onError } = props;
 
   return (
-    isTouched && (
+    Boolean(onError?.()) && (
       <motion.p
         css={css`
           font-size: 11px;
@@ -18,7 +15,7 @@ const InputError: FC<AtomInputTypes> = (props) => {
           font-weight: bold;
         `}
       >
-        {errorFound}
+        {onError?.()}
       </motion.p>
     )
   );
