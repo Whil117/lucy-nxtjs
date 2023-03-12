@@ -27,7 +27,7 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   placeholder?: string;
   onChange?: (e: ChangeEvent<any>) => void;
   onClick?: () => void;
-  customCSS?: (css?: WithCSS) => SerializedStyles;
+  customCSS?: (css: WithCSS) => SerializedStyles;
   accentColor?: string;
   onKeyDown?: KeyboardEventHandler<any>;
   onKeyDownCapture?: KeyboardEventHandler<any>;
