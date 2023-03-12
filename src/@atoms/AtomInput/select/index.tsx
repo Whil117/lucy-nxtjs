@@ -3,11 +3,14 @@ import { motion } from "framer-motion";
 import InputError from "../error";
 import AtomInputTypes from "../types";
 
-const InputText = (props: AtomInputTypes) => {
+const InputSelect = (props: AtomInputTypes) => {
   const formik = props?.formik;
   const id = props?.id;
   const isTouched = formik?.touched?.[props?.id];
   const isError = formik?.errors?.[id];
+  const { options } = props;
+
+  const optionsWithFormik = options?.(formik);
   return (
     <motion.div
       css={css`
@@ -84,8 +87,7 @@ const InputText = (props: AtomInputTypes) => {
             `}
           `}
         >
-          <motion.input
-            type={props?.type ?? "text"}
+          <motion.select
             value={props?.formik?.values?.[`${id}`] ?? props?.value ?? ""}
             name={`${id}`}
             onChange={(event) => {
@@ -94,7 +96,7 @@ const InputText = (props: AtomInputTypes) => {
             }}
             onFocus={props?.onFocus}
             onBlur={props?.onBlur}
-            onKeyDown={(event) => props?.onKeyDown?.(event)}
+            placeholder={props?.placeholder}
             css={css`
               flex: 1;
               width: 100%;
@@ -128,7 +130,18 @@ const InputText = (props: AtomInputTypes) => {
               }
               min-width: 0;
             `}
-          />
+          >
+            <motion.option value="DEFAULT" disabled>
+              {props?.defaultTextValue ?? "Selecciona una opción"}
+            </motion.option>
+            {optionsWithFormik &&
+              optionsWithFormik.length > 0 &&
+              optionsWithFormik?.map((e) => (
+                <motion.option value={e.value} key={e.id}>
+                  {e.label}
+                </motion.option>
+              ))}
+          </motion.select>
         </motion.div>
       </motion.div>
       <InputError {...props} />
@@ -136,4 +149,4 @@ const InputText = (props: AtomInputTypes) => {
   );
 };
 
-export default InputText;
+export default InputSelect;

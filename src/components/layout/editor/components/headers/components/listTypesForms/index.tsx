@@ -33,6 +33,14 @@ const KEYS = {
     },
     icon: "https://res.cloudinary.com/whil/image/upload/v1670118796/gallery_duuoqb.svg",
   },
+  DRAW: {
+    backgroundLinearGradient: {
+      rotate: "315deg",
+      secondary: "#07deff",
+      primary: "#0f97ff",
+    },
+    icon: "https://res.cloudinary.com/whil/image/upload/v1678335120/brush_cbsfmf.svg",
+  },
 };
 
 export const TYPE_FIGURE_ATOM = atom<keyof typeof KEYS>("BOX");

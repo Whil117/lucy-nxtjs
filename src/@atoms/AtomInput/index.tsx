@@ -4,6 +4,7 @@ import InputDate from "./date";
 import InputFile from "./file";
 import InputNumber from "./number";
 import InputRadio from "./radio";
+import InputSelect from "./select";
 import InputText from "./text";
 import InputTextBox from "./textbox";
 import AtomInputTypes from "./types";
@@ -19,6 +20,7 @@ const inputTypes = {
   number: InputNumber,
   file: InputFile,
   password: InputText,
+  select: InputSelect,
 };
 
 type AtomInputProps = AtomInputTypes<keyof typeof inputTypes> & {

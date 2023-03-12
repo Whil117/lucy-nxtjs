@@ -1,13 +1,22 @@
 import { css } from "@emotion/react";
-import { AtomWrapper } from "@Src/@atoms";
+import { AtomButton, AtomWrapper } from "@Src/@atoms";
 import { motion } from "framer-motion";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { FC, ReactNode, useEffect, useRef, useState } from "react";
+import {
+  FC,
+  memo,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { v4 } from "uuid";
 import { TYPE_FIGURE_ATOM } from "../headers/components/listTypesForms";
 import { STATE_CONTROL_ATOM } from "../left/components/listMethods";
 import { COORDINATE_X_ATOM_INPUT } from "../right/components/coordinates/coordinate_x";
 import { COORDINATE_Y_ATOM_INPUT } from "../right/components/coordinates/coordinate_y";
+import { ValuesStyleDrawingAtom } from "../right/components/style";
 
 type Props = {
   children?: ReactNode;
@@ -68,7 +77,7 @@ const reMapsElementsMovingElement = (props: PropsData) => {
         y,
       });
     } else {
-      drawTypeFigure(ctx, element)[element.type]();
+      drawTypeFigure?.(ctx, element)?.[element.type]?.();
       map.set(element.id, element);
     }
   }
@@ -172,9 +181,62 @@ const ELEMENTS_TO_CANVAS_ATOM = atom(null, (get) => {
   const ctx = canvas?.getContext("2d");
 
   for (const item of elements) {
-    drawTypeFigure(ctx, item)[item.type]();
+    drawTypeFigure?.(ctx, item)?.[item.type]?.();
   }
 });
+
+function Canvas() {
+  const canvasRef = useRef(null);
+  const contextRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    canvas.width = window.innerWidth * 2;
+    canvas.height = window.innerHeight * 2;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+
+    const context = canvas.getContext("2d");
+    context.scale(2, 2);
+    context.lineCap = "round";
+    context.strokeStyle = "black";
+    context.lineWidth = 2;
+    contextRef.current = context;
+  }, []);
+
+  const startDrawing = ({ nativeEvent }) => {
+    const { offsetX, offsetY } = nativeEvent;
+    contextRef.current.beginPath();
+    contextRef.current.moveTo(offsetX, offsetY);
+    setIsDrawing(true);
+  };
+
+  const draw = ({ nativeEvent }) => {
+    if (!isDrawing) return;
+    const { offsetX, offsetY } = nativeEvent;
+    contextRef.current.lineTo(offsetX, offsetY);
+    contextRef.current.stroke();
+  };
+
+  const stopDrawing = () => {
+    contextRef.current.closePath();
+    setIsDrawing(false);
+  };
+
+  return (
+    <canvas
+      ref={canvasRef}
+      onMouseDown={startDrawing}
+      onMouseMove={draw}
+      onMouseUp={stopDrawing}
+      onMouseOut={stopDrawing}
+      onTouchStart={startDrawing}
+      onTouchMove={draw}
+      onTouchEnd={stopDrawing}
+    />
+  );
+}
 
 const CenterLayoutEditor: FC<Props> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -184,9 +246,11 @@ const CenterLayoutEditor: FC<Props> = () => {
   const controlState = useAtomValue(STATE_CONTROL_ATOM);
   const selectTypeFigure = useAtomValue(TYPE_FIGURE_ATOM);
   const [currentElement, setcurrentElement] = useAtom(SELECTED_ELEMENT_ATOM);
-
+  const [isDrawing, setIsDrawing] = useState(false);
   const setContextCanvas = useSetAtom(CANVAS_ATOM);
   const setCanvasToElements = useSetAtom(ELEMENTS_TO_CANVAS_ATOM);
+
+  const styleDrawing = useAtomValue(ValuesStyleDrawingAtom);
 
   console.log({ elements });
 
@@ -218,18 +282,34 @@ const CenterLayoutEditor: FC<Props> = () => {
     if (selected) {
       setcurrentElement(selected);
     }
+    if (selectTypeFigure === "DRAW") {
+      const context = canvas.getContext("2d") as CanvasRenderingContext2D;
+      const { offsetX, offsetY } = e?.nativeEvent;
+      context.beginPath();
+      context.moveTo(offsetX, offsetY);
+      setIsDrawing(true);
+    }
 
     handleSetCoordinates(e);
   };
 
   const handleOnMouseUp = () => {
     setIsMoving(false);
+    const context = canvas.getContext("2d") as CanvasRenderingContext2D;
+    context.closePath();
+    setIsDrawing(false);
   };
 
   const handleOnMouseMove = (e) => {
     if (isMovingElement) {
       handleSetCoordinates(e);
     }
+    if (!isDrawing) return;
+    const { offsetX, offsetY } = e?.nativeEvent;
+
+    const context = canvas.getContext("2d") as CanvasRenderingContext2D;
+    context.lineTo(offsetX, offsetY);
+    context.stroke();
   };
 
   const handleClick = (e) => {
@@ -258,10 +338,18 @@ const CenterLayoutEditor: FC<Props> = () => {
     }
   };
 
-  useEffect(() => {
+  useMemo(() => {
     setContextCanvas(canvas);
     setCanvasToElements();
-  }, [elements, canvas, currentElement]);
+    const context = canvas?.getContext("2d");
+    if (context) {
+      // context.scale(2, 2);
+      context.lineCap = styleDrawing?.lineCap;
+      context.strokeStyle = styleDrawing?.strokeStyleColor;
+      context.lineWidth = styleDrawing?.lineWidth;
+      console.log({ styleDrawing });
+    }
+  }, [elements, canvas, currentElement, styleDrawing]);
 
   const columnRef = useRef(null);
 
@@ -284,23 +372,23 @@ const CenterLayoutEditor: FC<Props> = () => {
 
   const [scale, setScale] = useState(1);
 
-  // const handleZoomIn = () => {
-  //   setScale(scale + 0.1);
-  // };
+  const handleZoomIn = () => {
+    setScale(scale + 0.1);
+  };
 
-  // const handleZoomOut = () => {
-  //   setScale(scale - 0.1);
-  // };
+  const handleZoomOut = () => {
+    setScale(scale - 0.1);
+  };
 
-  // useEffect(() => {
-  //   if (canvasRef.current) {
-  //     const ctx = canvasRef.current.getContext("2d");
-  //     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-  //     ctx.setTransform(scale, 0, 0, scale, 0, 0);
-  //     setContextCanvas(canvas);
-  //     setCanvasToElements();
-  //   }
-  // }, [scale, elements, canvas, currentElement]);
+  useEffect(() => {
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext("2d");
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+      setContextCanvas(canvas);
+      setCanvasToElements();
+    }
+  }, [scale, elements, canvas, currentElement]);
 
   return (
     <AtomWrapper
@@ -308,10 +396,26 @@ const CenterLayoutEditor: FC<Props> = () => {
       customCSS={css`
         grid-column: 2;
         grid-row: 2;
+        position: relative;
+        align-items: center;
+        justify-content: center;
       `}
     >
-      {/* <AtomButton onClick={handleZoomIn}>ZOOM IN</AtomButton> */}
-      {/* <AtomButton onClick={handleZoomOut}>ZOOM OUT</AtomButton> */}
+      <AtomWrapper
+        flexDirection="row"
+        customCSS={css`
+          position: absolute;
+          gap: 20px;
+          padding: 10px;
+          height: auto;
+          top: 0;
+
+          width: auto;
+        `}
+      >
+        <AtomButton onClick={handleZoomIn}>ZOOM IN</AtomButton>
+        <AtomButton onClick={handleZoomOut}>ZOOM OUT</AtomButton>
+      </AtomWrapper>
       <motion.canvas
         ref={canvasRef}
         style={{
@@ -324,9 +428,13 @@ const CenterLayoutEditor: FC<Props> = () => {
         onMouseUp={handleOnMouseUp}
         onMouseMove={handleOnMouseMove}
         onClick={handleClick}
+        onMouseOut={handleOnMouseUp}
+        onTouchStart={handleOnMouseDown}
+        onTouchMove={handleOnMouseMove}
+        onTouchEnd={handleOnMouseUp}
       />
     </AtomWrapper>
   );
 };
 
-export default CenterLayoutEditor;
+export default memo(CenterLayoutEditor);

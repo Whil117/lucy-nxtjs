@@ -29,7 +29,7 @@ export const reMapElements = (
   return Array.from(map.values());
 };
 
-const UPDATE_ELEMENTS_ATOM = atom(null, (get, set) => {
+export const UPDATE_ELEMENTS_ATOM = atom(null, (get, set) => {
   const canvas = get(CANVAS_ATOM);
   const elements = get(ELEMENTS_ATOM);
   const currrentElement = get(SELECTED_ELEMENT_ATOM);

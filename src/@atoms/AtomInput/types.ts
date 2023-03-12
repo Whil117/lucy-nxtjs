@@ -35,9 +35,13 @@ type AtomInputTypes<TYPE = any> = MotionProps & {
   onFocus?: (event: FocusEvent<any>) => void;
   onBlur?: (event: FocusEvent<any>) => void;
   onIsChecked?: (formik?: FormikCustom<any>) => void;
-
+  defaultTextValue?: string;
   isChecked?: (formik?: FormikCustom<any>) => boolean;
-
+  options?: (formik?: FormikCustom<any>) => {
+    id: string;
+    label: string;
+    value: string;
+  }[];
   isFocus?: boolean;
   error?: string;
   disabled?: boolean;
