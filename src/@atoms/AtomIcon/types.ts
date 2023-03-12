@@ -8,7 +8,7 @@ export interface AtomIconTypes extends MotionProps {
   color?: string;
   width?: string;
   height?: string;
-  customCSS?: (css?: WithCSS) => SerializedStyles;
+  customCSS?: (css: WithCSS) => SerializedStyles;
   className?: string;
   onPointerDown?: PointerEventHandler<HTMLDivElement>;
 }

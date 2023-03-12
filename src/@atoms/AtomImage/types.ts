@@ -21,7 +21,7 @@ type AtomImageTypes = {
   bottom?: string;
   objectPosition?: string;
   zIndex?: string;
-  customCSS?: (css?: WithCSS) => SerializedStyles;
+  customCSS?: (css: WithCSS) => SerializedStyles;
   borderRadius?: string;
   src: string;
   alt?: string;

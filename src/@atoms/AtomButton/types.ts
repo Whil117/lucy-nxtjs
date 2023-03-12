@@ -85,7 +85,7 @@ interface AtomButtonTypes extends MotionProps {
     | "grab"
     | "grabbing"
     | "custom";
-  customCSS?: (css?: WithCSS) => SerializedStyles;
+  customCSS?: (css: WithCSS) => SerializedStyles;
   refObject?: RefObject<any>;
   flexDirection?: "column" | "row" | "row-reverse" | "column-reverse";
   alignItems?: "center" | "flex-start" | "flex-end";

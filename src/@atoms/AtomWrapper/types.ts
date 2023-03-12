@@ -103,7 +103,7 @@ export type AtomWrapperTypes = {
   as?: "div" | "form" | "section" | "li";
   refObject?: RefObject<any>;
   ref?: Ref<any>;
-  customCSS?: (css?: WithCSS) => SerializedStyles;
+  customCSS?: (css: WithCSS) => SerializedStyles;
   onPointerDown?: PointerEventHandler<any>;
   dangerouslySetInnerHTML?: { __html: string };
 };

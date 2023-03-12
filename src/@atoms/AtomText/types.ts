@@ -201,7 +201,7 @@ export type AtomTextTypes = {
     | "custom";
   backgroundColor?: string;
   htmlFor?: string;
-  customCSS?: (css?: WithCSS) => SerializedStyles;
+  customCSS?: (css: WithCSS) => SerializedStyles;
   dangerouslySetInnerHTML?: { __html: string };
   opacity?: string;
 };
