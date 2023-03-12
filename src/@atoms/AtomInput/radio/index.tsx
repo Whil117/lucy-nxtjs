@@ -2,10 +2,12 @@ import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import InputError from "../error";
 import AtomLabelInput from "../label";
+import InputWithStyled from "../styled";
 import AtomInputTypes from "../types";
 import colorInputRadioCheck from "../utils/colorInputRadioCheck";
 
 const InputRadio = (props: AtomInputTypes) => {
+  const { css: InputCSS } = props;
   return (
     <motion.div
       css={css`
@@ -42,10 +44,10 @@ const InputRadio = (props: AtomInputTypes) => {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          <motion.input
+          <InputWithStyled
             {...props}
             type="radio"
-            css={css`
+            css={() => css`
               appearance: none;
               width: 18px;
               height: 18px;
@@ -63,6 +65,7 @@ const InputRadio = (props: AtomInputTypes) => {
                 border: 2px solid #e7e7e7;
                 opacity: 0.8;
               `}
+              ${InputCSS?.(css)}
             `}
           />
         </motion.div>

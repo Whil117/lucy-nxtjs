@@ -2,10 +2,11 @@ import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import InputError from "../error";
 import AtomLabelInput from "../label";
+import InputWithStyled from "../styled";
 import AtomInputTypes from "../types";
 
 const InputText = (props: AtomInputTypes) => {
-  const { onError } = props;
+  const { onError, css: InputCSS } = props;
   return (
     <motion.div
       css={css`
@@ -66,9 +67,9 @@ const InputText = (props: AtomInputTypes) => {
             `}
           `}
         >
-          <motion.input
+          <InputWithStyled
             {...props}
-            css={css`
+            css={() => css`
               flex: 1;
               width: 100%;
               line-height: 21px;
@@ -100,6 +101,7 @@ const InputText = (props: AtomInputTypes) => {
                 opacity: 0.8;
               }
               min-width: 0;
+              ${InputCSS?.(css)}
             `}
           />
         </motion.div>

@@ -2,13 +2,12 @@ import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import InputError from "../error";
 import AtomLabelInput from "../label";
+import { InputWithSelect } from "../styled";
 import AtomInputTypes from "../types";
 
 const InputSelect = (props: AtomInputTypes) => {
-  const { options } = props;
-
+  const { onError, options, css: InputCSS, customCSSOption } = props;
   const optionsWithFormik = options(props);
-  const { onError } = props;
   return (
     <motion.div
       css={css`
@@ -32,7 +31,7 @@ const InputSelect = (props: AtomInputTypes) => {
               rgb(0 0 0 / 1%) 0px 10px 50px -3.75px;
             background-color: rgba(255, 255, 255, 0.2);
           }
-          ${props?.customCSS?.()}
+          ${props?.customCSS?.(css)}
         `}
         whileTap={{
           scale: 0.99,
@@ -69,9 +68,9 @@ const InputSelect = (props: AtomInputTypes) => {
             `}
           `}
         >
-          <motion.select
+          <InputWithSelect
             {...props}
-            css={css`
+            css={() => css`
               flex: 1;
               width: 100%;
               line-height: 21px;
@@ -103,19 +102,32 @@ const InputSelect = (props: AtomInputTypes) => {
                 opacity: 0.8;
               }
               min-width: 0;
+              ${InputCSS?.(css)}
             `}
           >
-            <motion.option value="DEFAULT" disabled>
+            <motion.option
+              value="DEFAULT"
+              disabled
+              css={css`
+                ${customCSSOption?.(css)}
+              `}
+            >
               {props?.defaultTextValue ?? "Selecciona una opción"}
             </motion.option>
             {optionsWithFormik &&
               optionsWithFormik.length > 0 &&
               optionsWithFormik?.map((e) => (
-                <motion.option value={e.value} key={e.id}>
+                <motion.option
+                  value={e.value}
+                  key={e.id}
+                  css={css`
+                    ${customCSSOption?.(css)}
+                  `}
+                >
                   {e.label}
                 </motion.option>
               ))}
-          </motion.select>
+          </InputWithSelect>
         </motion.div>
       </motion.div>
       <InputError {...props} />

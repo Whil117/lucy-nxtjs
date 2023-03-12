@@ -1,9 +1,11 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import AtomLabelInput from "../label";
+import InputWithStyled from "../styled";
 import AtomInputTypes from "../types";
 
 const InputDate = (props: AtomInputTypes) => {
+  const { css: InputCSS } = props;
   return (
     <motion.div
       css={css`
@@ -57,10 +59,10 @@ const InputDate = (props: AtomInputTypes) => {
             border-radius: 8px;
           `}
         >
-          <motion.input
+          <InputWithStyled
             {...props}
             type="date"
-            css={css`
+            css={() => css`
               flex: 1;
               width: auto;
               line-height: 21px;
@@ -93,9 +95,10 @@ const InputDate = (props: AtomInputTypes) => {
               color-scheme: var(--input-date-color, light);
               border-radius: 5px;
               background-color: var(--input-background-color);
-              ::placeholder {
+              &::placeholder {
                 opacity: 0.8;
               }
+              ${InputCSS?.(css)}
             `}
           />
         </motion.div>

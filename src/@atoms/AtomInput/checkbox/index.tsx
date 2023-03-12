@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FC, ReactNode } from "react";
 import InputError from "../error";
 import AtomLabelInput from "../label";
+import InputWithStyled from "../styled";
 import AtomInputTypes from "../types";
 import colorInputRadioCheck from "../utils/colorInputRadioCheck";
 
@@ -11,6 +12,7 @@ type Props = AtomInputTypes & {
 };
 
 const InputCheckBox: FC<Props> = (props) => {
+  const { css: InnputCSS } = props;
   return (
     <motion.div
       css={css`
@@ -46,10 +48,10 @@ const InputCheckBox: FC<Props> = (props) => {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          <motion.input
+          <InputWithStyled
             {...props}
             type="checkbox"
-            css={css`
+            css={() => css`
               appearance: none;
               width: 18px;
               height: 18px;
@@ -64,6 +66,7 @@ const InputCheckBox: FC<Props> = (props) => {
                 border: 2px solid #e7e7e7;
                 opacity: 0.8;
               `}
+              ${InnputCSS?.(css)}
             `}
           />
         </motion.div>

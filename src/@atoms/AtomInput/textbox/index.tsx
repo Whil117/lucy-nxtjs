@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { FC } from "react";
 import InputError from "../error";
 import AtomLabelInput from "../label";
+import { InputWithTextArea } from "../styled";
 import AtomInputTypes from "../types";
 
 const InputTextBox: FC = (props: AtomInputTypes) => {
-  const { onError } = props;
+  const { onError, css: InputCSS } = props;
 
   return (
     <motion.div
@@ -69,10 +70,9 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
             `}
           `}
         >
-          <motion.textarea
+          <InputWithTextArea
             {...props}
-            placeholder={props?.placeholder}
-            css={css`
+            css={() => css`
               flex: 1;
               width: 100%;
               line-height: 21px;
@@ -103,6 +103,7 @@ const InputTextBox: FC = (props: AtomInputTypes) => {
               ::placeholder {
                 opacity: 0.8;
               }
+              ${InputCSS?.(css)}
             `}
           />
         </motion.div>

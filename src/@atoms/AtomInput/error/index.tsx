@@ -4,7 +4,7 @@ import { FC } from "react";
 import AtomInputTypes from "../types";
 
 const InputError: FC<AtomInputTypes> = (props) => {
-  const { onError } = props;
+  const { onError, customCSSError } = props;
 
   return (
     Boolean(onError?.()) && (
@@ -13,9 +13,10 @@ const InputError: FC<AtomInputTypes> = (props) => {
           font-size: 11px;
           color: #f36;
           font-weight: bold;
+          ${customCSSError?.(css)}
         `}
       >
-        {onError?.()}
+        {onError?.(props)}
       </motion.p>
     )
   );
