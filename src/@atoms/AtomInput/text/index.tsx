@@ -6,7 +6,8 @@ import InputWithStyled from "../styled";
 import AtomInputTypes from "../types";
 
 const InputText = (props: AtomInputTypes) => {
-  const { onError, css: InputCSS } = props;
+  const { onError, css: InputCSS, onExecute: withOPtions } = props;
+
   return (
     <motion.div
       css={css`
@@ -68,7 +69,6 @@ const InputText = (props: AtomInputTypes) => {
           `}
         >
           <InputWithStyled
-            {...props}
             css={() => css`
               flex: 1;
               width: 100%;
@@ -103,6 +103,8 @@ const InputText = (props: AtomInputTypes) => {
               min-width: 0;
               ${InputCSS?.(css)}
             `}
+            {...props}
+            {...withOPtions?.()}
           />
         </motion.div>
       </motion.div>

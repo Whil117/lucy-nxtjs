@@ -1,17 +1,24 @@
 import { SerializedStyles } from "@emotion/react";
 import { FormikCustom } from "@Src/types/formik";
-import { ChangeEvent, FocusEvent, KeyboardEventHandler } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  HTMLInputTypeAttribute,
+  InputHTMLAttributes,
+  KeyboardEventHandler,
+} from "react";
 import WithCSS from "../../types/Emotion/WithCSS";
 import { AtomTextTypes } from "../AtomText/types";
 
-type AtomInputTypes<TYPE = any> = {
-  type?: TYPE;
+type AtomInputTypes = InputHTMLAttributes<any> & {
+  type?: HTMLInputTypeAttribute;
   label?: string;
   labelFontWeight?: AtomTextTypes["fontWeight"];
   labelFontSize?: string;
   labelFontFamily?: string;
   height?: string;
   labelColor?: string;
+  onExecute?: () => any;
   labelBackground?: string;
   formik?: FormikCustom<any>;
   min?: number | string;

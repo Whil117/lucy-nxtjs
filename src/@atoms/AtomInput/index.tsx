@@ -1,3 +1,4 @@
+import { HTMLInputTypeAttribute } from "react";
 import InputCheckBox from "./checkbox";
 import InputColor from "./color";
 import InputDate from "./date";
@@ -21,8 +22,8 @@ const inputTypes = {
   select: InputSelect,
 };
 
-type AtomInputProps = AtomInputTypes<keyof typeof inputTypes> & {
-  type: keyof typeof inputTypes;
+type AtomInputProps = AtomInputTypes & {
+  type?: HTMLInputTypeAttribute;
 };
 
 const AtomInput = (props: AtomInputProps) => {

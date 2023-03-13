@@ -6,8 +6,8 @@ import { InputWithSelect } from "../styled";
 import AtomInputTypes from "../types";
 
 const InputSelect = (props: AtomInputTypes) => {
-  const { onError, options, css: InputCSS, customCSSOption } = props;
-  const optionsWithFormik = options(props);
+  const { onError, options, css: InputCSS, customCSSOption, onExecute } = props;
+  const optionsWithFormik = options?.(props);
   return (
     <motion.div
       css={css`
@@ -104,6 +104,7 @@ const InputSelect = (props: AtomInputTypes) => {
               min-width: 0;
               ${InputCSS?.(css)}
             `}
+            {...onExecute?.()}
           >
             <motion.option
               value="DEFAULT"
@@ -116,7 +117,7 @@ const InputSelect = (props: AtomInputTypes) => {
             </motion.option>
             {optionsWithFormik &&
               optionsWithFormik.length > 0 &&
-              optionsWithFormik?.map((e) => (
+              optionsWithFormik?.map?.((e) => (
                 <motion.option
                   value={e.value}
                   key={e.id}
